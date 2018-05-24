@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        .btn {
+        font-size: 15px;
+        }
+        .btn1{
+            border: 1px solid #ccc;
+            background: #00A2D4;
+            color: #fff;
+            width: 110px;
+        }
+        .preview{
+            position:relative;
+            top:-60px;
+            left: 260px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/Intermediary/index?t=2">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/Mort_m?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">注销抵押</h4>
+                        <form action="/Admin/Intermediary/mPublicFun" method="post" id="info_form2" enctype="multipart/form-data">
+                            <div style="margin-left:40px;font-size: 15px;margin-bottom:10px;">
+                                注销抵押时间：<input type="text" style="margin-left: 5px;width: 150px;" name="cancel_mortgage" value="{$data['cancel_mortgage']}">
+                            </div>
+                            <div style="margin-left:40px;font-size: 15px;margin-bottom:20px;">
+                                注销抵押地点：<input type="text" style="margin-left: 5px;width: 150px;" name="cancel_address" 
+                                value="{$data['cancel_address']}">
+                            </div>
+                            <div style="margin-left: 39px;">
+                                <label class="property" >注销抵押函：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input style="left: 23px;position: relative;" type="file" id="path70" name="cancellation_letter">
+                                <input style="left: -14px;" type="button" class="choose" value="选择文件" onclick="path70.click()">
+                                <a href="/Admin/Intermediary/preview?zd=cancellation_letter&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 160px;" name="cancellation_letter">预览</a>
+                            </div>
+                            <p style="font-size: 15px;margin-left: 40px;">准备资料</p>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity" name="preparation_information[]" value="1" <?php echo strstr($data['preparation_information'],'1')!=''?'checked':'' ?>>原银行提供的注销函</label>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity" name="preparation_information[]" value="2" <?php echo strstr($data['preparation_information'],'2')!=''?'checked':'' ?>>房产征</label>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity" name="preparation_information[]" value="3" <?php echo strstr($data['preparation_information'],'3')!=''?'checked':'' ?>>身份证与复印件</label>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity" name="preparation_information[]" value="4" <?php echo strstr($data['preparation_information'],'4')!=''?'checked':'' ?>>公证书</label>
+                            </div>
+                            
+                            <input type="hidden" value="{$data['cid']}" name="id" id="ids">
+                            <input type="hidden" value="MortEight_m" name="step">
+                            <input type="submit" style="margin-left:68px;" value="提&nbsp;&nbsp;交" class="tjs">
+                            <a href="/Admin/Intermediary/over/t/2?state_id=35&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                        </form>
+                        <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[ids.length-1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[ids.length-1]); 
+    
+    $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[ids.length-1]);
+        });
+    
+    $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+</script>
+</body>
+</html>

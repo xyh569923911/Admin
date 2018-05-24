@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>留言列表</title>
+    <include file="common:css" />
+  </head>
+  
+  <style type="text/css">
+  #foonav{ display:none !important;}
+  #foonavs{ display:none !important;}
+  #foonav2{ display:none !important;}
+     th,td{
+    text-align:center
+  }
+ .page {text-align: right;  width: 100%; line-height: initial; margin-top: -40px;}
+ .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+ .page a:hover,.page .on {background: #00a3ff;color:#fff}
+
+#foonavs {
+    font-size: 16px;
+    margin-top: 1px;
+    margin-right: 20px;
+    line-height: 30px;
+    float: left;
+}
+
+#foonavs select {
+    height: 30px;
+    font-size: 14px;
+    border-color: #ddd;
+}
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+#example1_filter .so {
+    width: 80px;
+    height: 30px;
+    background: #1485BD;
+    color: #fff;
+    display: block;
+    float: right;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 20px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.submit_form{
+  padding-top:10px;
+}
+.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;}
+	.addall:hover{color:#fff;background:#d42020}
+</style>
+  
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title" <if condition="in_array('64',$levels)">onclick="gotourl()" </if>>留言列表</h3>
+				  <div class="page"> 
+                          {$show}
+                         </div>
+                </div>
+                <script>
+                	function gotourl(){
+                		location.href='/Admin/Messageboard/addindex.html';
+                	}
+                  function delcheckbox(){
+
+                    if(!confirm("确定要删除吗？")){
+                      return false;
+                    }
+
+                    var id_array=new Array();  
+                    $('input[name="del_bok[]"]:checked').each(function(){  
+                         id_array.push($(this).val());//向数组中添加元素  
+                    });  
+                    var idstr=id_array.join(',');//将数组元素连接起来以构建一个字符串  
+                    
+                       var delUrl = "{:U('Admin/Common/delcheckbox')}";
+                        $.post(delUrl, {idstr : idstr}, function (re){
+                          if(re == 1){
+                            alert("删除成功!");location.reload();
+                          }else if(re == 2){
+                            alert("该分类下有子分类，请先删除子分类!");
+                            return;
+                          }
+                        });
+                       
+                  }
+                </script>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">留言列表</a></li>
+					<a href="/Admin/Messageboard/index" class="addall btn btn-danger btn-sm">全部显示</a>
+					<if condition="in_array('64',$levels)">
+					<a class="btn btn-primary pull-right" onclick="tj('/Admin/Messageboard/index/exc/1')">导出全部数据</a>
+					</if> 
+					<if condition="in_array('61',$levels)">
+                     <a style="margin-right: 15px;" type="button" class="btn btn-danger  pull-right" onclick="delcheckbox()" >删除</a>
+					</if> 
+					<if condition="in_array('62',$levels)">
+                     <a style="margin-right: 15px;" type="button" class="btn btn-success pull-right" onclick="getaction_lists(this)" >分配</a>
+					</if> 
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="col-sm-12">
+                         <form action="/Admin/Messageboard/index" method="GET" class="submit_form">
+                              <div id="foonavs" style="display:inline-block;"> 
+                                     <label>数目: 
+                                      <select name="type">
+                                          <option value="200" selected="">200</option>
+                                          <option value="500" <?php if($_GET['type']=='500'){ ?>selected=""<?php } ?> >500</option>
+                                          <option value="1000" <?php if($_GET['type']=='1000'){ ?>selected=""<?php } ?> >1000</option>
+                                          <option value="5000" <?php if($_GET['type']=='5000'){ ?>selected=""<?php } ?> >5000</option>
+                                      </select>
+                                    </label>
+                              </div>
+                              <div id="example1_filter" class="dataTables_filter" style="display:inline-block;float: right;"> 
+                                    <label>
+                                     <input type="text" name="key" value="<?php if($_GET['key']){ echo $_GET
+                                     ['key']; } ?>" class="form-control input-sm">
+                                      <a href="javascript:;" onclick="tj_key('/Admin/Messageboard/index')" class="so">搜索</a>
+                                    </label>
+                              </div>
+                       </form>
+                   </div>
+                    <script>
+               function tj_key(val){
+                var type = $('select[name="type"]').val();
+                var key = $('input[name="key"]').val();
+                 
+                location.href=val+".html?type="+type+"&key="+key;
+
+               }
+              </script>
+
+                    <div class="tab-pane fade active in" id="home">
+                      <div class="box-body">
+                        <table id="example3" class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="4%"><input type="button" class="btn btn-default btn-xs" id="checkall" name="button" value="All" onclick="checkall()" /></th>
+                              <th width="5%">排序</th>
+                              <th>姓名</th>
+                              <th>手机</th>
+                              <th>金额（万元）</th>
+                              <th>分配时间</th>
+                             <!--  <th>信息3</th>
+                              <th>信息4</th> -->
+                              <th>分配</th>
+                              <th width="10%">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <volist name="ch_data" id="value" key="key">
+                              <tr>
+                                <th><input type="checkbox" name="del_bok[]" value="{$value.id}"></th>
+                                <th>{$key}</th>
+                                <th>{$value.username}</th>
+                                <th>{$value.phone}</th> 
+                                <th>{$value.price}</th> 
+                                <th><notempty name="value.addtime">{$value.addtime|date="Y-m-d H:i",###}</notempty></th> 
+                                <!-- <th>{$value.e}</th> 
+                                <th>{$value.f}</th>  -->
+                               <th><?php echo M("member")->where(array("id"=>$value['admin_id']))->getField('username');?></th>
+                                <td>
+								<if condition="in_array('60',$levels)">
+								  <a href="/Admin/Messageboard/editindexs/id/<?php echo $value['id'];?>" class="btn btn-primary btn-sm"><!-- 编辑 --><i class="fa fa-edit" style="font-size:16px;"></i></a>
+								</if>  
+								   <if condition="in_array('61',$levels)">
+                                  <button class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'Messageboard')"><i class="fa fa-trash" style="font-size:16px;"></i></button>
+								  </if>
+                                </td> 
+                              </tr>
+                            </volist>
+                          </tbody>
+                        </table>
+						 
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile">
+                      <div class="box-body">
+                         
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal_action" tabindex="-1" role="dialog" 
+       aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal" aria-hidden="true">
+                      &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                   分配
+                </h4>
+             </div> 
+             <input type="hidden" name="action_table_id" value="">
+             <input type="hidden" name="action_table_name" value="">
+             <input type="hidden" name="action_admin_id" value="">
+             <div class="modal-body-action">
+			 
+             </div> 
+
+             <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                   data-dismiss="modal">关闭
+                </button>
+                <button type="button" data-dismiss="setaction_list" onclick="setaction_lists()" class="btn btn-primary">
+           提交
+        </button>
+             </div>
+          </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
+
+    <script>
+      butnum=0;
+
+	  function checkall(){ 
+		    if(butnum==0){ 
+		       $("input[name='del_bok[]']").prop("checked", true);  
+		       butnum=1;
+		    }else{ 
+		       $("input[name='del_bok[]']").prop("checked", false);  
+		       butnum=0;
+		    } 
+	  } 
+ 
+
+    function tj(val){
+      location.href=val+".html";
+    }
+    </script>
+    <script>
+ 
+    function getaction_lists(_this){
+      $.get('/Admin/Common/getaction_lists', {}, function (data){
+        if(data){
+          $('.modal-body-action').html(data);
+          $('#myModal_action').modal('show');
+        }
+      }, 'json');
+    };
+
+     function setaction_lists(){
+        var admin_id = $('input:radio[name="admin_id"]:checked').val();
+
+		var messageboard_id=new Array();  
+		$('input[name="del_bok[]"]:checked').each(function(){  
+		     messageboard_id.push($(this).val());//向数组中添加元素  
+		});  
+		var messageboard_str=messageboard_id.join(',');//将数组元素连接起来以构建一个字符串  
+		 
+	  if(!admin_id) {
+	    alert('请选择分配工作人员。');return false;
+	  }
+	  if(!messageboard_str) {
+	    alert('请选择分配信息。');return false;
+	  }
+  
+       $.post('/Admin/Common/setaction_lists', {admin_id: admin_id, messageboard_str: messageboard_str}, function (re){
+           if(re==1){
+              $('#myModal_action').modal('hide');
+              location.reload();
+           }
+        }, 'json');    
+    }
+    </script>
+
+
+    <include file="common:js" />
+    
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>

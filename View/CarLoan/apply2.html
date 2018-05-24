@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        .box {
+            height: 1150px;
+        }
+        form {
+            padding-left: 30px;
+            font-size: 15px;
+        }
+        input[type=text],input[type=number] {
+            margin-right: 5px;
+            width: 100px;
+            font-size: 14px;
+            padding-left: 6px;
+            margin-left: 0px;
+        }
+        .input-sm {
+            border-color: #a6a6a6;
+        }
+        .main-left,.main-center,.main-right  {
+            float: left;
+            padding: 0 11px;
+            border: 1px solid #e6e6e6;
+            background: #f8f8f8;
+            height: 1020px;
+            box-shadow: 1px 1px 1px #888888;
+            margin-top: 15px;
+        }
+        .main-left {
+            margin-left: -25px;
+        }
+        .main-center,.main-right {
+            margin-left: 25px;
+        }
+        .form {
+            padding-left: 30px;
+        }
+        .h4 {
+            margin-top: 15px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                     <h3 class="box-title"><a href="/Admin/CarLoan/index">现金客户</a>>确认信息</h3>
+                        <div class="information">
+                            <div class="main-left">
+                                <div class="sectionOne">
+                                    <h4 class="h4">个人信息</h4>
+                                    <form <?php echo  $loan['username']!=''? "action='/Admin/CarLoan/info_upd'" : "action='/Admin/CarLoan/add'" ?>  method="post">
+                                    <div class="form-group">
+                                        姓名 : <input type="text" name="username" value="{$loan.username}">
+                                        性别 : <label><input <?php if($loan['sex']==1) echo checked ?> type="radio" name="sex" value="1">男</label>
+                                        <label><input <?php if($loan['sex']==2) echo checked ?> type="radio" name="sex" value="2">女</label>
+                                    </div>
+                                    <div class="form-group">
+                                        婚姻状况 :
+                                        <label><input <?php if($loan['marital_status']==1) echo checked ?> type="radio" value="1" name="marital_status">未婚</label>
+                                        <label><input <?php if($loan['marital_status']==2) echo checked ?> type="radio" value="2" name="marital_status">已婚</label>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if($loan['marital_status']==3) echo checked ?> type="radio" value="3" name="marital_status">离异</label>
+                                            <label><input <?php if($loan['marital_status']==4) echo checked ?> type="radio" value="4" name="marital_status">丧偶</label>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        证件类型 : <input type="text" name="certificates" value="{$loan.certificates}">
+                                    </div>
+                                    <div class="form-group">
+                                        证件号码 : <input type="text" value="{$loan.cardnum}" name="cardnum" style="width:170px;">
+                                    </div>
+                                    <div class="form-group">
+                                        出生日期 : <input style="display:inline-block" type="text" onclick="WdatePicker()" name="birthday" value="{$loan.birthday}" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        年龄 : <input type="number" value="{$loan.age}" name="age" style="width: 60px;">岁，
+                                        民族 : <input type="text" value="{$loan.nation}" name="nation" style="width: 60px;">
+                                    </div>
+                                    <div class="form-group">
+                                        户籍详细地址 : <input  value="{$loan.address}"  type="text" name="address" style="width:260px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>
+                                            学历 :
+                                            <label><input <?php if($loan['education']==1) echo checked ?> type="radio" value="1" name="education">初中及以下</label>
+                                            <label><input <?php if($loan['education']==2) echo checked ?> type="radio" value="2" name="education">高中或中专</label>
+                                        </p>
+                                        <p style="margin-left: 42px;">
+                                            <label><input <?php if($loan['education']==3) echo checked ?> type="radio" value="3" name="education">大专</label>
+                                            <label><input <?php if($loan['education']==4) echo checked ?> type="radio" value="4" name="education">本科及以上</label>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        移动电话 : <input type="number" value="{$loan.phone}"  name="phone" style="width: 125px;">
+                                    </div>
+                                    <div class="form-group">
+                                        住址电话 : <input type="number" value="{$loan.telphone}" name="telphone" style="width: 125px;">
+                                    </div>
+                                    <div class="form-group">
+                                        现居住地址 : <input type="text" value="{$loan.present_address}" name="present_address" style="width: 260px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>
+                                            住址类别 :
+                                            <label><input <?php if($loan['house_property']==1) echo checked ?> type="radio" value="1" name="house_property">自有住房</label>
+                                            <label><input <?php if($loan['house_property']==2) echo checked ?> type="radio" value="2" name="house_property">家族拥有</label>
+                                        </p>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if($loan['house_property']==3) echo checked ?> type="radio" value="3" name="house_property">公司宿舍</label>
+                                            <label><input <?php if($loan['house_property']==4) echo checked ?> type="radio" value="4" name="house_property">朋友拥有</label>
+                                        </p>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if($loan['house_property']==5) echo checked ?> type="radio" value="5" name="house_property">租赁</label>
+                                            <label>每月还款/租金￥ : <input type="number" name="rent" style="width: 60px;" value="{$loan.rent}">元</label>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        起始居住时间 : <input style="display:inline-block" type="text" name="residence_time" value="{$loan.residence_time}" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        QQ : <input type="number" name="qq" value="{$loan.qq}" style="width: 125px;">
+                                        邮编 : <input type="text" value="{$loan.postcode}" name="postcode" style="width: 125px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>
+                                            与谁同住 :
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"1"))) echo checked ?> type="checkbox" value="1" name="cohabitation[]">独居</label>
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"2"))) echo checked ?> type="checkbox" value="2" name="cohabitation[]">配偶</label>
+                                        </p>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"3"))) echo checked ?> type="checkbox" value="3" name="cohabitation[]">父母</label>
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"4"))) echo checked ?> type="checkbox" value="4" name="cohabitation[]">兄弟/姐妹</label>
+                                        </p>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"5"))) echo checked ?> type="checkbox" value="5" name="cohabitation[]">子女</label>
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"6"))) echo checked ?> type="checkbox" value="6" name="cohabitation[]">同事</label>
+                                        </p>
+                                        <p style="margin-left: 72px;">
+                                            <label><input <?php if(is_numeric(stripos($loan['cohabitation'],"7"))) echo checked ?> type="checkbox" value="7" name="cohabitation[]">其他</label>
+                                            <label>共 <input type="number" name="cohabitation_person" style="width: 60px;" value="{$loan.cohabitation_person}">人</label>
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        子女是否在当地生活或学习 :
+                                        <label><input <?php if($loan['children_together']==1) echo checked ?> type="radio" value="1" name="children_together">是</label>
+                                        <label><input <?php if($loan['children_together']==2) echo checked ?> type="radio" value="2" name="children_together">否</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-center">
+                                <div class="sectionOne">
+                                    <h4 class="h4">联系人信息</h4>
+                                    <div class="form">
+                                        <div class="form-group">
+                                            配偶资料(是否知悉借款) :
+                                            <label><input <?php if($loan['know']==1) echo checked ?> type="radio" value="1" name="know">是</label>
+                                            <label><input <?php if($loan['know']==2) echo checked ?>  type="radio" value="2" name="know">否</label>
+                                        </div>
+                                        <div class="form-group">
+                                            姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名 : <input type="text" value="{$loan.name}" name="name" style="margin-left: 8px;">
+                                        </div>
+                                        <div class="form-group">
+                                            年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄 : <input type="number" value="{$loan.contacts_age}" name="contacts_age" style="margin-left: 8px;">
+                                        </div>
+                                        <div class="form-group">
+                                            联系电话 : <input type="number" value="{$loan.contacts_tel}" name="contacts_tel" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            证件类型 : <input type="text" value="{$loan.document_type}" name="document_type" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            证件号码 : <input type="number" value="{$loan.cardno}" name="cardno" style="width: 170px;">
+                                        </div>
+                                        <div class="form-group">
+                                            单位名称 : <input type="text" value="{$loan.lxr_unit_name}" name="lxr_unit_name" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            单位地址 : <input type="text" value="{$loan.lxr_unit_address}" name="lxr_unit_address" style="width: 260px;">
+                                        </div>
+                                        <div class="form-group">
+                                            单位电话 : <input type="number" value="{$loan.lxr_unit_tel}" name="lxr_unit_tel" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            职务 : <input type="text" value="{$loan.lxr_duties}" name="lxr_duties" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            年收入 : &nbsp;&nbsp;&nbsp;<input value="{$loan.lxr_income}" type="number" name="lxr_income">万元
+                                        </div>
+                                        <div class="form-group">
+                                            直系亲属姓名 : <input type="text" value="{$loan.direct_relatives}"  name="direct_relatives">
+                                            性别 : <input <?php if($loan['zx_sex']==1) echo checked ?> type="radio" value="1" name="zx_sex">男
+                                            <input <?php if($loan['zx_sex']==2) echo checked ?> type="radio" value="2" name="zx_sex">女
+                                        </div>
+                                        <div class="form-group">
+                                            关系 :
+                                            <label><input <?php if($loan['relationship']==1) echo checked ?> type="radio" value="1" name="relationship">父母</label>
+                                            <label><input <?php if($loan['relationship']==2) echo checked ?> type="radio" value="2" name="relationship">兄弟/姐妹</label>
+                                            <label><input <?php if($loan['relationship']==3) echo checked ?> type="radio" value="3" name="relationship">其他</label>
+                                        </div>
+                                        <div class="form-group">
+                                            单位名称 : <input type="text" value="{$loan.zx_unit_name}" name="zx_unit_name" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            单位地址 : <input type="text" value="{$loan.zx_unit_address}" name="zx_unit_address" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            单位电话 : <input type="number" value="{$loan.zx_unit_tel}" name="zx_unit_tel" style="width: 125px;">
+                                        </div>
+                                        <div class="form-group">
+                                            联系电话 : <input type="number" value="{$loan.zx_phone}" name="zx_phone" style="width: 125px;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sectionOne">
+                                    <h4 class="h4" style="margin-top: 0px;">自营</h4>
+                                    <div class="form">
+                                        <div class="form-group">
+                                            经营场所 :
+                                            <label><input <?php if($loan['place']==1) echo checked ?> type="radio" value="1" name="place">自有</label>
+                                            <label><input <?php if($loan['place']==2) echo checked ?> type="radio" value="2" name="place">租用</label>
+                                            <label>(月租￥<input value="{$loan.monthly_rent}" type="text" name="monthly_rent">元)</label>
+                                            <p style="margin-left: 72px;">
+                                                <label><input <?php if($loan['place']==3) echo checked ?> type="radio" value="3" name="place">按揭</label>
+                                                <label>(月租￥<input value="{$loan.mortgage}" type="text" name="mortgage">元)</label>
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            成立日期 : &nbsp;&nbsp;&nbsp;<input style="display:inline-block" type="text" onclick="WdatePicker()" name="establish" value="{$loan.establish}" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                        </div>
+                                        <div class="form-group">
+                                            雇员人数 : &nbsp;&nbsp;&nbsp;<input value="{$loan.employee}" type="number" name="employee">
+                                        </div>
+                                        <div class="form-group">
+                                            月均营业额 : <input value="{$loan.turnover}" type="number" name="turnover">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="main-right">
+                                <div class="sectionOne">
+                                    <h4 class="h4">职业信息</h4>
+                                    <div class="form">
+                                        <div class="form-group">
+                                            单位名称 : <input type="text" value="{$loan.unit_name}" name="unit_name">
+                                        </div>
+                                        <div class="form-group">
+                                            单位地址 : <input type="text" value="{$loan.unit_address}" name="unit_address">
+                                        </div>
+                                        <div class="form-group">
+                                            单位电话 : <input type="number" value="{$loan.unit_tel}" name="unit_tel">
+                                        </div>
+                                        <div class="form-group">
+                                            所属部门 : <input type="text" value="{$loan.department}" name="department">
+                                        </div>
+                                        <div class="form-group">
+                                            职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务 : <input type="text" value="{$loan.duties}" name="duties" style="margin-left: 8px;">
+                                        </div>
+                                        <div class="form-group">
+                                            税后年收入 : <input value="{$loan.income}" type="number" name="income">万元
+                                        </div>
+                                        <div class="form-group">
+                                            在职年限 : <input type="number" value="{$loan.age_limit}" name="age_limit">年
+                                        </div>
+                                        <div class="form-group">
+                                            行业类别 : <input type="text" value="{$loan.industry_category}" name="industry_category">
+                                        </div>
+                                        <div class="form-group">
+                                            <p>
+                                                企业性质 :
+                                                <label><input <?php if($loan['enterprise_nature']==1) echo checked ?> type="radio" value="1" name="enterprise_nature">政府机关</label>
+                                                <label><input <?php if($loan['enterprise_nature']==2) echo checked ?> type="radio" value="2" name="enterprise_nature">事业单位</label>
+                                            </p>
+                                            <p style="margin-left: 72px;">
+                                                <label><input <?php if($loan['enterprise_nature']==3) echo checked ?> type="radio" value="3" name="enterprise_nature">国有企业</label>
+                                                <label><input <?php if($loan['enterprise_nature']==4) echo checked ?> type="radio" value="4" name="enterprise_nature">合资企业</label>
+                                            </p>
+                                            <p style="margin-left: 72px;">
+                                                <label><input <?php if($loan['enterprise_nature']==5) echo checked ?> type="radio" value="5" name="enterprise_nature">民营</label>
+                                                <label><input <?php if($loan['enterprise_nature']==6) echo checked ?> type="radio" value="6" name="enterprise_nature">个体</label>
+                                                <label><input <?php if($loan['enterprise_nature']==7) echo checked ?> type="radio" value="7" name="enterprise_nature">其他</label>
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <p>
+                                                员工规模 :
+                                                <label><input <?php if($loan['scale']==1) echo checked ?> type="radio" value="1" name="scale">1-10人</label>
+                                                <label><input <?php if($loan['scale']==2) echo checked ?> type="radio" value="2" name="scale">11-50人</label>
+                                            </p>
+                                            <p style="margin-left: 72px;">
+                                                <label><input <?php if($loan['scale']==3) echo checked ?> type="radio" value="3" name="scale">51-100人</label>
+                                                <label><input <?php if($loan['scale']==4) echo checked ?> type="radio" value="4" name="scale">100人以上</label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sectionOne">
+                                    <h4 class="h4">其他联系人</h4>
+                                    <div class="form">
+                                        <div class="form-group">
+                                            姓名 : <input type="text" name="qt_name"  value="{$loan.qt_name}">
+                                            性别 : <label><input <?php if($loan['qt_sex']==1) echo checked ?> type="radio" name="qt_sex" value="1">男</label>
+                                            <label><input <?php if($loan['qt_sex']==2) echo checked ?> type="radio" name="qt_sex" value="2">女</label>
+                                        </div>
+                                        <div class="form-group">
+                                            关系 : <input type="text" value="{$loan.qt_relationship}" name="qt_relationship">
+                                            联系电话 : <input value="{$loan.qt_phone}" type="number" name="qt_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            姓名 : <input type="text" value="{$loan.qts_name}" name="qts_name">
+                                            性别 : <label><input <?php if($loan['qts_sex']==1) echo checked ?> type="radio" name="qts_sex" value="1">男</label>
+                                            <label><input <?php if($loan['qts_sex']==2) echo checked ?> type="radio" name="qts_sex" value="2">女</label>
+                                        </div>
+                                        <div class="form-group">
+                                            关系 : <input type="text" value="{$loan.qts_relationship}" name="qts_relationship">
+                                            联系电话 : <input type="number" value="{$loan.qts_phone}" name="qts_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            贷款用途 : <input value="{$loan.purpose}" type="text" name="purpose" style="width: 253px;">
+                                        </div>
+                                        <div class="form-group" style="margin-left: -25px;;margin-top: 50px;font-size: 17px;">
+                                            业务部门 :
+                                            <select name="branch" id="input41" class="bumen sea select" onchange="fp(this.value)" required style="width: 253px;height:25px;">
+                                                <option value='' disabled selected>请选择</option>
+                                                <option <?php echo $loan['branch']==16? selected:'' ?> value=16>宝安1部总监</option>
+                                                <option <?php echo $loan['branch']==17? selected:'' ?> value=17>宝安1部</option>
+                                                <option <?php echo $loan['branch']==18? selected:'' ?> value=18>宝安2部总监</option>
+                                                <option <?php echo $loan['branch']==19? selected:'' ?> value=19>宝安2部</option>
+                                                <option <?php echo $loan['branch']==30? selected:'' ?> value=30>现金1部总监</option>
+                                                <option <?php echo $loan['branch']==29? selected:'' ?> value=29>现金1部</option>
+                                                <option <?php echo $loan['branch']==7? selected:'' ?> value=7>现金2部总监</option>
+                                                <option <?php echo $loan['branch']==8? selected:'' ?> value=8>现金2部</option>
+                                                <option <?php echo $loan['branch']==25? selected:'' ?> value=25>现金3部总监</option>
+                                                <option <?php echo $loan['branch']==9? selected:'' ?> value=9>现金3部</option>
+                                                <option <?php echo $loan['branch']==33? selected:'' ?> value=33>现金4部</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="margin-left: -25px;font-size: 17px;">
+                                            业务人员 : <select  class="members sea select" name="salesman" required style="width: 253px;height:25px;">
+                                            <option value='{$loan.salesman}'><?php echo $loan['salesman']==''? "请选择":$loan['salesmans'] ?></option>
+                                        </select>
+                                        </div>
+                                        <input type="hidden" name="id" value="{$loan.id}">
+                                        <input type="submit" <?php echo $loan['id'] != ''? "value='更&nbsp;&nbsp;新'" : "value='添&nbsp;&nbsp;加'" ?>  class="tjs" style="margin-left: 110px;" autocomplete="off">
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+
+    function fp(rid){
+        if(rid=='33'){
+            $(".members").empty();
+            $(".members").append("<option value='65'>陈浩</option><option value='66'>宋远翔</option><option value='127'>刘创</option><option value='128'>纪雪铭</option><option value='136'>王俪瑄</option><option value='118'>何思敏</option><option value='147'>郭丽萍</option><option value='172'>冠成金服</option>");
+        }else{
+           $.post("/Admin/CarLoan/memberss",{rid,rid},function(data){
+            
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+</script>
+</body>
+</html>

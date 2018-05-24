@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+
+</head>
+<style type="text/css">
+    .table-bordered {
+    }
+    tbody tr:nth-child(1) td {
+        font-weight: bold;
+    }
+   form{font-size:18px;}
+   .input{border-radius: 0;box-shadow: none;}
+   .input, .sinput{margin-top: 10px;width: 100px;}
+   .topd{margin-bottom:20px;}
+   .btns{box-shadow: 3px 3px 3px #a0a0a0;background:#2aa6ff;width:100px;border-radius:6px;color: #fff;}
+   b{font-size:20px;}
+   .addss,.adds{display: none}
+    .so {
+        width: 100px;
+        height: 30px;
+        background: #1485BD;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        margin-left: 20px;
+        border-radius: 3px;
+        overflow: hidden;
+        border:0 ;
+        outline: none;
+    }
+    input::-webkit-input-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input::-moz-placeholder{  //不知道为何火狐的placeholder的颜色是粉红色，怎么改都不行，希望有大牛路过帮忙指点
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input:-ms-input-placeholder{  //由于我的IE刚好是IE9，支持不了placeholder，所以也测试不了(⊙﹏⊙)，有IE10以上的娃可以帮我试试
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    form {
+        font-size: 15px;
+    }
+    .table {
+        width: 44%;
+        font-size: 15px;
+        margin-top: 15px;
+        text-align: left;
+        letter-spacing: 1px;
+    }
+    tbody tr:first-child {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    tbody tr {
+        text-align: center;
+    }
+    tbody tr:first-child:hover {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    td:first-child {
+        text-align: left;
+    }
+    b {
+        font-size: 15px;
+    }
+    td{
+      width: 15%;
+    }
+    tr,td {
+        text-indent: 7px;
+    }
+    tr:nth-child(2n) {
+        background:#f6f6f6;
+    }
+    .btns {
+        height: 33px;
+    }
+    table,.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+        border: 1px solid #e6e6e6;
+    }
+    .table-bordered {
+        border: 1px solid #e6e6e6;
+    }
+    .bold {
+      font-weight: bold;
+    }
+
+
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+ <div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束 -->
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+<div class="content-wrapper">
+    <section class="content">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">分部利润表</h3>
+        </div>
+        <div class="box-body">
+            <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <div class="box-body">
+                    <form action="/Admin/Finance/upd" method="post" onsubmit="return checkform()">
+                        年份：<select name="year" class="sinput input" id="year" style="margin-right: 15px;">
+                              <option>2018</option>
+                              <option>2019</option>
+                              <option>2020</option>
+                              <option>2021</option>
+                              <option>2022</option>
+                              <option>2023</option>
+                              <option>2024</option>
+                              <option>2025</option>
+                            </select>
+                        <span style="margin-left: 50px;margin-right: 50px;">月份：<select name="month" class="sinput input" id="month">
+                              <option value="0">请选择</option>
+                              <option <?php echo $month==1?'selected':"" ?>>1</option>
+                              <option <?php echo $month==2?'selected':"" ?>>2</option>
+                              <option <?php echo $month==3?'selected':"" ?>>3</option>
+                              <option <?php echo $month==4?'selected':"" ?>>4</option>
+                              <option <?php echo $month==5?'selected':"" ?>>5</option>
+                              <option <?php echo $month==6?'selected':"" ?>>6</option>
+                              <option <?php echo $month==7?'selected':"" ?>>7</option>
+                              <option <?php echo $month==8?'selected':"" ?>>8</option>
+                              <option <?php echo $month==9?'selected':"" ?>>9</option>
+                              <option <?php echo $month==10?'selected':"" ?>>10</option>
+                              <option <?php echo $month==11?'selected':"" ?>>11</option>
+                              <option <?php echo $month==12?'selected':"" ?>>12</option>
+                            </select></span>
+                        分部：<select name="branch_id" class="input" id="sbranch" onfocus="this.defaultIndex=this.selectedIndex;" onchange="this.selectedIndex=this.defaultIndex;">
+                              </select>
+                        <div class="left">
+                            <table border="1" id="lyt" cellpadding="80px" class="table table-bordered table-hover">
+                                <h3 style="width:100px;margin: 20px 0 20px 234px;">居间业务</h3>
+                                <tr>
+                                    <td style="text-align: center;">项目</td>
+                                    <td>金额</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>一、营业收入</b></td>
+                                </tr>
+                                <tr>
+                                    <td>1、居间费用收入</td>
+                                    <td><input type="text" name="residence_fee" class="ys residence_fee" value="{$arr['residence_fee']}"></td>
+                                </tr>
+                                <tr>
+                                    <td>2、预收客户定金转收入</td>
+                                    <td><input type="text" name="deposit" class="ys deposit" value="{$arr['deposit']}"></td>
+                                </tr>
+                                <tr>
+                                    <td>3、额外费用收入</td>
+                                    <td><input type="text" name="additional_fee" class="ys additional_fee" value="{$arr['additional_fee']}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">营业收入合计</td>
+                                    <td><input type="text" name="income" class="income" value="{$arr['income']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="bold"><b>二、费用</b></td>
+                                </tr>
+                                <tr>
+                                    <td>1、工资及社保</td>
+                                    <td><input type="text" name="wages" class="wages fy" value="{$arr['wages']}"></td>
+                                </tr>
+                                <tr>
+                                    <td>2、办公场地租金及水电</td>
+                                    <td><input type="text" class="office_rent fy" value="{$arr['office_rent']}" name="office_rent"></td>
+                                </tr>
+                                <tr>
+                                    <td>3、跟单费</td>
+                                    <td><input type="text" class="other_fee fy" value="{$arr['other_fee']}" name="other_fee"></td>
+                                </tr>
+                                <tr>
+                                    <td>4、其他</td>
+                                    <td><input type="text" class="documentary_charges fy" name="documentary_charges" value="{$arr['documentary_charges']}"></td>
+                                </tr>
+                                <tr>
+                                    <td>费用合计</td>
+                                    <td><input type="text" class="total_cost" name="residence_total_cost" value="{$arr['residence_total_cost']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">三、利润</td>
+                                    <td><input type="text" name="profit" class="profit" value="{$arr['profit']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">四、分配人</td>
+                                    <td><input type="text" name="assignor" value="{$arr['assignor']}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="right">
+                            <table border="1" id="lyt1" cellpadding="80px" class="table table-bordered table-hover">
+                                <h3 style="width:100px;margin: 20px 0 20px 234px;">现金业务</h3>
+                                <tr>
+                                    <td style="text-align: center;">项目</td>
+                                    <td>金额</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="bold"><b>一、速贷收入</b></td>
+                                </tr>
+                                <tr>
+                                    <td>1、库存值</td>
+                                    <td><input type="text" name="inventory_value" class="inventory_value" value="{$arr['inventory_value']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>2、应收利息</td>
+                                    <td><input type="text" name="interest_receivable" class="interest_receivable" value="{$arr['interest_receivable']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>3、实收利息</td>
+                                    <td><input type="text" value="{$arr['interest_rate']}" name="interest_rate" class="interest_rate" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td>4、滞纳金、罚息</td>
+                                    <td><input type="text" name="penalty" class="penalty" value="{$arr['penalty']}"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="bold"><b>二、费用支出</b></td>
+                                </tr>
+                                <tr>
+                                    <td>1、提成</td>
+                                    <td><input type="text" value="{$arr['commission']}" name="commission" class="commission" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">2、支出</td>
+                                    <td><input type="text" class="total_cost" name="expense_expenditure" value="{$arr['expense_expenditure']}" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">三、净利润</td>
+                                    <td><input type="text" name="net_profit"  value="{$arr['net_profit']}" class="net_profit" readonly></td>
+                                </tr>
+                                <tr>
+                                    <td class="bold">四、分配人</td>
+                                    <td><input type="text"  value="{$arr['xj_assignor']}" name="xj_assignor"></td>
+                                </tr>
+                                <input type="hidden" class="branchId" value="{$b}">
+                                <input type="hidden" name="id"  value="{$arr['id']}">
+                                <input type="hidden" class="lrz" value="{$arr['net_profit']}">
+                                <input type="hidden" class="lrzs" value="">
+                                <tr>
+                                    <td colspan="6" style="text-align:center;"><input type="submit" class="btns"></td>
+                                </tr>
+                            </table>
+                                
+                            </form>
+                        </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+</div>
+</div>
+  <include file="common:js" />
+  <script type="text/javascript">
+  $(function(){
+    var tval=Number($(".total_cost").val());
+    var penalty=Number($(".penalty").val());
+    $(".lrzs").val(tval+penalty);
+  });
+  //营收
+      $('.residence_fee').keyup(function(){
+        ystotal();
+      });
+      $('.deposit').keyup(function(){
+        ystotal();
+      });
+      $('.additional_fee').keyup(function(){
+        ystotal();
+      });
+
+      //费用
+      $('.wages').keyup(function(){
+        total();
+      });
+      $('.office_rent').keyup(function(){
+        total();
+      });
+      $('.other_fee').keyup(function(){
+        total();
+      });
+      $('.other_fee').keyup(function(){
+        total();
+      });
+      $('.documentary_charges').keyup(function(){
+        total();
+      });
+
+      $(".penalty").keyup(function(){
+        var penalty=$(this).val();
+        var v=$(".net_profit").val();
+        var newv=Number(Number($(".lrz").val())+Number($(".lrzs").val())-$(".total_cost").val()-penalty).toFixed(2)
+        $(".net_profit").val(newv);
+      });
+
+    //统计
+    function total(){
+      var v=0;
+         $('.fy').each(function(){
+          if($(this).val() !=""){
+            v=v+Number($(this).val());
+          }
+         });
+
+         v=v.toFixed(2);
+         $(".total_cost").val(v);
+         var lr=$(".income").val()-v;
+         lr=lr.toFixed(2);
+         $(".profit").val(lr);
+         var newv=Number(Number($(".lrz").val())+Number($(".lrzs").val())-$(".penalty").val()-v).toFixed(2)
+         $(".net_profit").val(newv);     
+    }
+
+    function ystotal(){
+      var v=0;
+         $('.ys').each(function(){
+          if($(this).val() !=""){
+            v=v+Number($(this).val());
+          }
+         });
+
+         v=v.toFixed(2);
+         $(".income").val(v);
+         var lr=v-$(".total_cost").val();
+         lr=lr.toFixed(2);
+         $(".profit").val(lr);
+    }
+
+      //验证
+      function checkform(){
+        var b=$("#sbranch").val();
+        if(b==0 || $("#month").val()==0){
+            alert('请选择部分或月份');
+             return false;
+        }        
+      }
+    //加载部门
+    // window.onload=(function(){
+    //     sbranch();
+    //    });
+    $(function(){
+      sbranch();
+      var id=$(".branchId").val();
+      $("#sbranch").find("option").each(function(){
+          if($(this).val()==id){
+             $(this).attr('selected','selected');
+          }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>网站信息</title>
+    <include file="common:css" />
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-10 col-lg-offset-1 col-sm-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">网站信息</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal" action="{:U('Admin/Index/addindex')}" id="myform">
+                  <div class="box-body">
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">站点名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.name}" name="name">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">英文站点名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.enname}" name="enname">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">站点关键字：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="key">{$data.key}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">站点描述：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="desc">{$data.desc}</textarea>
+                      </div>
+                    </div>
+
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">页脚代码：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="5" name="footer">{$data.footer}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">英文页脚代码：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="5" name="enfooter">{$data.enfooter}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-md-6">
+                        <input type="hidden" name="id" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value=" 提交 "></input>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+
+    <script type="text/javascript">
+    </script>
+  </body>
+</html>
+
+
+
+

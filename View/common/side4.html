@@ -1,0 +1,178 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu">
+
+      <li><a href="{:U('Admin/Base/index')}"><i class="fa fa-book"></i> <span>工作台</span></a></li>
+	  
+	  <?php if(in_array('50',$_SESSION['level'])){?>
+	  <li class="treeview <?php if($isNavs == 'Admin'){?>active<?php }?>">
+          <a href="#">
+            <i class="fa fa-lock"></i> <span>权限管理</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+		     <?php if(in_array('51',$_SESSION['level'])){?>
+  		      <li><a href="/Admin/Admin/index"><i class="fa fa-circle-o"></i> 管理员列表</a></li>
+			 <?php }?>
+			 <?php if(in_array('55',$_SESSION['level'])){?>
+			  <li><a href="/Admin/Admin/rank"><i class="fa fa-circle-o"></i> 权限列表</a></li>
+			 <?php }?> 
+          </ul>
+      </li> 
+	  <?php }?>
+	  
+	  
+	  <?php if(in_array('10',$_SESSION['level'])){?>
+    <li class='treeview <?php if($isUclient == 'Uclient'){?>active<?php }?>'>
+        <a href="#">
+          <i class="fa fa-history"></i> <span>未成交客户信息</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <?php if(in_array('11',$_SESSION['level'])){?>
+          <li><a href="/Admin/uclient/index"><i class="fa fa-circle-o"></i> 未成交客户列表</a></li>
+        <?php }?>
+        <?php if(in_array('13',$_SESSION['level'])){?>
+          <li><a class="addindex" href="/Admin/uclient/addindex"><i class="fa fa-plus-square"></i> 意向客户录入</a></li>
+        <?php }?>
+        </ul>
+      </li>
+   <?php }?>
+
+	 
+	 <?php if(in_array('20',$_SESSION['level'])){?>
+	  <li class='treeview <?php if($isCoope == 'Coope'){?>active<?php }?>'>
+        <a href="#">
+          <i class="fa fa-legal"></i> <span>已成交客户信息</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+		      <?php if(in_array('21',$_SESSION['level'])){?>
+    		  <li><a href="/Admin/Coope/index"><i class="fa fa-circle-o"></i>  已成交客户列表</a></li>
+			  <?php }?>
+			  <?php if(in_array('23',$_SESSION['level'])){?>
+    		  <li><a class="addindex" href="/Admin/Coope/addindex"><i class="fa fa-plus-square"></i> 已成交客户录入</a></li>
+			  <?php }?>
+        </ul>
+      </li>
+	  <?php }?>
+	
+	  <?php if(in_array('30',$_SESSION['level'])){?>
+      <li class='treeview <?php if($isUclient == 'Supply'){?>active<?php }?>'>
+        <a href="#">
+          <i class="fa fa-users"></i> <span>公海客户管理</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+		      <?php if(in_array('31',$_SESSION['level'])){?>
+    		  <li><a href="/Admin/Supply/index"><i class="fa fa-circle-o"></i> 公海客户列表</a></li>
+			  <?php }?>
+			  <?php if(in_array('33',$_SESSION['level'])){?>
+    		  <li><a class="addindex" href="/Admin/Supply/addindex"><i class="fa fa-plus-square"></i> 公海客户添加</a></li> <?php }?>
+        </ul>
+      </li>
+	  <?php }?>
+	  
+	  <?php if(in_array('40',$_SESSION['level'])){?>
+      <li class="treeview  <?php if($isMember){?>active<?php }?>">
+        <a href="#">
+          <i class="fa fa-user-circle-o"></i> <span>内部人员管理 </span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+		      <?php if(in_array('41',$_SESSION['level'])){?>
+		      <li><a href="/Admin/Member/branch"><i class="fa fa-circle-o"></i> 部门分类</a></li>
+			  <?php }?>
+			  <?php if(in_array('45',$_SESSION['level'])){?>
+		      <li><a href="/Admin/Member/index"><i class="fa fa-circle-o"></i> 人员列表</a></li>
+              <?php }?>
+        </ul>
+      </li>       
+      <?php }?>
+	  <?php if(in_array('0',$_SESSION['level'])){?>
+	  <li class="treeview <?php if($isNavs == 'Type'){?>active<?php }?>">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>类型/状态管理</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+		      <?php if(in_array('1',$_SESSION['level'])){?>
+  		      <li><a href="/Admin/Type/index"><i class="fa fa-circle-o"></i> 类型列表</a></li>
+			  <?php }?>
+			  <?php if(in_array('5',$_SESSION['level'])){?>
+			  <li><a href="/Admin/Type/state"><i class="fa fa-circle-o"></i> 状态列表</a></li>
+			  <?php }?>
+          </ul>
+      </li> 
+	  <?php }?>
+	  <li class="treeview <?php if($isNavs == 'Download'){?>active<?php }?>">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>产品管理</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+		      <?php if(in_array('1006',$levels)){?>
+  		      <li><a href="/Admin/Column/index"><i class="fa fa-circle-o"></i> 分类列表</a></li>
+			  <?php }?>
+			  <li><a href="/Admin/Download/index"><i class="fa fa-circle-o"></i> 产品列表</a></li>
+          </ul>
+      </li> 
+	  <?php if(in_array('66',$levels)){?>
+	  <li class="treeview <?php if($isMessageboard){?>active<?php }?>">
+        <a href="{:U('Admin/Messageboard/index')}">
+          <i class="fa fa-dashboard"></i> <span>留言列表</span><i class="fa fa-angle-left pull-right"></i>
+        </a>
+      </li>
+	  <?php }?>
+	  <?php if(in_array('1007',$levels)){?>
+	    <li class="treeview <?php if($isNavs == 'Baksql'){?>active<?php }?>">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>数据备份</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+  		      <li><a href="/Admin/Baksql/index"><i class="fa fa-circle-o"></i> 数据列表</a></li>
+          </ul>
+       </li> 
+	  <?php }?>
+
+        <?php if(in_array('71',$levels)){?>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span>录音管理</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href=" /Admin/Record/index"><i class="fa fa-circle-o"></i> 录音列表</a></li>
+            </ul>
+        </li>
+        <?php }?>
+
+        <?php if(in_array('81',$levels)){?>
+        <li class="treeview <?php if($isMonetary){?>active<?php }?>">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span>现金业务</span> <i class="fa fa-angle-left pull-right"></i>
+            </a>
+        <ul class="treeview-menu">
+            <?php if(in_array('82',$_SESSION['level'])){?>
+            <li><a href="/Admin/Monetary/index"><i class="fa fa-circle-o"></i>速分贷列表</a></li>
+            <?php }?>
+            <?php if(in_array('83',$_SESSION['level'])){?>
+            <li><a class="addindex" href="/Admin/Monetary/addindex"><i class="fa fa-plus-square"></i> 速分贷添加</a></li>
+            <?php }?>
+            <?php if(in_array('84',$_SESSION['level'])){?>
+            <li><a href="/Admin/Monetary/indexsd"><i class="fa fa-circle-o"></i>速贷列表</a></li>
+            <?php }?>
+            <?php if(in_array('85',$_SESSION['level'])){?>
+            <li><a class="addindex" href="/Admin/Monetary/addindexsd"><i class="fa fa-plus-square"></i> 速贷添加</a></li>
+            <?php }?>
+            <?php if(in_array('86',$_SESSION['level'])){?>
+            <li><a class="addindex" href="/Admin/Monetary/listCustomer"><i class="fa fa-circle-o"></i> 现金客户列表</a></li>
+            <?php }?>
+        </ul>
+        </li>
+        <?php }?>
+        <!-- <li class="treeview">
+          <a href="#">
+                <i class="fa fa-dashboard"></i> <span>业务申请</span> <i class="fa fa-angle-left pull-right"></i>
+          </a>
+          <ul class="treeview-menu">
+              <li><a class="addindex" href="/Admin/Apply/index"><i class="fa fa-plus-square"></i>业务申请</a></li>
+          </ul>
+        </li> -->
+
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

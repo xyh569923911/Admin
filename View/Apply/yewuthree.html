@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer">现金客户</a>><a style="cursor: pointer;" class="goback" href="http://47.92.119.237/Admin/Monetary/yewuall?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">产品确认</h4>
+                        <form action="/Admin/Apply/qrfy" method="post" id="info_form2">
+                            <div style="margin-left:68px;margin-bottom:10px;">
+                                <label><input type="radio" name="ywstype" <?php if($data['ywstype']=="1") echo checked ?> value="1" >速分贷</label>
+                                <label><input type="radio" name="ywstype" <?php if($data['ywstype']=="2") echo checked ?> value="2" >速贷</label>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">利&nbsp;&nbsp;&nbsp;&nbsp;息:</label>
+                                <input type="text" style="width: 100px;" name="yws_lx" value="{$data['yws_lx']}"><span class="right">%</span>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">手续费:</label>
+                                <input type="number" name="poundage" value="{$data['poundage']}"><span class="right">%</span>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">考察费:</label>
+                                <input type="radio" name="inspection" <?php if($data['inspection']=="300") echo checked ?> value="300"><span>300</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="inspection" <?php if($data['inspection']=="500") echo checked ?> value="500"><span>500</span>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">保证金:</label>
+                                <input type="number" name="bond"  value="{$data['bond']}">
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">是否有捆绑业务:</label>
+                                <label><input type="radio" class="binded" name="bundlingService" <?php if($data['bundlingservice']=="1") echo checked ?> value="1">是</label>
+                                <label><input type="radio" class="bind" name="bundlingService" <?php if($data['bundlingservice']=="2") echo checked ?> value="2">否</label>
+                            </div>
+                            <div class="rowleft dpersonnel" style="display: none">
+                                <label class="charge"><input type="checkbox" class="identity">渠道人员:</label>
+                                <select class="cPersonnel" name="channelPersonnel" style="width: 88px;">            
+                                            <option value="0">请选择</option>
+                                            <option <?php echo $data['channelpersonnel']==61?'selected':'' ?> value="61">陈正伟</option>
+                                            <option value="60" <?php echo $data['channelpersonnel']==60?'selected':'' ?> >谭儒辉</option>
+                                            <option value="167" <?php echo $data['channelpersonnel']==167?'selected':'' ?> >罗嘉欢</option>
+                                        </select>
+                            </div>
+                            <input type="hidden" value="{$data['cid']}" name="cid" id="ids">
+                            <input type="submit" style="margin-left:68px;" value="提&nbsp;&nbsp;交" class="tjs">
+                            <a href="/Admin/Apply/over?state_id=20&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+    
+    $(".binded").click(function(){
+        $(".dpersonnel").show();
+    });
+    $(".bind").click(function(){
+        $(".dpersonnel").hide();
+    });
+
+    $(function(){
+        if($(".binded").attr('checked')){
+            $(".dpersonnel").show();
+        }
+    });
+</script>
+</body>
+</html>

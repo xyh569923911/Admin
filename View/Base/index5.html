@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        网站信息
+    </title>
+    <include file="common:css" />
+</head>
+<style>
+    .box-body .col-sm-6,.col-sm-5,.col-sm-7{display:none}
+    .topHeader_ul {display:inline;margin-left: 40px;}
+    .topHeader_ul li {font-size:16px;display: inline;padding:0 20px;}
+    .red-bg {background-color: #d95043;}
+    .green-bg {background-color:#26c281;}
+    .base-row {color: #fff;padding:80px 0;}
+    .base-row i {display:block;font-size:50px;}
+    .base-row .title{font-size: 2.5em;line-height: 1.8;text-align:center;padding:10px 0;}
+    .base-row .count{font-size: 4em;}
+    .base-row .num {font-size: 1.2em}
+    .base-row em{font-size: 2em;margin-left:15px}
+    .base-row .item {text-align:center;line-height:1.8;}
+    .panel .panel-heading h2 {height: 100%;width: auto;position: relative;margin:0;font-size: 18px;height:40px;line-height: 40px;font-weight: 400;letter-spacing:0;}
+    .panel .panel-heading h2 i {float: left;line-height: 40px;font-size:1.2em;}
+    .panel .panel-heading h2 span {font-size: 16px;font-weight: 700;margin-left:15px;float: left;line-height: 40px;}
+    .panel .panel-heading h2 span a {color:#222;}
+    .panel .panel-heading h2 span a:hover {color: #005993;}
+    .table>tbody>tr>td{border-top: 0;border-bottom: 1px solid #ddd;}
+    .table>thead>tr>th {border-bottom:2px solid #ddd;}
+    .orange-bg {background:#00c0ef;}
+    .purple-bg {background:#FFA500;}
+    .weeks{ margin-top: -70px; margin-left: 15px; }
+    .xtalok{margin-left:40%;margin-bottom:10px;font-size:1.1em}
+    .xtalok span{font-size:1.3em}
+
+    .table {background:#fff;border:1px solid #ccc;}
+    .table thead tr th {background:#eee;border:1px solid #dcdcdc;border-bottom-width: 2px;}
+    .table tbody tr th {border:1px solid #dcdcdc;}
+    .carousel {margin: 15px -15px 50px;}
+    .carousel-inner {border-radius:8px;padding: 25px;text-align: center;}
+    .carousel-inner.red {background-color:#D44C4C;}
+    .carousel-inner.blue {background-color:#49A3DE;}
+    .carousel-inner.green {background-color:#58C383;}
+    .carousel-inner .tile-icon {color: #fff;font-size:3.2rem;margin-bottom: 5px;}
+    .carousel-inner .tile-icon i {margin-right: 15px;}
+    .carousel-inner .number {color: #fff;font-size: 1.8rem;margin-top: 15px;}
+
+    .panel-teal.blue-bg {background-color:#3598db;}
+    .panel-teal .panel-heading {border-bottom: 1px solid #dcdcdc;color: #fff;padding: 15px;}
+    .panel-teal .panel-heading h4 {font-size: 1.7rem;}
+    .panel-teal .panel-heading h4 i {font-size: 2rem;margin-right: 6px;}
+    .panel-body {padding:15px 0px;}
+    .panel-body .tile {margin:5px 0px; }
+    .panel-body .tile .tile-content {color: #fff;text-align: left;}
+    .panel-body .tile .tile-content .number {/*width: 160px;*/font-size:2rem;display: inline-block;vertical-align: middle;}
+    .panel-body .tile .tile-content h3 {width: 58px;font-size: 2rem;margin: 0px;display: inline-block;vertical-align: middle;}
+    .content .row {margin-bottom: 40px;}
+    .content .row .h {text-align: center;color: #555;font-size: 1.8rem;margin-bottom: 20px;}
+    .content .row .h i {margin-right: 10px;}
+
+    #example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow: hidden;}
+    #example1_filter .so:hover {background:#1F76A0;}
+    .page {text-align: right;padding: 5px 0;  width: 100%; margin: 0 auto;}
+    .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+    .page a:hover,.page .on {background: #00a3ff;color:#fff}
+
+    .longhub {padding:28px 0px 0px;margin: 15px;background: url(__PUBLIC__/admin/images/longhub.png) no-repeat center top;background-size: 100% auto;padding-left: 10px;height: 284px;padding-top: 25px; }
+    .longhub h2 {font-size: 30px;color: #ffffff;padding-bottom: 10px;padding-top: 6px;background: -moz-linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */}
+    .longhub ul {display:inline-block;width: 25%;padding-bottom: 10px;text-align: center;background: rgba(255,255,255,0.15);background-size: 100% auto;float: right;margin-right: 11px;}
+    /*.longhub ul li {padding: 5px 0px 0px;}*/
+    .longhub ul li .tit {color: #fff;font-size: 16px;margin-bottom: 10px;float: left;width: 42%;}
+    .longhub ul li .tit i {font-size: 16px;margin-right: 10px;display: inline-block;vertical-align: middle;}
+    .longhub ul li .name {color: #fff;font-size: 16px;text-align: left;/*text-indent: 2em;background:url(__PUBLIC__/admin/images/no1.png) no-repeat 35% center / 40px 40px;*/box-sizing:border-box;}
+    .longhub ul li .name img {display: inline-block;width: 38px;height: 38px;margin-right: 5px;}
+    /*选择*/
+    .table_arrow thead tr th {position: relative;}
+    .table_arrow thead tr th .arrow {float: right;display: block;width: 28px;}
+    .table_arrow thead tr th .arrow span {display: block;margin: 0 auto;width: 9px;height: 20px;background: url(__PUBLIC__/admin/images/up_ico.png) no-repeat;background-position: 0px 0px;}
+    .table_arrow thead tr th .arrow.cur span {background-position: -11px 0px;}
+    .h-name {
+        color: #fff!important;
+    }
+    .xdebug-var-dump {
+        display: none!important;
+    }
+</style>
+
+<body class="hold-transition skin-blue sidebar-mini" style="background: #2a89cd">
+  <div class="wrapper">
+      <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+
+          <div style="padding-top:20px;margin-left:15px">
+              尊敬的用户，欢迎您回来！
+          </div>
+          
+		  <div class="longhub">
+            <ul class="clearfix">
+                <h2 class="h2">丽湾</h2>
+
+                  <li>
+                <div class="tit"><i class="fa fa-bookmark-o"></i>约见</div>
+                <div class="name">
+                    <if condition="$hentong.admin_member_sun neq 0">
+                    <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $hentong['admin_id'];?>/state_id/{$hentong.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$hentong.admin_member_id}/{$hentong.admin_member_sun}单</a></div>
+                    <else />
+                  <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+
+          </if>
+              </li>
+              <li>
+                <div class="tit"><i class="fa fa-pencil-square-o"></i>签单</div>
+                <!--<div class="name"><a href="/Admin/Search/index/name/签单/id/{$admin_member_dan.admin_id}/state_id/{$admin_member_dan.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dan.admin_member_id}/{$admin_member_dan.admin_member_sun}单</a></div>-->
+                  <div class="name">
+                      <if condition="$hentongqd.admin_member_sun neq 0">
+                      <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $hentongqd['admin_id'];?>/state_id/{$hentongqd.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$hentongqd.admin_member_id}/{$hentongqd.admin_member_sun}单</a></div>
+                  <else />
+                  <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+            </if>
+              </li>
+              <li>
+                <div class="tit"><i class="fa fa-check-square-o"></i>放款</div>
+                <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                  <div class="name">
+                      <if condition="$hentongfk.admin_member_sun neq 0">
+                      <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $hentongfk['admin_id'];?>/state_id/{$hentongfk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$hentongfk.admin_member_id}/{$hentongfk.admin_member_sun}单</a></div>
+                  <else />
+                  <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                </if>
+              </li>
+                <li>
+                    <div class="tit"><i class="fa fa-check-square-o"></i>录入</div>
+                    <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                    <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png">{$hentonglr}单</a></div>
+                </li>
+              <!--<li>
+                <div class="tit"><i class="fa fa-line-chart"></i>回款</div>
+                <div class="name">
+				<notempty name="admin_member_danss.admin_id">
+				<a href="/Admin/Search/index/name/回款/id/{$admin_member_danss.admin_id}/u_id/{$admin_member_danss.u_id}.html" style="color:#fff">
+				<else/>
+				<a href="javascript:;" style="color:#fff">
+				</notempty>
+				<img src="/Public/admin/images/no1.png">{$admin_member_danss.admin_member_id}/<span style="font-size:15px">{$admin_member_danss.hprice}</span>元</a></div>
+              </li>-->
+            </ul>
+            <ul class="clearfix">
+                <h2 class="h2">诚和</h2>
+                  <li>
+                      <div class="tit"><i class="fa fa-bookmark-o"></i>约见</div>
+                      <div class="name">
+                          <if condition="$chenghe.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghe['admin_id'];?>/state_id/{$chenghe.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghe.admin_member_id}/{$chenghe.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                  <li>
+                      <div class="tit"><i class="fa fa-pencil-square-o"></i>签单</div>
+                      <!--<div class="name"><a href="/Admin/Search/index/name/签单/id/{$admin_member_dan.admin_id}/state_id/{$admin_member_dan.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dan.admin_member_id}/{$admin_member_dan.admin_member_sun}单</a></div>-->
+                      <div class="name">
+                          <if condition="$chengheqd.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chengheqd['admin_id'];?>/state_id/{$chengheqd.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chengheqd.admin_member_id}/{$chengheqd.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                  <li>
+                      <div class="tit"><i class="fa fa-check-square-o"></i>放款</div>
+                      <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                      <div class="name">
+                          <if condition="$chenghefk.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                <li>
+                    <div class="tit"><i class="fa fa-check-square-o"></i>录入</div>
+                    <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                    <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghelr}单</a></div>
+                </li>
+                 <!-- <li>
+                      <div class="tit"><i class="fa fa-line-chart"></i>回款</div>
+                      <div class="name">
+                          <notempty name="admin_member_danss.admin_id">
+                              <a href="/Admin/Search/index/name/回款/id/{$admin_member_danss.admin_id}/u_id/{$admin_member_danss.u_id}.html" style="color:#fff">
+                                  <else/>
+                                  <a href="javascript:;" style="color:#fff">
+                          </notempty>
+                          <img src="/Public/admin/images/no1.png">{$admin_member_danss.admin_member_id}/<span style="font-size:15px">{$admin_member_danss.hprice}</span>元</a></div>
+                  </li>-->
+              </ul>
+            <ul class="clearfix">
+                <h2 class="h2">朗苑</h2>
+                  <li>
+                      <div class="tit"><i class="fa fa-bookmark-o"></i>约见</div>
+                      <div class="name">
+                          <if condition="$langyuan.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $langyuan['admin_id'];?>/state_id/{$langyuan.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$langyuan.admin_member_id}/{$langyuan.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                  <li>
+                      <div class="tit"><i class="fa fa-pencil-square-o"></i>签单</div>
+                      <!--<div class="name"><a href="/Admin/Search/index/name/签单/id/{$admin_member_dan.admin_id}/state_id/{$admin_member_dan.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dan.admin_member_id}/{$admin_member_dan.admin_member_sun}单</a></div>-->
+                      <div class="name">
+                          <if condition="$langyuanqd.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $langyuanqd['admin_id'];?>/state_id/{$langyuanqd.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$langyuanqd.admin_member_id}/{$langyuanqd.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                  <li>
+                      <div class="tit"><i class="fa fa-check-square-o"></i>放款</div>
+                      <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                      <div class="name">
+                          <if condition="$langyuanfk.admin_member_sun neq 0">
+                          <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $langyuanfk['admin_id'];?>/state_id/{$langyuanfk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$langyuanfk.admin_member_id}/{$langyuanfk.admin_member_sun}单</a></div>
+                      <else />
+                      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png">0单</a></div>
+                      </if>
+                  </li>
+                <li>
+                    <div class="tit"><i class="fa fa-check-square-o"></i>录入</div>
+                    <!--<div class="name"><a href="/Admin/Search/index/name/成交/id/{$admin_member_dans.admin_id}/state_id/{$admin_member_dans.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$admin_member_dans.admin_member_id}/{$admin_member_dans.admin_member_sun}单</a></div>-->
+                    <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png">{$langyuanlr}单</a></div>
+                </li>
+                  <!--<li>
+                      <div class="tit"><i class="fa fa-line-chart"></i>回款</div>
+                      <div class="name">
+                          <notempty name="admin_member_danss.admin_id">
+                              <a href="/Admin/Search/index/name/回款/id/{$admin_member_danss.admin_id}/u_id/{$admin_member_danss.u_id}.html" style="color:#fff">
+                                  <else/>
+                                  <a href="javascript:;" style="color:#fff">
+                          </notempty>
+                          <img src="/Public/admin/images/no1.png">{$admin_member_danss.admin_member_id}/<span style="font-size:15px">{$admin_member_danss.hprice}</span>元</a></div>
+                  </li>-->
+              </ul>
+          </div>
+		  
+          <section class="content" style="margin:15px;background:#fff;">
+		  <if condition="(in_array('1104',$_SESSION['level']))">
+		  <!-- 统计表 -->  
+            <div class="row clearfix" style="">
+              <div class="col-lg-4">
+                <div class="panel panel-teal red-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>已放款（{$Grandsun}单/{$Grandprice}元）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href=""><a href="/Search/lender/id/1" style="color:#fff">{$Loansun}单/{$Loanprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href=""><a href="/Search/lender/id/2" style="color:#fff">{$monthsun}单/{$monthprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href=""><a href="/Search/lender/id/3" style="color:#fff">{$Grandsun}单/{$Grandprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal orange-bg" style="background-color:#A94442">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>已回款（{$Grandsuns}单/{$Grandsunsx}元）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/mulated/id/1" style="color:#fff">{$Loansuns}单/{$Loansunsx}元</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/mulated/id/2" style="color:#fff">{$monthsuns}单/{$monthsunsx}元</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/mulated/id/3" style="color:#fff">{$Grandsuns}单/{$Grandsunsx}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </if>
+		  <if condition="(in_array('1103',$_SESSION['level']))">
+		  
+			<!-- 统计表 -->  
+            <div class="row clearfix" style="">
+              <div class="col-lg-4">
+                <div class="panel panel-teal red-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>签约客户（{$monthall}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/accumuls/id/1" style="color:#fff">{$autograph}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/accumuls/id/2"  style="color:#fff">{$monthgraph}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/accumuls/id/3"  style="color:#fff">{$monthall}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+			  <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg" style="background-color:#3C8DBC">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>进件审批（{$Incomxs}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/approval/id/1"  style="color:#fff">{$Incom}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/approval/id/2"  style="color:#fff">{$Incomx}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/approval/id/3"  style="color:#fff">{$Incomxs}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal orange-bg" style="background-color:#A94442">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>进件放弃（{$Incomsxs}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/giveup/id/1"  style="color:#fff">{$Incoms}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/giveup/id/2"  style="color:#fff">{$Incomsx}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/giveup/id/3"  style="color:#fff">{$Incomsxs}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			<!-- 统计表 -->  
+            <div class="row clearfix" style="">
+              <div class="col-lg-4">
+                <div class="panel panel-teal green-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>审批通过（{$Approvedxs}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/Approved/id/1"  style="color:#fff">{$Approved}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/Approved/id/2"  style="color:#fff">{$Approvedx}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/Approved/id/3"  style="color:#fff">{$Approvedxs}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+			  <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>审批否决（{$vetoxs}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/veto/id/1"  style="color:#fff">{$veto}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/veto/id/2"  style="color:#fff">{$vetox}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/veto/id/3"  style="color:#fff">{$vetoxs}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal orange-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>成功放款（{$Successxs}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/sumnay/id/1"  style="color:#fff">{$Success}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/sumnay/id/2"  style="color:#fff">{$Successx}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/sumnay/id/3"  style="color:#fff">{$Successxs}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  <!-- 渠道 -->
+		    <script>
+			 function sm(_this,id){
+					  $(".d_sm").val(id);
+					  $(".submit_fm").submit();
+			 }
+			</script>
+			<form action="/Admin/Base/index#ai" method="GET" class="submit_fm">
+					<input type="hidden" name="sm" value="" class="d_sm">
+			</form>
+            <div class="row clearfix" style="" id="ai">
+              <div class="col-sm-12">
+                <div class="h">渠道部</div>
+                <table id="" class="table table-bordered table-hover table_arrow">
+                  <thead>
+                    <tr>
+                      <th width="10%">业务跟进人</th>
+                      <th width="10%"><span style="color:red">（总：{$sun_as}个）</span> <a href="javascript:;" onclick="sm(this,1)" 
+					  class="arrow <?php if($_GET['sm'] !=1){?>cur<?php };?>"><span></span></a>进件审批</th>
+                      <th width="10%"><span style="color:red">（总：{$sun_bs}个）</span> <a href="javascript:;" onclick="sm(this,2)" 
+					  class="arrow <?php if($_GET['sm'] !=2){?>cur<?php };?>"><span></span></a>进件放弃</th>
+                      <th width="10%"><span style="color:red">（总：{$sun_cs}个）</span> <a href="javascript:;" onclick="sm(this,3)" 
+					  class="arrow <?php if($_GET['sm'] !=3){?>cur<?php };?>"><span></span></a>审批通过</th>
+                      <th width="10%"><span style="color:red">（总：{$sun_cc}个）</span> <a href="javascript:;" onclick="sm(this,4)" 
+					  class="arrow <?php if($_GET['sm'] !=4){?>cur<?php };?>"><span></span></a>审批否决</th>   
+                      <th width="10%"><span style="color:red">（总：{$sun_ds}个）</span> <a href="javascript:;" onclick="sm(this,5)" 
+					  class="arrow <?php if($_GET['sm'] !=5){?>cur<?php };?>"><span></span></a>成功放款</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				  <foreach name="srt_arrs" item="val">
+                    <tr>
+                      <th><a href="/Admin/Uclient/channel?sou={$val.username}">{$val.username}</a></th>
+                      <th><a href="/Admin/Business/channel?sou={$val.id}&id=1">{$val.sun_a}</a></th>
+                      <th><a href="/Admin/Business/channel?sou={$val.id}&id=2">{$val.sun_b}</a></th>
+                      <th><a href="/Admin/Business/channel?sou={$val.id}&id=3">{$val.sun_c}</a></th>
+                      <th><a href="/Admin/Business/channel?sou={$val.id}&id=4">{$val.sun_cc}</a></th>
+                      <th><a href="/Admin/Business/channel?sou={$val.id}&id=5">{$val.sun_d}</a></th>
+                    </tr>
+                  </foreach>
+                  </tbody>
+                </table>
+				<div class="page">{$show}</div>
+              </div>
+            </div> 
+		  </if>
+		  <if condition="(in_array('1102',$_SESSION['level']))">
+		  <!-- 系统分配统计 -->
+            <div class="row carousel clearfix" style="">
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-tags"></i>今日
+                    </div>
+                    <div class="number">
+                        系统分配：<span><a href="/Search/today/id/1" style="color:#fff">{$tosystem}</a></span>个
+                    </div>
+                    <div class="number">
+                        录入客户：<span><a href="/Search/today/id/2" style="color:#fff">{$comtoday}</a></span>个
+                    </div>
+                    <div class="number">
+                        总　　计：<span><a href="/Search/today/id/3" style="color:#fff">{$weeks}</a></span>个
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-users"></i>本月
+                    </div>
+                    <div class="number">
+                        系统分配：<span><a href="/Search/month/id/1" style="color:#fff">{$mosystem}</a></span>个
+                    </div>
+                    <div class="number">
+                        录入客户：<span><a href="/Search/month/id/2" style="color:#fff">{$common}</a></span>个
+                    </div>
+                    <div class="number">
+                        总　　计：<span><a href="/Search/month/id/3" style="color:#fff">{$weekss}</a></span>个
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-bar-chart"></i>总计
+                    </div>
+                    <div class="number">
+                        系统分配：<span><a href="/Search/total/id/1" style="color:#fff">{$systems}</a></span>个
+                    </div>
+                    <div class="number">
+                        录入客户：<span><a href="/Search/total/id/2" style="color:#fff">{$Totals}</a></span>个
+                    </div>
+                    <div class="number">
+                        总　　计：<span><a href="/Search/total/id/3" style="color:#fff">{$total}</a></span>个
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- 统计表 -->  
+            <div class="row clearfix" style="">
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>意向客户（{$totalcom}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/intention/id/1" style="color:#fff">{$com}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/intention/id/2" style="color:#fff">{$mocom}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/intention/id/3" style="color:#fff">{$totalcom}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>约见客户（{$totalMeet}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/Meet/id/1" style="color:#fff">{$Meet}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/Meet/id/2" style="color:#fff">{$moMeet}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/Meet/id/3" style="color:#fff">{$totalMeet}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>签约客户（{$totalSign}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/accumul/id/1" style="color:#fff">{$Sign}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/accumul/id/2" style="color:#fff">{$moSign}单</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/accumul/id/3" style="color:#fff">{$totalSign}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			  <div class="row clearfix" style="" id="ai">
+              <div class="col-sm-12">
+			    
+                <div class="h"><i class="fa fa-bar-chart"></i>系统分配客户表</div>
+				<form action="/Admin/Base/index#ai" method="GET" class="submit_form">
+				<div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+					<label>
+					  日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+					  至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+					  <a href="javascript:;" onclick="tj()" class="so">确定</a>
+					</label>
+                </div>
+				</form>
+				<script>
+					 function tj(){
+					  $(".submit_form").submit();
+					 } 
+				</script>
+                <table id="" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                     <!--  <th width="10%">日期</th> -->
+                      <th width="10%">客户姓名</th>
+                      <th width="10%">时间</th>
+                      <th width="10%">姓别</th>
+                      <th width="10%">手机</th>   
+                      <th width="10%">跟进业务员</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				    <foreach name="srt_arr" item="val">
+                    <tr>
+                     <!--  <th>2017-07-06</th> -->
+                      <th><a href="/Admin/Uclient/addindex/id/{$val.id}">{$val.username}</a></th>
+                      <th>{$val.addtime|date="Y-m-d h:i",###}</th>
+                      <th><if condition="$val.sex eq 0">男<else/>女</if></th>
+                      <th><?php echo preg_replace('/(1[34587]{1}[0-9])[0-9]{4}([0-9]{4})/i','$1****$2',$val['phone']);?></th>
+                      <th>{$val.admin_id}</th>
+                    </tr>
+					</foreach>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+		  </if>
+		  <if condition="(in_array('1101',$_SESSION['level']))">
+		  
+            <!-- 系统分配统计 -->
+            <div class="row carousel clearfix" style="">
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-tags"></i>今日
+                    </div>
+                    <div class="number">
+                        系统分配：<a href="/Search/today/id/1" style="color:#fff"><span>{$tosystem}</span>个</a>
+                    </div>
+                    <div class="number">
+                        录入客户：<a href="/Search/today/id/2" style="color:#fff"><span>{$comtoday}</span>个</a>
+                    </div>
+                    <div class="number">
+                        总　　计：<a href="/Search/today/id/3" style="color:#fff"><span>{$weeks}</span>个</a>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-users"></i>本月
+                    </div>
+                    <div class="number">
+                        系统分配：<a href="/Search/month/id/1" style="color:#fff"><span>{$mosystem}</span>个</a>
+                    </div>
+                    <div class="number">
+                        录入客户：<a href="/Search/month/id/2" style="color:#fff"><span>{$common}</span>个</a>
+                    </div>
+                    <div class="number">
+                        总　　计：<a href="/Search/month/id/3" style="color:#fff"><span>{$weekss}</span>个</a>
+                    </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="carousel-inner blue">
+                    <div class="tile-icon">
+                        <i class="fa fa-bar-chart"></i>总计
+                    </div>
+                    <div class="number">
+                        系统分配：<a href="/Search/total/id/1" style="color:#fff"><span>{$systems}</span>个</a>
+                    </div>
+                    <div class="number">
+                        录入客户：<a href="/Search/total/id/2" style="color:#fff"><span>{$Totals}</span>个</a>
+                    </div>
+                    <div class="number">
+                        总　　计：<a href="/Search/total/id/3" style="color:#fff"><span>{$total}</span>个</a>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <!-- 统计表 -->  
+            <div class="row clearfix" style="">
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>累计签约（{$totalSign}单）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/accumul/id/1" style="color:#fff">{$Sign}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/accumul/id/2" style="color:#fff">{$moSign}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/accumul/id/3" style="color:#fff">{$totalSign}单</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>累计放款（{$Grandsun}单/{$Grandprice}元）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/lender/id/1" style="color:#fff">{$Loansun}单/{$Loanprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/lender/id/2" style="color:#fff">{$monthsun}单/{$monthprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/lender/id/3" style="color:#fff">{$Grandsun}单/{$Grandprice}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="panel panel-teal blue-bg">
+                  <div class="panel-heading">
+                      <h4 class="panel-title"><i class="fa fa-bar-chart"></i>累计回款（{$Grandsuns}单/{$Grandsunsx}元）</h4>
+                  </div>
+                  <div class="panel-body teal-bg">
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>今日</h3>
+                                  <div class="number"><a href="/Search/mulated/id/1" style="color:#fff">{$Loansuns}单/{$Loansunsx}元</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>本月</h3>
+                                  <div class="number"><a href="/Search/mulated/id/2" style="color:#fff">{$monthsuns}单/{$monthsunsx}元</a></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-12">
+                          <div class="tile teal m0">
+                              <div class="tile-content text-center">
+                                  <h3>总计</h3>
+                                  <div class="number"><a href="/Search/mulated/id/3" style="color:#fff">{$Grandsuns}单/{$Grandsunsx}元</a></div>                                  
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 最高管理 -->
+            <div class="row clearfix" style="" id="ai">
+              <div class="col-sm-12">
+			    
+                <div class="h"><i class="fa fa-bar-chart"></i>业务明细统计表</div>
+				<form action="/Admin/Base/index#ai" method="GET" class="submit_form">
+				<div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+					<label>
+					  日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+					  至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+					  <a href="javascript:;" onclick="tj()" class="so">确定</a>
+					</label>
+                </div>
+				</form>
+				<script>
+					 function tj(){
+					  $(".submit_form").submit();
+					 } 
+					 function sx(_this,id){
+					  $(".d_sx").val(id);
+					  $(".submit_f").submit();
+					 } 
+				</script>
+                <table id="" class="table table-bordered table-hover table_arrow">
+                  <thead>
+                    <tr>
+					<form action="/Admin/Base/index#ai" method="GET" class="submit_f">
+					<input type="hidden" name="sx" value="" class="d_sx">
+					</form>
+                     <!--  <th width="10%">日期</th> -->
+                      <th width="10%">业务员</th>
+                      <th width="10%">约见客户<span style="color:red">（总：{$sun_as}个）</span> <a href="javascript:;" onclick="sx(this,1)" 
+					  class="arrow <?php if($_GET['sx'] !=1){?>cur<?php };?>"><span></span></a></th>
+                      <th width="10%">签单<span style="color:red">（总：{$sun_bs}单）</span> <a href="javascript:;" onclick="sx(this,2)" 
+					  class="arrow <?php if($_GET['sx'] !=2){?>cur<?php };?>"><span></span></a></th>
+                      <th width="10%">成交<span style="color:red">（总：{$sun_cs}单/{$sun_cc}元）</span> <a href="javascript:;" onclick="sx(this,3)" 
+					  class="arrow <?php if($_GET['sx'] !=3){?>cur<?php };?>"><span></span></a></th>  
+                      <th width="10%">回款<span style="color:red">（总：{$sun_ds}单/{$sun_es}元）</span> <a href="javascript:;" onclick="sx(this,4)" 
+					  class="arrow <?php if($_GET['sx'] !=4){?>cur<?php };?>"><span></span></a></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+				  <foreach name="srt_arr" item="val">
+                    <tr>
+                      <th><a href="/Admin/Uclient/index?sou={$val.username}">{$val.username}</a></th>
+                      <th><a href="/Admin/Business/index?sou={$val.id}&id=1">{$val.sun_a}</a></th>
+                      <th><a href="/Admin/Business/index?sou={$val.id}&id=2">{$val.sun_b}</a></th>
+                      <th><a href="/Admin/Business/index?sou={$val.id}&id=3">{$val.sun_c}单/{$val.sun_cc}元</a></th>
+                      <th><a href="/Admin/Business/index?sou={$val.id}&id=4">{$val.sun_d}单/{$val.sun_e}元</a></th>
+                    </tr>
+					</foreach>
+                  </tbody>
+                </table>
+				<div class="page">{$show}</div>
+              </div>
+            </div>
+           </if>
+           
+          </section>    
+
+      </div>
+  </div>
+  <include file="common:js" />
+</body>
+
+</html>

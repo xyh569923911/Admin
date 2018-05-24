@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+</head>
+<style type="text/css">
+    #foonav{ display:none !important;}
+    #foonav2{ display:none !important;}
+    #example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow: hidden;}
+    #example1_filter .so:hover {background:#1F76A0;}
+    .addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+    .addall:hover{color:#fff;background:#d42020}
+    .page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+    .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+    .page a:hover,.page .on {background: #00a3ff;color:#fff}
+    .sm:focus {border-color: #3c8dbc;box-shadow: none;}
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+ <div class="wrapper">
+                            <!-- 头部 -->
+                            <include file="common:head" />
+                            <!-- 头部结束 -->
+                            <!-- 左侧 -->
+                            <include file="common:side" />
+                            <!-- 左侧结束 -->
+
+                            <div class="content-wrapper">
+                                <section class="content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box">
+                                                <div class="box-header">
+                                                    <h3 class="box-title">录音列表</h3>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div style="margin-left:30px;margin-bottom:30px">
+
+                                                        <form action="/Admin/Record/index" method="GET" class="submit_form" style="display:inline;">
+                                                            总搜索：<input type="text" name="sou" value="<?php echo $_GET['sou']?>" class=" input-sm sm" style="color: #555; background-color: #fff; background-image: none;border: 1px solid #ccc;" placeholder="" aria-controls="example1" autocomplete="off">
+                                                            <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+                                                                <label id="sjss">
+                                                                    日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                                                    至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                                                    <!-- <a href="javascript:;" onclick="tj()" id="zj" class="so">确定</a> -->
+                                                                    <input type="submit" value="搜索" class="btn btn-primary btn-sm" style="border: none;">
+                                                                </label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <div id="myTabContent" class="tab-content">
+                                                        <div class="tab-pane fade active in" id="home">
+                                                            <div class="box-body">
+
+
+                                                                <table border="1" id="lyt" cellpadding="80px" style="text-align:center" class="table table-bordered table-hover">
+                                                                    <tr>
+                                                                        <td>编号</td>
+                                                                        <td>业务员</td>
+                                                                        <td>客户</td>
+                                                                        <td>通话时间</td>
+                                                                        <td>通话时长/秒</td>
+                                                                        <td>录音</td>
+                                                                    </tr>
+                                                                    <foreach name="data" item="val" >
+                                                                        <tr>
+                                                                            <td>{$val['id']}</td>
+                                                                            <td>{$val['admin_id']}</td>
+                                                                            <td>{$val['u_id']}</td>
+                                                                            <td>{$val['start_time']}</td>
+                                                                            <td>{$val['duration']}</td>
+                                                                            <td><audio class='autos' controls='controls' src="{$val['url']}">Your browser does not support the audio element</audio></td>
+                                                                        </tr>
+                                                                    </foreach>
+                                                                </table>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="page">  {$show} </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                        </div>
+
+
+
+  <include file="common:js" />
+
+  </body>
+</html>

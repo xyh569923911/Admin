@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        .box .wrappers {
+            width: 1234px;
+            height: 50px;
+            margin-top: 200px;
+        }
+        .box .wrappers li {
+            position: relative;
+            float: left;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            margin-right: -13px;
+            text-align: center;
+
+        }
+        .box .wrappers li a {
+            color: #fff;
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            width: 150px;
+            font-size: 17px;
+        }
+        .box .wrappers li img {
+            width: 150px;
+            height: 50px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all 0.5s;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 500px;width: 1350px;">
+                     <h3 class="box-title"><a href="/Admin/CarLoan/index">车贷客户</a>>确认信息</h3>
+                        <div class="information">
+                            <ul class="wrappers">
+                                <li>
+                                    <img src="/Public/admin/images/green.png" alt="">
+                                    <a href="">申请中</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="27">
+                                    <a href="/Admin/CarLoan/carone" class="urls">评估</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="28">
+                                    <a href="/Admin/CarLoan/cartwo" class="urls">上传资料</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="29">
+                                    <a href="/Admin/CarLoan/carthree" class="urls">审批</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="30">
+                                    <a href="/Admin/CarLoan/carfour" class="urls">签合同</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="31">
+                                    <a href="/Admin/CarLoan/carfive" class="urls">验车</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="32">
+                                    <a href="/Admin/CarLoan/carsix" class="urls">放款</a>
+                                </li>
+                                <li>
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="33">
+                                    <a href="/Admin/CarLoan/settlement" class="urls">结清</a>
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<!-- <include file="common:js" /> -->
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script>
+    $(function(){
+        var url=document.URL;
+        var  getval =url.split('?')[1];
+        var  getvals=getval.split('&')[0];
+        $('.urls').each(function(){
+            var urls=$(this).attr('href')+'?'+getvals;
+            $(this).attr('href',urls);
+        });
+
+        //读取状态
+        var stat=getval.split('&')[1];
+        var stats=stat.split('=')[1];
+        $(".state").each(function(){
+            if($(this).attr('name')<=stats){
+                $(this).attr('src','/Public/admin/images/green1.png');
+            }
+            // alert($(this).attr('s'));
+        });
+
+        //滑动效果
+        var $li=$('.wrapper li');
+        $li.hover(function () {
+            index=$(this).index();
+            $img=$(this).find('img');
+            $img.css('transform','scale(1.07)');
+            if (index==0) {
+                $img.attr('src','/Public/admin/images/green-hover.png');
+            }else if ($img.attr('src')=='/Public/admin/images/green1.png' && $img.attr('name')<=stats){
+                $img.attr('src','/Public/admin/images/green1-hover.png');
+            }
+            else {
+                $img.attr('src','/Public/admin/images/gray-hover.png');
+            }
+        },function () {
+            $img.css('transform','scale(1)');
+            if (index==0) {
+                $img.attr('src','/Public/admin/images/green.png');
+            }else if ($img.attr('src')=='/Public/admin/images/green1-hover.png' && $img.attr('name')<=stats){
+                $img.attr('src','/Public/admin/images/green1.png');
+            }else {
+                $img.attr('src','/Public/admin/images/gray.png');
+            }
+        })
+
+
+
+        function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+    })
+</script>
+</body>
+</html>

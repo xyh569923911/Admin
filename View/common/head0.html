@@ -1,0 +1,126 @@
+<style type="text/css">
+.main-header{ position:absolute;}
+.logo{ position:fixed;}
+a.bule {background:#0072bc;}
+a.green {background:#00a651;}
+a.red {background:#d42020;}
+a.orange{background:#ff7e00;}
+a.bule .fa, a.bule:hover {background:#005993;}
+a.green .fa, a.green:hover {background:#007d3d;}
+a.red .fa, a.red:hover {background:#b11b1b;}
+a.orange .fa, a.orange:hover {background:#e26000;}
+li.bule:hover,li.bule.cur {background:#0072bc;color:#fff}
+li.green:hover,li.green.cur {background:#00a651;color:#fff}
+li.red:hover,li.red.cur {background:#d42020;color:#fff}
+li.bule:hover a,li.bule.cur a{color:#fff}
+li.green:hover a,li.green.cur a{color:#fff}
+li.red:hover a,li.red.cur a{color:#fff}
+.h-name {display:inline-block;height: 60px;line-height: 90px;font-size: 24px;margin-left:15px;}
+.box-header .addindex{float: right;display: block;width: 100px;height: 30px;line-height: 30px;color: #fff;font-size: 16px;background:#00A651;border-radius: 3px;text-align: center;margin-top: 15px;}
+.box-header .addindex:hover {background:#007D3D;}
+.box-header .addindex i{font-size: 18px;margin-right: 5px;}
+.navbar-nav>li.off a label .form-radio {float: left;width:17px;height: 17px;margin: 2px 6px 0px 0px;}
+.navbar-nav>li.off a label {font-size: 15px;}
+.navbar-nav>li.off {margin-right: 50px;}
+.navbar-nav>li.off>span {font-size: 18px;}
+.navbar-nav>li.off>a {padding:6px;display: inline-block;vertical-align: middle;color:#333;margin-top: 9px;}
+</style>
+<header class="main-header">
+  <!-- Logo -->
+  <a href="/Admin/Index/index.html" class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><img src="/Public/admin/images/logos.png" alt=""></span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><!--  <--><img width="230px" src="/Public/admin/images/logo.jpg" alt=""></span>
+  </a>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top" role="navigation">
+    <!-- Sidebar toggle button-->
+   <!--  <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+      <span class="sr-only"></span>
+    </a> -->
+    <span class="h-name">冠成金服客户服务管理系统</span>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav" style="margin:20px 6px 0 0">        
+        <!-- User Account: style can be found in dropdown.less -->
+		<?php if(in_array('1101',$_SESSION['level'])){?>
+		<li class="dropdown user user-menu">
+          <div class="form-group" style="margin-top: 10px;">
+		      <a href="javascript:;" style="margin-top:7px;float:left;color:#000" >分配时间(分):</a>
+			  <div class="col-md-6">
+				<input type="text" class="form-control requires times" value="<?php echo $base['time']?>"  placeholder="分钟" >
+			  </div>
+			  <a href="javascript:;" style="margin-top:1px" onclick="times()" class="btn btn-primary btn-sm">确定</a>
+		  </div>
+        </li>
+		<?php }?>
+		<?php if($admin_level['types']==1){if(in_array($_SESSION['aid'],$level_y)){?>
+        <li class="dropdown user user-menu off">
+          <span style="display: inline-block;vertical-align: middle;margin-top:5px;">系统分配：</span>
+          <a href="javascript:;" style="color:#0FAD6B;">
+            <label for="on" style="cursor: pointer;">
+              <input type="radio" id="on" class="form-radio" name="sex" <if condition="$admin_level['type'] eq 0">checked</if> onclick="kaiq(1)" value="开启" checked >开启
+            </label>
+          </a>
+          <a href="javascript:;" style="color:#f00;">
+             <label for="off" style="cursor: pointer;">
+              <input type="radio" id="off" class="form-radio" name="sex" <if condition="$admin_level['type'] eq 1">checked</if> onclick="kaiq(2)" value="关闭">关闭
+            </label>
+          </a>
+        </li>
+        <?php }}?>
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle bule" data-toggle="dropdown">
+            <i class="fa fa-user"></i>
+            <span class="hidden-xs"><?php echo $_SESSION['rank_name'];?>：<?php echo $_SESSION['aname'];?></span>
+          </a>          
+          <ul class="dropdown-menu">
+            
+            <li class="user-footer">
+              <div class="pull-left">
+                <a href="{:U('Admin/Base/test')}" class="btn btn-default btn-flat">密码修改</a>
+              </div>
+              <div class="pull-right">
+                <a href="{:U('Admin/Login/loginOut')}" class="btn btn-default btn-flat">退出登录</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown user user-menu">
+          <a href="javascript:clearHtml();" class="green"><i class="fa fa-spinner"></i>清除缓存({$huanc})</a>
+        </li>
+        <li class="dropdown user user-menu">
+          <a href="{:U('Admin/Login/loginOut')}" class="red"><i class="fa fa-power-off"></i>退出登录</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<div style="width:100%;height:100px;"></div>
+<script>
+     //设置每隔1000毫秒执行一次load() 方法  
+    var myIntval=setInterval(function(){load();},20000);  
+    function load(){  
+			$.post("/Admin/Uclient/zdtime",function (data){
+			  console.log(data);
+			})
+         } 
+	  function kaiq(id){
+     $.post("/Admin/Uclient/onoff",{id:id},function (data){
+		
+	 })
+   } 
+
+    function times(){
+     var times=$(".times").val();
+	 if(times<5){
+	  alert("请填写5分钟以上的时间！");return false;
+	 }
+     $.post("/Admin/Common/times",{id:times},function (data){
+	     if(data == 1){
+		 alert("时间修改成功");
+		 }
+			// alert(data);
+	 })
+   }    
+</script>

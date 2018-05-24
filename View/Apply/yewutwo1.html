@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <style>
+   .form-group .complish,.form-group .complish1 {
+    display: none;
+   }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+             <div class="col-md-12">
+              <div class="box" style="height: auto;">
+             <h3 class="box-title"><a href="/Admin/Monetary/listCustomer">现金客户</a>><a style="cursor: pointer;" class="goback">还回流程条</a></h3>
+                <div class="information">
+                    <div class="sectionOne">
+                        <h4 class="h4">贷前资料收集</h4>
+                            <form action="/Admin/Apply/qr_info" method="post" enctype="multipart/form-data" id="info_form1" onsubmit="return checkform()">
+                                
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                <p style="margin-left: 63px;">1、身份证：</p>
+                                    <label class="property" style="margin-left: 90px;">本人身份证</label>
+                                    <input style="left: 38px;" type="file"  id="path6" name="id_card">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path6.click()">
+                                    <a href="/Admin/Apply/preview?zd=id_card&id=" target="_blank" 
+                                    class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="id_card">预览</a>
+                                </div>
+                                 <div class="form-group" style="margin-bottom: -15px;left: 38px;">
+                                    <label class="property" style="margin-left: 90px;">验证身份证</label>
+                                    <input style="left: 38px;position: relative;" type="file" id="path70" name="yz_card">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path70.click()">
+                                    <a href="/Admin/Apply/preview?zd=yz_card&id=" target="_blank" 
+                                    class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="yz_card">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 90px;">配偶身份证</label>
+                                    <input style="left: 38px;" type="file" id="path7" name="poid_card">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path7.click()">
+                                    <a href="/Admin/Apply/preview?zd=poid_card&id=" target="_blank" 
+                                    class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="poid_card">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 66px;">2、房产证：</label>
+                                    <input style="left: 51px;"  type="file" id="path5" name="house_certificate">
+                                    <input style="left:15px;" type="button" class="choose" value="选择文件" onclick="path5.click()">
+                                    <a href="/Admin/Apply/preview?zd=house_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 165px;" name="house_certificate">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 66px;">3、征信：</label>
+                                     <div class="left-left">
+                                         <p>
+                                        <label><input type="radio" id="select5" class="qytype1" name="creditall" <?php if($data['creditall']==1) echo checked ?> value="1" >陪同打印</label>
+                                         <label class="complish">陪同人：<input name="attendant" type="text" value="{$data['attendant']}"></label>
+                                        </p>
+                                        <p style="margin-left: 138px;"><label><input type="radio" class="qytype qytype1" name="creditall" <?php if($data['creditall']==2) echo checked ?> value="2" >客户自带</label></p>
+                                        <p style="margin-left: 138px;"><label><input type="radio" id="oral" class="qytype" name="creditall" <?php if($data['creditall']==3) echo checked ?> value="3" >口述</label></p>
+                                    </div>
+                                    <div class="right-right">
+                                        <div class="form-group" style="margin-left: -37px;">
+                                   
+                                    <label class="oral" style="margin-left:105px;display:none;margin-left: 176px;"><textarea name="oral_content" cols="60p" rows="5">{$data['oral_content']}</textarea></label>
+                                        </div>
+                                    </div>
+                                
+
+
+                                    <label class="property" style="margin-left: 90px;">征信文件：</label>
+                                    <input style="left: 38px;"  type="file" id="path3" name="credit">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path3.click()">
+                                    <a href="/Admin/Apply/preview?zd=credit&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="credit">预览</a>
+                                </div>
+                                
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 66px;">4、流水：</label>
+                                    <p>
+                                        <label><input type="radio" name="flowall" <?php if($data['flowall']=="1") echo checked ?> value="1" >网银下载</label>
+                                    </p>
+                                    <p style="margin-left: 140px;">
+                                        <label><input type="radio" name="flowall" <?php if($data['flowall']=="2") echo checked ?> value="2" >自带</label>
+                                    </p>
+                                    <label class="property" style="margin-left: 90px;">流水文件：</label>
+                                    <input style="left: 38px;"  type="file" id="path4" name="flow">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path4.click()">
+                                    <a href="/Admin/Apply/preview?zd=flow&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="flow">预览</a>
+                                </div> 
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-48px;">5、营业执照：</label>
+                                    <input style="left:38px;"  type="file" id="path9" name="b_license">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path9.click()">
+                                    <a href="/Admin/Apply/preview?zd=b_license&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="b_license">预览</a>
+                                </div>
+                                <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                <!-- <input type="submit" value="提&nbsp;&nbsp;交" class="tjs"> -->
+                                <script>
+                                $('#select5').click(function () {
+                                    $('.complish').show();
+                                })
+                                $('.qytype').click(function () {
+                                    $('.complish').hide();
+                                })
+                                $('#oral').click(function () {
+                                    $('.oral').show();
+                                })
+                                $('.qytype1').click(function () {
+                                    $('.oral').hide();
+                                })
+                                
+                            </script>
+                            
+                    </div>
+                    <div class="sectionOne" style="display: none;">
+                        <h4 class="h4">确认信息</h4>
+                            <div class="form-group" style="margin-left: -107px;margin-bottom: 10px;">
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"1")) echo checked ?> value="1" class="identity">身份证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"2")) echo checked ?> value="2" >房产证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"3")) echo checked ?> value="3" >户口本</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"4")) echo checked ?>  value="4" >结婚证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"5")) echo checked ?> value="5" >按揭合同原件 </label>
+                                </div>
+                            <p style="margin:10px;margin-left:70px;color:red">(提示：上传的文件格式压缩包-'rar', 'zip'；图片-'jpg', 'gif', 'png', 'jpeg',文件大小不要超过5M)</p>
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <label class="property" style="margin-left: 70px;">房产信息查档：</label>
+                                <input style="left: 38px;" type="file" id="path1" name="housing" onchange="upfile.value=this.value">
+                                <input style="left: 0px;" type="button" class="choose" value="选择文件" onclick="path1.click()">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <label class="property" style="margin-left: 70px;">民间负债查档：</label>
+                                <input style="left: 38px;" type="file" id="path2" name="liabilities">
+                                <input style="left: 0px;text-align: center;" ype="button" class="choose" value="选择文件" onclick="path2.click()">
+                            </div>
+                    </div>
+                   
+                    <div class="sectionFive" style="display: none;">
+                        <p>房产评估值 :<input type="number" value="{$data['appraisement']}" name="appraisement"> 万元</p>
+                        <p>婚姻状态 :
+                            <label class="marry_1"><input type="radio" value="1" name="qrmaritalstatus" <?php if($data['qrmaritalstatus']=="1") echo checked ?>>已婚</label>
+                            <label class="marry_2"><input type="radio" value="2" name="qrmaritalstatus" <?php if($data['qrmaritalstatus']=="2") echo checked ?>>未婚</label>
+                            <span class="outinput" style="margin-left: 15px;">
+                                (配偶是否可以签字：
+                                <label><input type="radio" value="1" name="sign" <?php if($data['sign']=="1") echo checked ?>>是</label>
+                                <label><input type="radio" value="2" name="sign" <?php if($data['sign']=="2") echo checked ?>>否</label>)
+                                </span>
+                        </p>
+                        <p>职业信息 :
+                            <label class="myself_1"><input type="radio" value="1" name="occupational" <?php if($data['occupational']=="1") echo checked ?>>自雇</label>
+                            <label class="myself_2"><input type="radio" value="2" name="occupational" <?php if($data['occupational']=="2") echo checked ?>>受薪</label>
+                            <span style="margin-left: 15px;" class="social_1">
+                                    ( <label><input type="radio" value="1" name="self_employed" <?php if($data['self_employed']=="1") echo checked ?>>半年内</label>
+                                <label><input type="radio" value="2" name="self_employed" <?php if($data['self_employed']=="2") echo checked ?>>半年以上</label>
+                                <label><input type="radio" value="3" name="self_employed" <?php if($data['self_employed']=="3") echo checked ?>>一年以上</label>)
+                                </span>
+                            <span style="margin-left: 15px;" class="social_2">社保:
+                                    ( <label><input type="radio" value="1" name="social_security"  <?php if($data['social_security']=="1") echo checked ?>>6个月以下</label>
+                                <label><input type="radio" value="2" name="social_security" <?php if($data['social_security']=="2") echo checked ?>>6~12个月</label>
+                                <label><input type="radio" value="3" name="social_security" <?php if($data['social_security']=="3") echo checked ?>>一年以上</label>)
+                                </span>
+                        </p>
+                        <p style="margin-left: 0px;">能否考察公司 :
+                            <label><input type="radio" value="1" name="investigate" <?php if($data['investigate']=="1") echo checked ?>>是</label>
+                            <label><input type="radio" value="2" name="investigate" <?php if($data['investigate']=="2") echo checked ?>>否</label>
+                        </p>
+                    </div>
+                    <script>
+                        $('.marry_1').click(function () {
+                            $('.outinput').show();
+                        })
+                        $('.marry_2').click(function () {
+                            $('.outinput').hide();
+                        })
+                        $('.myself_1').click(function () {
+                            $('.social_2').hide();
+                            $('.social_1').show();
+                        })
+                        $('.myself_2').click(function () {
+                            $('.social_1').hide();
+                            $('.social_2').show();
+                        })
+                    </script>
+                    <div class="sectionSix" style="display: none;">
+                        <label style="position: relative;bottom: 77px;">房贷方案</label>
+                        <textarea cols="50" rows="4" name="housing_loan"><?php if($data['housing_loan']) echo $data['housing_loan'] ?></textarea>
+                    </div>
+                    <div class="sectionSix" style="display: none;">
+                        <label style="position: relative;bottom: 77px;">信贷方案</label>
+                        <textarea cols="50" rows="4" name="credit_scheme"><?php if($data['credit_scheme']) echo $data['credit_scheme'] ?></textarea>
+                    </div>
+                    <div class="sectionSix" style="display: none;">
+                        <label style="position: relative;bottom: 77px;margin-left: 30px;right: 25px;">建议</label>
+                        <textarea cols="50" rows="4" name="proposal"><?php if($data['proposal']) echo $data['proposal'] ?></textarea>
+                    </div>
+                    <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 72px;">
+                    <a href="/Admin/Apply/over?state_id=18&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:88px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                    </form>
+                    <input type="hidden" id="xszd" value="{$str}">
+                  </div>
+                 </div>
+                </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+   
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+   
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+     $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+
+    $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+</script>
+</body>
+</html>

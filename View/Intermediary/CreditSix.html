@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        .btn {
+            font-size: 15px;
+        }
+        .btn1{
+            border: 1px solid #ccc;
+            background: #00A2D4;
+            color: #fff;
+            width: 110px;
+        }
+        .preview{
+            position:relative;
+            top:-60px;
+            left: 260px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                        <h3 class="box-title"><a href="/Admin/Intermediary/index">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/Credit?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                            <h4 class="h4">收款</h4>
+                            <form action="/Admin/Intermediary/public_fun" method="post" id="info_form2" enctype="multipart/form-data">
+                                <div style="margin-left:40px;font-size: 15px;margin-bottom:10px;">
+                                    <label class="charge"><input type="radio" class="identity" name="receivables" value="1" style="margin-left:10px;" <?php echo $data['receivables']=='1'?'checked':'' ?>>代扣</label>
+
+                                    <label class="charge"><input type="radio" class="identity" name="receivables" value="2" style="margin-left:10px;" <?php echo $data['receivables'] =='2'?'checked':'' ?>>转账</label>
+                                </div>
+                                <p style="margin-left: 49px;font-size: 16px;">收款金额</p>
+                                <div style="margin-left:40px;font-size: 15px;margin-bottom:10px;">
+                                    （1）定金：<input type="text" style="margin-left: 19px;width: 150px;"  name="deposit" value="{$data['deposit']}">
+                                </div>
+                                <div style="margin-left:40px;font-size: 15px;margin-bottom:10px;">
+                                    （2）尾款：<input type="text" style="margin-left: 19px;width: 150px;"  name="tail_money" value="{$data['tail_money']}">
+                                </div>
+
+                                <input type="hidden" value="{$data['cid']}" name="id" id="ids">
+                                <input type="hidden" value="CreditSix" name="step">
+                                <input type="submit" style="margin-left:68px;" value="提&nbsp;&nbsp;交" class="tjs">
+                                <a href="/Admin/Intermediary/over/s/sixtime?state_id=12&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                            </form>
+                            <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    </section>
+</div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[ids.length-1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[ids.length-1]);
+
+    $(".preview").each(function(){
+        var ss=$(this).attr('href');
+        $(this).attr('href',ss+ids[ids.length-1]);
+    });
+
+    $(function(){
+        var str=$("#xszd").val().split(',');
+
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                $(this).css('visibility','hidden');
+            }
+
+        });
+
+    });
+</script>
+</body>
+</html>

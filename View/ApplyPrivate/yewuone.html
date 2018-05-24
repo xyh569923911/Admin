@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:headPrivate" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:sidePrivate" />
+    <!-- 左侧结束 -->
+
+    <style type="text/css">
+        h4 {
+            font-size: 15px;
+        }
+    </style>
+
+<div class="content-wrapper">
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box" style="height:auto;">
+             <h3 class="box-title"><a href="/Admin/MonetaryPrivate/listCustomer">现金客户</a>><a style="cursor: pointer;" class="goback" href="http://47.92.119.237/Admin/MonetaryPrivate/yewuall?id={$id}&ss={$sid}">返回流程条</a></h3>
+                <div class="information">
+                    <div class="sectionOne">
+                        <h4 class="h4">客户信息查询</h4>
+                        
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <p class="property" style="margin-left: 70px;">1、法律诉讼查询 : </p>
+                                 <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="http://zhixing.court.gov.cn/search/" target="_blank" class="btn btn1" >全国</a>
+                                <input type="file" style="top: 3px;" id="path5" name="qg_law" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path5.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="qg_law" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -30px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=qg_law&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="qg_law">预览</a>
+                                <form style="position: relative;bottom: 50px;" action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="http://ssfw.szcourt.gov.cn/szcourt/frontend/anjiangongkai/caseOpen/zxaj;jsessionid=F489810E3C4DBE42E21F2E23D0CA3291?check=8" target="_blank" class="btn btn1" style="top: 17px;right: -70px;">深圳</a>
+                                <input type="file" id="path6" name="sz_law" style="bottom: 13px;" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" style="bottom: 40px;" onclick="path6.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="sz_law" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -42px;left: 300px;">
+                                   <a href="/Admin/ApplyPrivate/preview?zd=sz_law&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -43px;left: 322px;" name="sz_law">预览</a>
+                                </form>
+                            </div>
+                            <div class="form-group" style="margin-top: -72px;">
+                                <p class="property" style="margin-left: 70px;">2、企业经营情况查询 : </p>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="http://www.qichacha.com/" target="_blank" class="btn btn1" style="right: 150px;">企查查</a>
+                                <input type="file" style="top: 3px;" id="path7" name="qcc" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="qcc" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=qcc&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="qcc">预览</a>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data" style="margin-top: -68px;">
+                                <a href="http://www.qixin.com/" target="_blank" class="btn btn1" style="right: -70px;">启信宝</a>
+                                <input type="file" style="top: 3px;" id="path7" name="qxb" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="qxb" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=qxb&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="qxb">预览</a>
+                            </div>
+                            <div class="form-group" style="margin-top: -60px;">
+                                <p class="property" style="margin-left: 70px;">3、房产监控 : </p>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="http://risk.xiaocelue.cn" target="_blank" class="btn btn1" style="right: 90px;">查询</a>
+                                <input type="file" style="top: 3px;" id="path8" name="house_monitor" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="结果上传" onclick="path8.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="house_monitor" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=house_monitor&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="house_monitor">预览</a>
+                            </div>
+                            <div class="form-group" style="margin-top: -60px;">
+                                <p class="property" style="margin-left: 70px;">4、房产估价 : </p>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="http://evs3.worldunion.cn/" target="_blank" class="btn btn1" style="right: 90px;">世联</a>
+                                <input type="file" style="top: 3px;" id="path9" name="sl" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="结果上传" onclick="path9.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="sl" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=sl&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="sl">预览</a>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data" style="margin-top: -68px;">
+                                <a href="https://sz.lianjia.com/?utm_source=baidu&utm_medium=pinzhuan&utm_term=biaoti&utm_content=biaotimiaoshu&utm_campaign=sousuo" target="_blank" class="btn btn1" style="right: -70px;">链家</a>
+                                <input type="file" style="top: 3px;" id="path10" name="lj" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="结果上传" onclick="path10.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="lj" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=lj&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="lj">预览</a>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data" style="margin-top: -68px;">
+                                <a href="https://shenzhen.leyoujia.com/?utm_source=220&utm_medium=a1&utm_campaign=144909&utm_content=01&utm_term=bdpz01" target="_blank" class="btn btn1" style="right: -70px;">乐有家</a>
+                                <input type="file" style="top: 3px;" id="path11" name="lyj" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="结果上传" onclick="path11.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="lyj" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=lyj&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="lyj">预览</a>
+                            </div>
+                            <div class="form-group" style="margin-top: -60px;">
+                                <p class="property" style="margin-left: 70px;">5、民间查询 : </p>
+                                <form action="/Admin/ApplyPrivate/yewuone" method="post" enctype="multipart/form-data">
+                                <a href="#" class="btn btn1" style="right: 90px;">查询</a>
+                                <input type="file" style="top: 3px;" id="path8" name="folk_inquiries" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="结果上传" onclick="path8.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="folk_inquiries" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -29px;left: 300px;">
+                                </form>
+                                <a href="/Admin/ApplyPrivate/preview?zd=folk_inquiries&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="folk_inquiries">预览</a>
+                            </div>
+
+
+                            <div class="form-group" style="margin-top: -60px;">
+                                <form action="/Admin/ApplyPrivate/yewuoneadd" method="post">
+                                <div class="sectionTwo">
+                                   <h4 class="credit" style="margin: 0 0 10px 0px ;">6、征信查询情况：</h4>
+                                   <div class="form-group">
+                                       <label class="property">征信2个月内查询次数 : </label>
+                                       贷款审批 : <input type="number" name="two_dksp" value="{$data['two_dksp']}" required> 次,
+                                       行用卡审批 : <input type="number" name="two_xyksp" value="{$data['two_xyksp']}" required> 次
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="property">征信3个月内查询次数 : </label>
+                                       贷款审批 : <input type="number" name="three_dksp" value="{$data['three_dksp']}" required> 次,
+                                       行用卡审批 : <input type="number" name="three_xyksp" value="{$data['three_xyksp']}" required> 次
+                                   </div>
+                                   <div class="form-group">
+                                       <label class="property">征信6个月内查询次数 : </label>
+                                       贷款审批 : <input type="number" name="six_dksp" value="{$data['six_dksp']}" required> 次,
+                                       行用卡审批 : <input type="number" name="six_xyksp" value="{$data['six_xyksp']}" required> 次
+                                   </div>
+                               </div>
+                               <div class="sectionThree">
+                                    <div class="first">
+                                        <label class="thanmore">信用卡逾期次数 : </label>
+                                        半年内<input type="number" value="{$data['half_year']}" name="half_year">次，
+                                        两年内<input type="number" value="{$data['two_year']}" name="two_year">次
+                                    </div>
+                                    <div class="second">
+                                        <label>贷款逾期次数 : </label>
+                                        &nbsp;&nbsp;&nbsp;半年内<input type="number" value="{$data['dkhalf_year']}" name="dkhalf_year">次，
+                                        两年内<input type="number" value="{$data['dktwo_year']}" name="dktwo_year">次
+                                    </div>
+                                </div>
+                                <div class="sectionFour">
+                                    <h4 class="h4" style="margin-top: 20px;font-size: 15px;">7、征信显示负债情况</h4>
+                                    <p>贷款余额：&nbsp;&nbsp;&nbsp;<input type="number" value="{$data['dkye']}" name="dkye">万元</p>
+                                    <p>信用贷余额：<input type="number" value="{$data['credits']}" name="credits">万元</p>
+                                    <p>小额余额：&nbsp;&nbsp;&nbsp;<input type="number" value="{$data['xeye']}" name="xeye">万元</p>
+                                    <p>信用卡总额：<input type="number" value="{$data['xykze']}" name="xykze">万元
+                                        <label style="margin-left: 10px;">当前已用：<input type="number" name="xykyy" value="{$data['xykyy']}">万元</label>
+                                    </p>
+                                </div>
+                                <input type="hidden" value="" name="id" class="ids">
+                                <!-- <input  type="submit" class="btn btn1" style="position:relative;top: 0px;left: 300px;"> -->
+                                <!-- </form> -->
+                            </div>
+
+
+                            <div class="form-group" style="margin-left: 113px;">
+                            <!-- <a href="/Admin/ApplyPrivate/downloadpic?id=" target="_blank" class="btn btn1 downloadpic" style="right: -122px;top: 0px;background: #66cd00";>提交</a> -->
+                            <input  type="submit" class="btn btn1" style="position:relative;top: 0px;left: 120px;background: #66cd00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </form>
+                            <a href="/Admin/ApplyPrivate/downloadpic?id=" target="_blank" class="btn btn1 downloadpic" style="right: -122px;top: 0px;background: #66cd00";>生成文档</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="/Admin/ApplyPrivate/over?state_id=19&id=" target="_blank" class="btn btn1 over" style="right: -122px;top: 0px;background: #66cd00";>完成</a>
+                                <!-- <button class="btn btn1" style="right: -122px;top: 0px;background: #66cd00";>生成文档</button> -->
+                                <input type="hidden" id="xszd" value="{$str}">
+                            </div>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+        var url=document.URL;
+        var ids=url.split('=');
+        $(".ids").val(ids[1]);
+        var dlc=$(".downloadpic").attr('href');
+        $(".downloadpic").attr('href',dlc+ids[1]);
+        //完成
+        var dlc=$(".over").attr('href');
+        $(".over").attr('href',dlc+ids[1]);
+
+        $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+
+        $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+       
+       $(".goback").click(function(){
+        window.history.back();
+        });
+</script>
+</body>
+</html>

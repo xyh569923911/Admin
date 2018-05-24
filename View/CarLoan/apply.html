@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="__PUBLIC__/laydate/laydate.js"></script>
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .img {
+        width: 1280px;
+        padding-bottom: 50px;
+        background-size: 1280px 800px;
+        font-size: 30px;
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+    }
+    li {
+        list-style: none;
+    }
+    a,input {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    ul {
+        position: absolute;
+        bottom:0;
+    }
+    li {
+        width: 408px;
+        height: 200px;
+        line-height: 200px;
+        background: rgba(0,0,0,0.6);
+        float: left;
+        border-right: 1px solid #fff;
+        text-align: center;
+    }
+    li:not(:first-child) img {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        top: 8px;
+        padding-right: 15px;
+    }
+    li:first-child img {
+        width: 300px;
+        margin-top: 55px;
+    }
+    a {
+        color: #fff;
+    }
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+        margin-bottom: 22px;
+    }
+    .left {
+        text-align: left;
+        float: left;
+    }
+    .left img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        width: 22px;
+    }
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    #form {
+        width: 1010px;
+        /*height: 500px;*/
+        /*background: red;*/
+        margin: 50px auto;
+        box-sizing: border-box;
+        color: #333;
+    }
+    .grounp {
+        width: 500px;
+        height: 50px;
+        line-height: 50px;
+        background: #fff;
+        box-sizing: border-box;
+        border: 1px solid #cecece;
+        margin-bottom: 10px;
+        float: left;
+        margin-right: 10px;
+    }
+    .grounp:nth-of-type(2n) {
+        margin-right: 0px;
+    }
+    input::-ms-input-placeholder{color:#dadada}
+    input::-webkit-input-placeholder{color:#dadada}
+    input::-moz-placeholder{color:#dadada}
+    .input,.select {
+        width: 255px;
+        height: 42px;
+        line-height: 42px;
+        margin-left: 30px;
+        position: relative;
+        bottom: 6px;
+        border: none;
+        outline: none;
+        font-size: 21px;
+    }
+    .select {
+        width: 258px;
+    }
+    .select {
+        color: #747474;
+        bottom: 2px;
+    }
+    label {
+        margin-left: 10px;
+        position: relative;
+        bottom: 4px;
+        font-size: 22px;
+        color: #747474;
+        letter-spacing: 3px;
+    }
+    .button {
+        color: #fff;
+        background: #d9a229;
+        width: 1000px;
+        display: block;
+        margin:0 auto;
+        outline: none;
+        font-size: 30px;
+        box-shadow: 2px 2px 2px #a0a0a0;
+        border-radius: 6px;
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        position: relative;
+        top: 20px;
+    }
+    h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        font-weight: normal;
+        color: #5b5555;
+    }
+    .border {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .span {
+        color: red;
+        position: relative;
+        top:6px;
+    }
+    .border_specialy {
+        position: relative;
+    }
+    .grounp_specialy {
+        position: relative;
+    }
+    .grounp_specialy .inputs {
+        position: absolute;
+        left: 196px;
+        top: 0px;
+        font-size: 19px;
+    }
+    .two {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 497px;
+        height: 528px;
+        border: 1px solid #cecece;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .mores {
+        width: 100px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid #ccc;
+        margin-top: 63px;
+        background: #bbbbc2;
+        color: #fff;
+        font-size: 20px;
+        border-radius: 10px;
+        outline: none;
+        cursor: pointer;
+        margin-bottom: 15px;
+    }
+    input[type=checkbox] {
+        width: 18px;
+        height: 15px;
+        margin-right: 5px;
+    }
+    .dispaly1 {
+        display: none;
+    }
+    /*.two img {*/
+        /*!*width: 100%;*!*/
+        /*height: 100%;*/
+    /*}*/
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <div class="left">
+            <a href="http://47.92.119.237:8888/Signing/"><img src="http://47.92.119.237:8888/img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">车贷业务申请表</span>
+    </div>
+    <form <?php echo  $data['username']!=''? "action='/Admin/CarLoan/info_upd'" : "action='/Admin/CarLoan/add'" ?> method="post" id="form">
+        <h2>个人信息</h2>
+        <div class="border border_specialy" style="height: 920px;">
+            <div class="grounp">
+                <label for="input0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>申请人姓名</label>
+                <input name="username" type="text" placeholder="必填" id="input0" value="{$data.username}" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>性别</label>
+                <select required name="sex" id="input1" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['sex']==1? selected:'' ?> value="1">男</option>
+                    <option <?php echo $data['sex']==2? selected:'' ?> value="2">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>婚姻状况</label>
+                <select required name="marital_status" id="input2" class="select">
+                    <option value="0">请选择</option>
+                    <option <?php echo $data['marital_status']==1? selected:'' ?> value="1">未婚</option>
+                    <option <?php echo $data['marital_status']==2? selected:'' ?> value="2">已婚</option>
+                    <option <?php echo $data['marital_status']==3? selected:'' ?> value="3">离异</option>
+                    <option <?php echo $data['marital_status']==4? selected:'' ?> value="4">丧偶</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件类型</label>
+                <input type="text" name="certificates" placeholder="必填" id="input3" value="{$data.certificates}" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件号码</label>
+                <input type="text" name="cardnum" placeholder="必填" value="{$data.cardnum}" id="input4" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>证件到期日</label>
+                <input type="text" name="maturity" placeholder="必填"  value="{$data.maturity}" id="input5" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>出生日期</label>
+                <input type="text" name="birthday" placeholder="必填"  value="{$data.birthday}" id="input7" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>年龄</label>
+                <input type="number" name="age" placeholder="必填" id="input8" value="{$data.age}" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>民族</label>
+                <input type="text" name="nation"  value="{$data.nation}" placeholder="必填" id="input9" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>职业</label>
+                <input type="text" name="occupation"  value="{$data.occupation}" placeholder="必填" id="input10" class="input" required>
+            </div>
+             <div class="grounp">
+                <label for="input30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>配偶姓名</label>
+                <input name="name" type="text" value="{$data.name}" placeholder="必填" id="input30" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input77"><span class="span">*</span>直系辅助联系人</label>
+                <input type="text" name="auxiliary_contact" placeholder="必填" value="{$data.auxiliary_contact}" id="input77" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input78"><span class="span">*</span>其他辅助联系人</label>
+                <input type="text" name="other_contact" value="{$data.other_contact}" placeholder="必填" id="input78" class="input" required>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>月收入</label>
+                <input type="number" style="width: 200px;" name="monthly_income" placeholder="必填" id="input11" class="input" value="{$data.monthly_income}" required>
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;">元</span>
+            <div class="grounp">
+                <label for="input12">&nbsp;&nbsp;&nbsp;<span class="span">*</span>户籍详细地址</label>
+                <input type="text" name="address" value="{$data.address}" placeholder="必填" id="input12" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input13">&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位所属行业</label>
+                <input type="text" name="industry_category" value="{$data.industry_category}" placeholder="必填" id="input13" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input14"><span class="span">*</span>本单位工作年限</label>
+                <input type="text" name="age_limit" value="{$data.age_limit}" placeholder="必填" id="input14" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input15">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>现居住地址</label>
+                <input type="text" name="present_address" value="{$data.present_address}" placeholder="必填" id="input15" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input16">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>学历</label>
+                <select required name="education" id="input16" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['education']==1? selected:'' ?> value="1">初中及以下</option>
+                    <option <?php echo $data['education']==2? selected:'' ?> value="2">高中或中专</option>
+                    <option <?php echo $data['education']==3? selected:'' ?> value="3">大专</option>
+                    <option <?php echo $data['education']==4? selected:'' ?> value="4">本科及以上</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input17">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位电话</label>
+                <input type="text" name="unit_tel" value="{$data.unit_tel}" placeholder="必填" id="input17" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input18">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位名称</label>
+                <input type="text" name="unit_name" value="{$data.unit_name}" placeholder="必填" id="input18" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input19">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>手机号码</label>
+                <input type="text" name="phone" value="{$data.phone}" placeholder="必填" id="input19" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input20">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>住址电话</label>
+                <input type="text" name="telphone" value="{$data.telphone}" placeholder="必填" id="input20" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input76">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>单位地址</label>
+                <input type="text" name="unit_address" value="{$data.unit_address}" placeholder="必填" id="input76" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input21">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住址类别</label>
+                <select name="house_property" id="input21" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['house_property']==1? selected:'' ?> value="1">自有住房</option>
+                    <option <?php echo $data['house_property']==2? selected:'' ?> value="2">家族拥有</option>
+                    <option <?php echo $data['house_property']==3? selected:'' ?> value="3">公司宿舍</option>
+                    <option <?php echo $data['house_property']==4? selected:'' ?> value="4">朋友拥有</option>
+                    <option <?php echo $data['house_property']==5? selected:'' ?> value="5">朋友拥有</option>
+                </select>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input22">&nbsp;&nbsp;&nbsp;每月还款/租金</label>
+                <input type="number" style="width: 200px;" name="rent" placeholder="选填" id="input22" class="input" value="{$data.rent}">
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;margin-top: 7px;float: left;">元</span>
+            <div class="grounp">
+                <label for="input23">&nbsp;&nbsp;&nbsp;&nbsp;起始居住时间</label>
+                <input type="text" name="residence_time" value="{$data.residence_time}" placeholder="选填" id="input23" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ</label>
+                <input type="number" name="qq" value="{$data.qq}" placeholder="选填" id="input24" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input25">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮编</label>
+                <input type="text" name="postcode" value="{$data.postcode}" placeholder="选填" id="input25" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input28">子女是否在当地生活或学习</label>
+                <select name="children_together" id="input28" class="select" style="width: 146px;">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['children_together']==1? selected:'' ?> value="1">是</option>
+                    <option <?php echo $data['children_together']==2? selected:'' ?> value="2">否</option>
+                </select>
+            </div>
+            <div class="grounp" style="height:155px;padding:3px;">
+                    <p>
+                        <label>与谁同住 :</label>
+                        <label><input <?php if(is_numeric(stripos($data['cohabitation'],"1"))) echo checked ?> type="checkbox" value="1" name="cohabitation[]" autocomplete="off">独居</label>
+                        <label><input type="checkbox" <?php if(is_numeric(stripos($data['cohabitation'],"2"))) echo checked ?> value="2" name="cohabitation[]" autocomplete="off">配偶<label>
+                        <input type="checkbox" <?php if(is_numeric(stripos($data['cohabitation'],"3"))) echo checked ?> value="3" name="cohabitation[]" autocomplete="off">父母</label>
+                    </p>
+                   <p style="padding-left: 139px;">
+                        <label><input type="checkbox" <?php if(is_numeric(stripos($data['cohabitation'],"4"))) echo checked ?> value="4" name="cohabitation[]" autocomplete="off">兄弟/姐妹<label>  
+                        <input type="checkbox" <?php if(is_numeric(stripos($data['cohabitation'],"5"))) echo checked ?> value="5" name="cohabitation[]" autocomplete="off">子女</label>
+                        <label><input type="checkbox" <?php if(is_numeric(stripos($data['cohabitation'],"6"))) echo checked ?> value="6" name="cohabitation[]" autocomplete="off">同事</label>
+                    </p>
+                    <p style="padding-left: 139px;">
+                        <label><input style="height: 15px;" <?php if(is_numeric(stripos($data['cohabitation'],"7"))) echo checked ?> type="checkbox" value="7" name="cohabitation[]" autocomplete="off">其他</label>
+                        <label>共 <input type="number" name="cohabitation_person" style="width: 60px;margin-right: 7px;position: relative;bottom: 3px;" value="{$data.cohabitation_person}" autocomplete="off">人</label>
+                    </p>
+                   
+                    
+            </div>
+            <!--<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>-->
+        </div>
+        <input type="button" value="更多" class="mores">
+        <h2 class="h2-wife dispaly1">配偶信息</h2>
+        <div class="border border-wife dispaly1" style="height: 552px;">
+            <div class="grounp">
+                <label for="input29">&nbsp;&nbsp;&nbsp;是否知悉借款</label>
+                <select required name="know" id="input29" class="select" style="width: 175px;">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['know']==1? selected:'' ?> value="1">是</option>
+                    <option <?php echo $data['know']==2? selected:'' ?> value="2">否</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input31">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年龄</label>
+                <input name="contacts_age" value="{$data.contacts_age}" type="number" placeholder="选填" id="input31" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input32">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="contacts_tel" placeholder="选填" value="{$data.contacts_tel}" id="input32" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input33">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证件类型</label>
+                <input type="text" name="document_type" placeholder="选填" value="{$data.document_type}" id="input33" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input34">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="lxr_unit_name" placeholder="选填" value="{$data.lxr_unit_name}" id="input34" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input36">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="lxr_unit_address" placeholder="选填" value="{$data.lxr_unit_address}" id="input36" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input37">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="text" name="lxr_unit_tel" placeholder="选填" value="{$data.lxr_unit_tel}" id="input37" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input38">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职务</label>
+                <input type="text" name="lxr_duties" placeholder="选填" value="{$data.lxr_duties}" id="input38" class="input">
+            </div>
+            <div class="grounp" style="width: 468px;margin-right: 0px;">
+                <label for="input39">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年收入</label>
+                <input type="text" style="width: 200px;" name="lxr_income" value="{$data.lxr_income}" placeholder="选填" id="input39" class="input">
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;margin-top: 7px;float: left;">元</span>
+            <div class="grounp">
+                <label for="input40">&nbsp;&nbsp;&nbsp;&nbsp;直系亲属姓名</label>
+                <input type="text" name="direct_relatives" placeholder="选填" value="{$data.direct_relatives}" id="input40" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input79">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;证件号码</label>
+                <input type="text" name="cardno" placeholder="选填" value="{$data.cardno}" id="input79" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input41">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select name="zx_sex" id="input41" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['zx_sex']==1? selected:'' ?> value="1">男</option>
+                    <option <?php echo $data['zx_sex']==2? selected:'' ?> value="2">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input42">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <select name="relationship" id="input42" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['relationship']==1? selected:'' ?> value="1">父母</option>
+                    <option <?php echo $data['relationship']==2? selected:'' ?> value="2">兄弟/姐妹</option>
+                    <option <?php echo $data['relationship']==3? selected:'' ?> value="3">其他</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input43">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="zx_unit_name" placeholder="选填" value="{$data.zx_unit_name}" id="input43" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input44">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="zx_unit_address" placeholder="选填" value="{$data.zx_unit_address}" id="input44" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input45">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="text" name="zx_unit_tel" placeholder="选填" value="{$data.zx_unit_tel}" id="input45" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input46">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="zx_phone" placeholder="选填" value="{$data.zx_phone}" id="input46" class="input">
+            </div>
+        </div>
+        <h2 class="dispaly1">自营</h2>
+        <div class="border height dispaly1" style="height: 196px;">
+            <div class="grounp">
+                <label for="input47">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经营场所</label>
+                <select name="place" id="input47" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['place']==1? selected:'' ?> value="1">自有</option>
+                    <option <?php echo $data['place']==2? selected:'' ?> value="2">租用</option>
+                    <option <?php echo $data['place']==3? selected:'' ?> value="3">按揭</option>
+                </select>
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input48">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月租￥</label>
+                <input type="number" style="width: 200px;" name="monthly_rent" value="{$data.monthly_rent}" placeholder="选填" id="input48" class="input">
+            </div><span style="font-size: 22px;color: #747474;margin-left: 10px;">元</span>
+            <div class="grounp">
+                <label for="input49">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;成立日期</label>
+                <input type="text" name="establish" value="{$data.establish}" placeholder="选填" id="input49" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;雇员人数</label>
+                <input type="text" name="employee" placeholder="选填" value="{$data.employee}" id="input50" class="input">
+            </div>
+            <div class="grounp" style="width: 465px;">
+                <label for="input51">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月均营业额</label>
+                <input type="text" style="width: 200px;" value="{$data.turnover}" name="turnover" placeholder="选填" id="input51" class="input">
+            </div><span style="font-size: 22px;color: #747474;float: left;margin-top: 7px;">元</span>
+        </div>
+
+
+
+        <h2 class="dispaly1">职业信息</h2>
+        <div class="border dispaly1" style="height: 190px;">
+        
+            <div class="grounp">
+                <label for="input53">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所属部门</label>
+                <input type="text" value="{$data.department}" name="department" placeholder="选填" id="input53" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input54">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职务</label>
+                <input type="text" value="{$data.duties}" name="duties" placeholder="选填" id="input54" class="input">
+            </div>
+            <div class="grounp" style="width: 468px;">
+                <label for="input55">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;税后年收入</label>
+                <input type="number" style="width: 200px;" value="{$data.income}" name="income" placeholder="选填" id="input55" class="input">
+            </div><span style="font-size: 22px;color: #747474;float: left;margin-top: 7px;">元</span>
+            <!-- <div class="grounp" style="margin-left: 10px;">
+                <label for="input56">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在职年限</label>
+                <input type="text" name="colleaguename" placeholder="选填" id="input56" class="input" required>
+            </div> -->
+            <div class="grounp" style="margin-left: 10px;">
+                <label for="input58">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;企业性质</label>
+                <select name="enterprise_nature" id="input58" class="select" style="width: 270px;">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['enterprise_nature']==1? selected:'' ?> value="1">政府机关</option>
+                    <option <?php echo $data['enterprise_nature']==2? selected:'' ?> value="2">事业单位</option>
+                    <option <?php echo $data['enterprise_nature']==3? selected:'' ?> value="3">国有企业</option>
+                    <option <?php echo $data['enterprise_nature']==4? selected:'' ?> value="4">合资企业</option>
+                    <option <?php echo $data['enterprise_nature']==5? selected:'' ?> value="5">民营</option>
+                    <option <?php echo $data['enterprise_nature']==6? selected:'' ?> value="6">个体</option>
+                    <option <?php echo $data['enterprise_nature']==7? selected:'' ?> value="7">其他</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input59">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;员工规模</label>
+                <select name="scale" id="input59" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['scale']==1? selected:'' ?> value="1">1-10人</option>
+                    <option <?php echo $data['scale']==2? selected:'' ?> value="2">11-50人</option>
+                    <option <?php echo $data['scale']==3? selected:'' ?> value="3">51-100人</option>
+                    <option <?php echo $data['scale']==4? selected:'' ?> value="4">100人以上</option>
+                </select>
+            </div>
+
+</div>
+        <h2 class="dispaly1">其他联系人</h2>
+        <div class="border dispaly1" style="height: 309px;">
+            <div class="grounp">
+                <label for="input60">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名</label>
+                <input type="text" name="qt_name" placeholder="选填" value="{$data.qt_name}" id="input60" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input61">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select name="qt_sex" id="input61" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['qt_sex']==1? selected:'' ?> value="1">男</option>
+                    <option <?php echo $data['qt_sex']==2? selected:'' ?> value="2">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input62">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <input type="text" name="qt_relationship" value="{$data.qt_relationship}" placeholder="选填" id="input62" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input63">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="qt_phone" value="{$data.qt_phone}" placeholder="选填" id="input63" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input64">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名</label>
+                <input type="text" name="qts_name" placeholder="选填" value="{$data.qts_name}" id="input64" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input65">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                <select name="qts_sex" id="input65" class="select">
+                    <option value="">请选择</option>
+                    <option <?php echo $data['qts_sex']==1? selected:'' ?> value="1">男</option>
+                    <option <?php echo $data['qts_sex']==1? selected:'' ?> value="2">女</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input66">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关系</label>
+                <input type="text" name="qts_relationship" placeholder="选填" value="{$data.qts_relationship}" id="input66" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input67">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话</label>
+                <input type="text" name="qts_phone" placeholder="选填" value="{$data.qts_phone}" id="input67" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input68">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贷款用途</label>
+                <input type="text" name="purpose" placeholder="选填" value="{$data.purpose}" id="input68" class="input">
+            </div>
+        </div>
+        <h2>其他</h2>
+        <div class="border">
+            <div class="grounp">
+                <label for="input69">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>部门</label>
+                <input type="hidden" id="branch_val" value="{$data['branch']}">
+                <select name="branch" id="branch" style="width: 250px;" class="bumen sea select" onchange="fp(this.value)" required>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input70">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>业务员</label>
+                 <input type="hidden" class="ywys" value="{$data['salesman']}">
+                <select id="ywy"  class="members sea select" name="salesman" required>
+                    <option value='{$data.salesman}'><?php echo $data['salesman']==''? "请选择":$data['salesmans'] ?></option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{$data.id}">
+        <input type="submit" id="tjbtn" <?php echo $data['id'] != ''? "value='更&nbsp;&nbsp;新'" : "value='添&nbsp;&nbsp;加'" ?> class="button">
+    </form>
+<include file="common:js" />
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script>
+   function fp(rid){
+        if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/CarLoan/memberss",{rid,rid},function(data){
+            
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+   // $(function(){
+   //      var rid=$("#input69").val();
+   //      var admins=$(".ywys").val();
+   //      if(rid=='33'){
+   //          $("#ywy").empty();
+   //          $("#ywy").append("<option value='65'>陈浩</option><option value='66'>宋远翔</option><option value='127'>刘创</option><option value='128'>纪雪铭</option><option value='136'>王俪瑄</option><option value='118'>何思敏</option><option value='147'>郭丽萍</option><option value='172'>冠成金服</option>");
+   //      }else{
+   //         $.post("/Admin/CarLoan/memberss",{rid,rid},function(data){
+   //          $(".members").empty();
+   //          for(i=0;i<data.length;i++){
+   //              if(data[i]['id']==admins){
+   //                  $(".members").append("<option selected value="+data[i]['id']+">"+data[i]['username']+"</option>");
+   //              }else{
+   //                   $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+   //               }
+   //          }
+   //        })
+   //      }
+   //  });
+   
+    flags=true;
+    function checkform(){
+        if(flags){
+            flags=false;
+            $("#tjbtn").hide();
+            return true;
+        }else{
+            alert("不要重复提交");
+            return false;
+        }
+    }
+
+    $("#input2").blur(function(){
+        var phone=$(this).val();
+        $.get('/Admin/Apply/selectphone',{phone:phone},function(data){
+            if(data==1){
+                $("#lyhs").show();
+            }else{
+                $("#lyhs").hide();
+            }
+        });
+    });
+    (function () {
+        var count=true;
+        $('.mores').click(function () {
+            if (count) {
+                $('.dispaly1').show();
+                count=false;
+            }else {
+                $('.dispaly1').hide();
+                count=true;
+            }
+        })
+    })()
+    !function(){
+        laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+        laydate({elem: '#input5'});//绑定元素
+        laydate({elem: '#input23'});
+        laydate({elem: '#input7'});
+        laydate({elem: '#input49'});
+    }();
+
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+        branchs(b_val);
+    });
+</script>
+</body>
+</html>

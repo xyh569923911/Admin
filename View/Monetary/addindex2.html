@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <script src="js/view.js"></script>
+  </head>
+  <style type="text/css">
+    .fl {float: left;}
+    .fr {float: right;}
+    .clearfix:after {content: '';display: block;clear: both;height: 0;visibility: hidden;}
+    .box-wrap {padding:15px 0px 60px;}
+    .recording {border-right:1px solid #dcdcdc;}
+    .recording .avatar {width: 120px;height: 120px;background-color: #42aded;border-radius:10px;display: inline-block;vertical-align: middle;}
+    .recording .text {display: inline-block;vertical-align: middle;margin-left: 20px;}
+    .recording .text .name {color: #333;font-size: 24px;}
+    .recording .text .xb {color: #555;font-size: 16px;margin: 10px 0;}
+    .recording .text .gjr {color: #555;font-size: 18px;}
+    .recording .c-class {border:1px solid #ccc;padding: 0 15px;height: 34px;line-height: 32px;color: #555;font-size: 15px;margin-top: 80px;}
+    .recording_con {margin-top: 40px;}
+    .recording_con .nav-tabs>li>a {font-size: 15px;padding: 8px 24px;}
+    .recording_con .tab-pane {padding-top: 20px;}
+    .recording_con .tab-content .tab-pane .form-text {width: 100%;min-height: 120px;}
+    .recording_con .tab-content .tab-pane .form-text .form-control {border-radius:5px;min-height: 90px;}
+    .recording_con .tab-content .tab-pane .form-text .form-btn {float: right;width: 110px;margin-top: 15px;}
+    .message {margin-top: 30px;}
+    .message .send {margin-top: 25px;}
+    .message .send .msg {font-size: 0px;}
+    .message .send .msg .act{width: 60px;height: 60px;display: inline-block;vertical-align: top;}
+    .message .send .msg .act img {width: 100%;}
+    .message .send .msg .txt {width: calc(100% - 75px);margin-left: 15px;display: inline-block;vertical-align: middle;border:1px solid #dcdcdc;border-radius:5px;font-size: 14px;padding: 10px;}
+    .message .send .msg .txt .name {display: block;margin-bottom: 6px;color: #00A0EA;}
+    .message .send .msg .txt p {color: #333;}
+    .message .send .msg .txt .date {color: #555;font-size: 13px;}
+    .form-group {margin-bottom: 15px;}
+    .form-group .control-label {padding-left: 5px;padding-right: 5px;text-align: right;}
+	  .page {text-align: right;padding: 5px 0;  width: 100%; margin: 0 auto;}
+  .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+  .page a:hover,.page .on {background: #00a3ff;color:#fff}
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">现金客户信息</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+
+                  <div class="box-wrap clearfix">
+                    <div class="bg"></div>
+                    <div class="recording col-md-5 col-lg-6">
+                      <div class="heading clearfix">
+                        <div class="avatar"><img src="/Public/admin/images/active.png" alt=""></div>
+                        <div class="text">
+                          <div class="name"><notempty name="data.id">{$data.username}<else/>无</notempty><span style="margin-left:200px;font-size:15px">来源：
+						   <if condition="$data.sources neq ''"> 
+						  （{$data.sources}）
+						  <elseif condition="$data.source eq ''"/>
+						    <if condition="$data.id eq ''"> 
+							 无
+						    <elseif condition="$data.allot eq 1"/>
+						    （推广）
+						    <elseif condition="$data.allot eq 0"/>
+						   （录入）
+						    </if>
+						   <else/>
+						  （{$data.source}）
+						  </if>
+						  </span><!-- <notempty name="data.id">{$data.username}<else/>无</notempty> --></div>
+						  <notempty name="data.id">
+                          <div class="xb"><if condition="$data['sex'] eq 0">男<else/>女</if></div>
+						  </notempty>
+                          <div class="gjr">跟进人：<notempty name="data.id">{$data.admin_username}<else/>无</notempty></div>
+                        </div>
+                        <div class="c-class fr"><notempty name="data.state_id">{$state_name}<else/>无</notempty></div>
+                      </div>
+					 
+                      <div class="recording_con" id="au">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a href="#home" data-toggle="tab">跟进记录</a></li>
+                          <li><a href="#profile" data-toggle="tab" class="{$data.id}" title="{$data.admin_id}" alt="{$data.id}" id="lyzl">录音资料</a></li>
+
+                          <?php if(in_array('1001',$_SESSION['level'])){?>
+                          <!--<li><a href="#profile" data-toggle="tab">录音资料</a></li>-->
+
+                          <?php };?>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div class="tab-pane fade active in" id="home">
+						    <input type="hidden" class="liid" value="{$data.id}">
+						    <form action="{:U('Admin/Uclient/record_desc')}" >   
+                            <div class="form-text clearfix">
+                              <textarea class="form-control sac" rows="3" name="use" placeholder="请输入客户跟进记录，不超过300字..."></textarea>
+                              <div class="form-btn">
+							  <notempty name="data.id">
+                                <a class="btn btn-block btn-primary btn-flat" onclick="liyt(this)" value="确定添加" autocomplete="off">确定添加</a>
+							  <else/>
+                                <a class="btn btn-block btn-primary btn-flat" onclick="buke(this)" style="background-color: #777;border-color:#777" value="确定添加" autocomplete="off">确定添加</a>							  
+							  </notempty>	
+                              </div>
+                            </div>
+							</form>
+							<script>
+							  function liyt(){
+							   var id = $(".liid").val();
+							   var content = $(".sac").val();
+							   if(!content){
+							   alert("内容不能为空！"); return false;
+							   }
+							   $.get("{:U('Admin/Uclient/record_desc')}", {id:id,content:content}, function (re){
+							
+							      if(re == 2){
+								      alert("提交失败");return false;
+								   }else{
+								      $(".sac").html('');
+									  $(".sac").val('');
+								      $(".message").prepend('<div class="send"> <div class="msg"> <div class="act"><img src="/Public/admin/images/active-man.png"></div><div class="txt"><i class="msg_input"></i><span class="name"><?php echo $_SESSION['aname'];?></span><p>'+content+'</p><div class="date"><?php echo date("Y-m-d H:i",time());?></div></div></div></div>');
+								   }
+							   })
+							  }
+							  function buke(){
+							  alert("请先添加右边内容！");
+							  }
+							</script>
+                            <div class="form-dt">
+                              <div class="message">
+							  <foreach name="record" item="val">
+                                <div class="send">
+                                  <div class="msg">
+                                    <div class="act"><img src="/Public/admin/images/active-man.png"></div>
+                                    <div class="txt">
+                                      <i class="msg_input"></i>
+                                      <span class="name">{$val.admin_id}</span>
+                                      <p>{$val.content}</p>
+                                      <div class="date">{$val.addtime|date="Y-m-d H:i",###}</div>
+                                    </div>
+                                  </div>
+                                </div>
+								</foreach>
+                              </div>
+                              <div class="page" style="text-align:center;">
+                                {$show}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="profile">
+                            <table border="1" id="lyt" cellpadding="80px" style="text-align:center" class="table table-bordered table-hover">
+                              <tr>
+                                <td>通话时间</td>
+                                <td>通话时长/秒</td>
+                                <td>录音</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="information col-md-7 col-lg-6">
+                      <form class="form-horizontal" toUrl="/Admin/Monetary/index" action="{:U('Admin/Monetary/addindex')}" id="xjform">   
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">客户姓名：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input0" value="{$data.username}" name="name" placeholder="必填">
+                          </div>
+
+                          <label class="col-md-2 control-label">贷款金额：</label>
+                          <div class="col-md-4">
+                            <input type="text" id="dkje" class="form-control requires input2" value="" name="money" placeholder="必填">
+                          </div>
+
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">客户类型：</label>
+                          <div class="col-md-4">
+                            <select class="form-control requires input11" onchange="lxqh(this.value)" name="type">
+                              <option value="1" selected>速分贷</option>
+                            </select>
+                          </div>
+
+                          <label class="col-md-2 control-label">手续费比例：</label>
+                          <div class="col-md-4">
+                            <select class="form-control requires input0" name="ssfbl" id="ssfbl">
+                              <option value="0.01">1%</option><!-- 
+                              <option value="0.02">2%</option>
+                              <option value="0.03">3%</option> -->
+                            </select>
+                          </div>
+                          
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">贷款期数：</label>
+                          <div class="col-md-4">
+                            <!-- <input type="text" class="form-control requires input2" value="" name="num" placeholder="必填" id="qs"> -->
+                            <select class="form-control input2" name="num" id="qs" required>
+                              <option value="" selected disabled>请选择</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                            </select>
+                          </div>
+                          <label class="col-md-2 control-label">手续费：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input2" value="" name="fee" id="sxf"  readonly = "readonly">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">保证金比例：</label>
+                          <div class="col-md-4">
+                            <!-- <input type="text" class="form-control requires input2" value="" name="marginratio" id="bzjbl" placeholder="必填"> -->
+                            <select class="form-control requires input2" name="marginratio" id="bzjbl">
+                              <option value="0">0</option>
+                              <option value="0.03">3%</option>
+                              <option value="0.05">5%</option>
+                            </select>
+                          </div>
+                          <label class="col-md-2 control-label">保证金：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input2" value="" name="margin" id="bzj" readonly = "readonly">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">共借人(配偶)：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control input2" value="" name="spouse"  placeholder="选填">
+                          </div>
+                          <label class="col-md-2 control-label">共借人(亲属)：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control input2" value="" name="relatives"  placeholder="选填">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">共借人(同事)：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control input2" value="" name="colleague"  placeholder="选填">
+                          </div>
+                          <label class="col-md-2 control-label">共借人(朋友)：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control input2" value="" name="friend" placeholder="选填">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                        
+                          <label class="col-md-2 control-label">月利率：</label>
+                          <div class="col-md-4">
+                            <!-- <input type="text" class="form-control requires input2" value="0.024" name="rate" placeholder="必填"  readonly = "readonly" id="yll"> -->
+                            <select class="form-control requires input2" name="rate" id="yll">
+                              <option value="" selected disabled>请选择</option>
+                              <option value="0.024">2.4%</option>
+                              <option value="0.03">3%</option>
+                            </select>
+                          </div>
+
+                          <label class="col-md-2 control-label">滞纳金：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control input2" value="" name="Latefee" placeholder="选填">
+                          </div>
+                          
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">放款日期：</label>
+                          <div class="col-md-4">
+                            <input type="text" onClick="WdatePicker()" name="starttime" value="" class="form-control requires input-sm" placeholder="" aria-controls="example1" autocomplete="off" placeholder="必填" id="fkrq" onchange="fkdate(this.value)">
+                          </div>
+                          <label class="col-md-2 control-label">借款到期：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input2" value="" name="endtime"  readonly = "readonly" id="jkdq">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">部门：</label>
+                          <div class="col-md-4">
+                            <select class="form-control bumen input2" required name="branch" onchange="fp(this.value)">
+                                    <option value='请选择' disabled selected>请选择</option>
+
+
+                              <option value=16>宝安1部总监</option>
+                              <option value=17>宝安1部</option>
+                              <option value=18>宝安2部总监</option>
+                              <option value=19>宝安2部</option>
+                              <option value=30>现金1部总监</option>
+                              <option value=29>现金1部</option>
+                              <option value=7>现金2部总监</option>
+                              <option value=8>现金2部</option>
+                              <option value=25>现金3部总监</option>
+                              <option value=9>现金3部</option>
+                              <option value=33>现金4部</option>
+                            </select>
+                          </div>
+                          <label class="col-md-2 control-label">业务员：</label>
+                          <div class="col-md-4">
+                           <!--  <input type="text" class="form-control requires input2" value="" name="Salesman" placeholder="必填"> -->
+                            <select class="form-control requires input2" value="" id="ywy" name="Salesman" required>
+                              
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">身份证号：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input0" value="" name="cardid" placeholder="必填">
+                          </div>
+
+                          <label class="col-md-2 control-label">累计利息：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input0" value="" name="accumulative" id="ljlx"  readonly="readonly">
+                          </div>
+                        </div>
+                        <div class="form-group" style="margin-top:30px;">
+                            <div class="col-md-offset-2 col-sm-10">
+                              <input type="hidden" value="sfd" name="leixing">
+                              <input type="hidden" value="1" name="state">
+                              <input type="submit" onclick="total()" class="btn btn-block btn-primary btn-flat alert" value="提交">
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+  <include file="common:js" />
+	
+
+  <script type="text/javascript">
+	  var ue = UE.getEditor('container', {});
+	 $("select[name='admin_ids']").change(function(){
+        var id = $(this).val();
+        $.get("{:U('Admin/Uclient/admin_ids')}", {id:id}, function (re){
+	    //alert(re);
+		 
+          if(re == 3){
+             $("select[name='admin_id']").html('<option value="">请选择</option>');
+          }else{
+		  //alert(5);
+           // $("select[name='rank_admin_id']").html('<option value="">请选择</option>');
+		   var html = template("columnTemp", {list:re});
+           $("select[name='admin_id']").html(html);
+          }
+        })
+      })
+	  
+	  //渠道跟进
+	  function rank(_this){
+	    var id = $(this).val();
+		alert(5);
+		var state = 1;
+	  }
+	  $("select[name='state_id']").change(function(){
+	     var id = $(this).val();
+		 $.get("{:U('Admin/Uclient/channel')}", {id:id,cid:"{$data.id}"}, function (re){
+		   
+		  if(re.son[0].sun == 1){
+		   //渠道
+		   
+		   if(re.son[0].id != "{$data.rank_id}"){
+		   var html = template("channel_rank", {list:re.son,data:re.sons});
+		   //alert(id);exit;
+		   $(".channel_rank").html(html);
+		    $(".channel_finance").html('');
+		   }
+		   }else if(re.son[0].sun == 2){
+		   if(re.son[0].id != "{$data.finance_id}"){
+		   var html = template("channel_finance", {list:re.son,data:re.sons});
+		   $(".channel_finance").html(html);
+		   }
+		   if(re.sonp[0].ps == 1){
+		     var html = template("channel_rank", {list:re.sonp,data:re.sonsp});
+		     $(".channel_rank").html(html);
+			 var htmls = template("channel_finance", {list:re.son,data:re.sons});
+		     $(".channel_finance").html(htmls);
+		   }
+		   }else if(re.son[0].sun == 3){
+		   $(".channel_rank").html("");
+		   $(".channel_finance").html("");
+		   //alert(335);
+		   
+		   }
+		 })
+	  });
+	        $(function () {
+          $('.btn.btn-flat').click(function () {
+              var $Val=$('.input3').find('option:selected').val();
+              var $input=$('.input0').val() && $('.input1').val() && $('.input2').val() && $('.input3').find('option:selected').val() &&
+                  $('.input4').find('option:selected').val() && $('.input5').find('option:selected').val() && $('.input11').find('option:selected').val() && $('.input12').val();
+              if ($Val==1 || $Val==2 || $Val==3 || $Val==4 || $Val==5 || $Val==6 || $Val==7 || $Val==8 || $Val==9 || $Val==16 ) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() !='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }else if ($Val==10 || $Val==11 || $Val==12 || $Val==13 || $Val==14 ||$Val==9) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() && $('.input6').find('option:selected').val()!='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }else if ($Val==15) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() && $('.input6').find('option:selected').val() && $('.input7').find('option:selected').val() &&
+                          $('.input8').val() && $('.input9').val()!='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }
+          })
+
+      });
+
+     $(function () {
+         !function(a){Zoomify=function(b,c){
+             var d=this;this._zooming=!1,
+                 this._zoomed=!1,
+                 this._timeout=null,
+                 this.$shadow=null,
+                 this.$image=a(b).addClass("zoomify"),
+                 this.options=a.extend({},Zoomify.DEFAULTS,
+                     this.$image.data(),c),
+                 this.$image.on("click",function(){
+                     d.zoom()}),
+                 a(window).on("resize",function(){d.reposition()}),a(document).on("scroll",function(){d.reposition()})},Zoomify.DEFAULTS={duration:200,easing:"linear",scale:.9},Zoomify.prototype.transition=function(a,b){a.css({"-webkit-transition":b,"-moz-transition":b,"-ms-transition":b,"-o-transition":b,transition:b})},Zoomify.prototype.addTransition=function(a){this.transition(a,"all "+this.options.duration+"ms "+this.options.easing)},Zoomify.prototype.removeTransition=function(b,c){var d=this;clearTimeout(this._timeout),this._timeout=setTimeout(function(){d.transition(b,""),a.isFunction(c)&&c.call(d)},this.options.duration)},Zoomify.prototype.transform=function(a){this.$image.css({"-webkit-transform":a,"-moz-transform":a,"-ms-transform":a,"-o-transform":a,transform:a})},Zoomify.prototype.transformScaleAndTranslate=function(a,b,c,d){this.addTransition(this.$image),this.transform("scale("+a+") translate("+b+"px, "+c+"px)"),this.removeTransition(this.$image,d)},Zoomify.prototype.zoom=function(){this._zooming||(this._zoomed?this.zoomOut():this.zoomIn())},Zoomify.prototype.zoomIn=function(){var b=this,c=this.$image.css("transform");this.transition(this.$image,"none"),this.transform("none");var d=this.$image.offset(),e=this.$image.outerWidth(),f=this.$image.outerHeight(),g=this.$image[0].naturalWidth||+(1/0),h=this.$image[0].naturalHeight||+(1/0),i=a(window).width(),j=a(window).height(),k=Math.min(g,i*this.options.scale)/e,l=Math.min(h,j*this.options.scale)/f,m=Math.min(k,l),n=(-d.left+(i-e)/2)/m,o=(-d.top+(j-f)/2+a(document).scrollTop())/m;this.transform(c),this._zooming=!0,this.$image.addClass("zoomed").trigger("zoom-in.zoomify"),setTimeout(function(){b.addShadow(),b.transformScaleAndTranslate(m,n,o,function(){b._zooming=!1,b.$image.trigger("zoom-in-complete.zoomify")}),b._zoomed=!0})},Zoomify.prototype.zoomOut=function(){var a=this;this._zooming=!0,this.$image.trigger("zoom-out.zoomify"),this.transformScaleAndTranslate(1,0,0,function(){a._zooming=!1,a.$image.removeClass("zoomed").trigger("zoom-out-complete.zoomify")}),this.removeShadow(),this._zoomed=!1},Zoomify.prototype.reposition=function(){this._zoomed&&(this.transition(this.$image,"none"),this.zoomIn())},Zoomify.prototype.addShadow=function(){var b=this;this._zoomed||(b.$shadow&&b.$shadow.remove(),this.$shadow=a('<div class="zoomify-shadow"></div>'),a("body").append(this.$shadow),this.addTransition(this.$shadow),this.$shadow.on("click",function(){b.zoomOut()}),setTimeout(function(){b.$shadow.addClass("zoomed")},10))},Zoomify.prototype.removeShadow=function(){var a=this;this.$shadow&&(this.addTransition(this.$shadow),this.$shadow.removeClass("zoomed"),this.$image.one("zoom-out-complete.zoomify",function(){a.$shadow&&a.$shadow.remove(),a.$shadow=null}))},a.fn.zoomify=function(b){return this.each(function(){var c=a(this),d=c.data("zoomify");d||c.data("zoomify",d=new Zoomify(this,"object"==typeof b&&b)),"string"==typeof b&&["zoom","zoomIn","zoomOut","reposition"].indexOf(b)>=0&&d[b]()})}}(jQuery);
+
+          var a=true;
+         $('#imgsWrap').hover(function () {
+             $(this).find('img').zoomify().css({
+                 'position':'absolute',
+                 'zIndex': 1
+             });
+             $('.close-icon').css({
+                 'position':'absolute',
+                 'zIndex': 2
+             });
+             $(this).find('img').click(function () {
+                 if (a) {
+                     $('.box-wrap').css({
+                         'background':'rgba(0,0,0,0.4)',
+                     });
+                     $('.form-control').css({
+                         'background':'rgba(0,0,0,0)',
+                         'borderColor':'#898c94'
+                     });
+                     $('.recording').css('borderRight','#898c94');
+                     $('.nav-tabs>li.active>a').css({
+                         'background':'rgba(0,0,0,0)',
+                         'borderColor':'#898c94'
+                     });
+                     a=false;
+                 }else {
+                     $('.box-wrap').css({
+                         'background':'rgba(250,250,250,250.1)'
+                     });
+                     $('.form-control').css({
+                         'background':'rgba(250,250,250,250.1)',
+                         'borderColor':'#d2d6de'
+                     });
+                     $('.recording').css('borderRight','#dcdcdc');
+                     $('.nav-tabs>li.active>a').css({
+                         'background':'rgba(250,250,250,250.1)',
+                         'borderColor':'#ddd'
+                     });
+                 }
+             });
+         })
+     })
+
+      //现金页面js 开始
+      $("#dkje").keyup(function(){
+         xj=$(this).val();
+         ssfbl=$("#ssfbl").val();
+         $("#sxf").val(xj*ssfbl);
+         bzjbl=$("#bzjbl").val();
+         $("#bzj").val(xj*bzjbl);
+         yll=$("#yll").val();
+         qs=$("#qs").val();
+         $("#ljlx").val(xj*qs*yll);
+      });
+
+      $("#ssfbl").change(function(){
+          ssfbl=$(this).val();
+           xj=$("#dkje").val();
+          $("#sxf").val(xj*ssfbl);
+      });
+
+      $("#bzjbl").change(function(){
+         bzjbl=$(this).val();
+         xj=$("#dkje").val();
+         $("#bzj").val(xj*bzjbl);
+      });
+
+      $("#yll").change(function(){
+        yll=$(this).val();
+        xj=$("#dkje").val();
+        qs=$("#qs").val();
+        $("#ljlx").val(xj*qs*yll);
+      });
+
+      $("#qs").change(function(){
+         qs=$(this).val();
+         xj=$("#dkje").val();
+         yll=$("#yll").val();
+         $("#ljlx").val(xj*qs*yll);
+         //借款到期时间
+         stime=$("#fkrq").val();
+         if(stime){
+          var qss=Number(qs);
+          var st=stime;
+          var d = new Date(st);
+          d.setMonth(d.getMonth()+qss);
+          
+          if(((d.getMonth()<9?'0':'')+(d.getMonth()))==00 && (((d.getDate()<10?'0':'')+(d.getDate()-1))==00)){
+
+           var et=(d.getFullYear()-1)+'-'+12+'-'+31;
+
+          }else if(((d.getDate()<10?'0':'')+(d.getDate()-1))==00){
+
+            if(((d.getMonth()<9?'0':'')+(d.getMonth()))==04 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==06 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==09 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==11){
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+30;
+
+            }else if(((d.getMonth()<9?'0':'')+(d.getMonth()))==02){
+              if (d.getFullYear()%4==0) {
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+29;
+              }else{
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+28;
+              }
+
+            }else{
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+31;
+            }
+            
+          }else{
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()+1))+'-'+(d.getDate()<11?'0':'')+(d.getDate()-1);
+          }
+          $("#jkdq").val(et);
+        }else{
+          $("#jkdq").val("");
+        }
+
+      });
+     
+     function fkdate(stime){
+        // var qs=document.getElementById("qs").value;
+        var qs=$("#qs").val();
+        var qss=Number(qs);
+        var st=stime;
+        var d = new Date(st);
+        if(d.getDate()==29 || d.getDate()==30 || d.getDate()==31){
+          alert("请选择29，30，31以外的日期");
+          $("#fkrq").val("");
+          exit();
+        }
+        d.setMonth(d.getMonth()+qss);
+        //4、6、9、11
+        if(((d.getMonth()<9?'0':'')+(d.getMonth()))==00 && (((d.getDate()<10?'0':'')+(d.getDate()-1))==00)){
+
+           var et=(d.getFullYear()-1)+'-'+12+'-'+31;
+
+          }else if(((d.getDate()<10?'0':'')+(d.getDate()-1))==00){
+
+          if(((d.getMonth()<9?'0':'')+(d.getMonth()))==04 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==06 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==09 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==11){
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+30;
+
+          }else if(((d.getMonth()<9?'0':'')+(d.getMonth()))==02){
+            if (d.getFullYear()%4==0) {
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+29;
+            }else{
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+28;
+            }
+
+          }else{
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+31;
+          }
+          
+        }else{
+          var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()+1))+'-'+(d.getDate()<11?'0':'')+(d.getDate()-1);
+        }
+
+        $("#jkdq").val(et);
+     }
+
+  function lxqh(v){
+     $("#qs").empty();
+     $("#yll").empty();
+     if(v==1){
+        $("#qs").append("<option>6</option><option>9</option><option>12</option>");
+        $("#yll").append("<option>0.024</option>");
+     }else{
+        $("#qs").append("<option>1</option><option>2</option><option>3</option>");
+        $("#yll").append("<option>0.084</option><option>0.072</option><option>0.036</option><option>0.048</option><option>0.06</option>");
+     }
+
+     //借款到期时间
+         stime=$("#fkrq").val();
+         var qs=$("#qs").val();
+          var qss=Number(qs);
+          var st=stime;
+          var d = new Date(st);
+          d.setMonth(d.getMonth()+qss);
+          
+          if(((d.getDate()<10?'0':'')+(d.getDate()-1))==00){
+
+            if(((d.getMonth()<9?'0':'')+(d.getMonth()))==04 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==06 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==09 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==11){
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+30;
+
+            }else if(((d.getMonth()<9?'0':'')+(d.getMonth()))==02){
+              if (d.getFullYear()%4==0) {
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+29;
+              }else{
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+28;
+              }
+
+            }else{
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+31;
+            }
+            
+          }else{
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()+1))+'-'+(d.getDate()<11?'0':'')+(d.getDate()-1);
+          }
+
+          $("#jkdq").val(et);
+
+  }
+
+  function fp(rid){
+       
+         if(rid=='33'){
+            $("#ywy").empty();
+            $("#ywy").append("<option value='65'>陈浩</option><option value='66'>宋远翔</option><option value='127'>刘创</option><option value='128'>纪雪铭</option><option value='136'>王俪瑄</option><option value='118'>何思敏</option><option value='147'>郭丽萍</option><option value='172'>冠成金服</option>");
+        }else{
+           $.post("/Admin/Monetary/memberss",{rid,rid},function(data){
+            $("#ywy").empty();
+            for(i=0;i<data.length;i++){
+                $("#ywy").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+    })
+
+    function total(){
+      yll=$("#yll").val();
+      xj=$("#dkje").val();
+      qs=$("#qs").val();
+      $("#ljlx").val(xj*qs*yll);
+    }
+
+
+     //现金页面js结束
+
+    </script>
+
+  </body>
+</html>

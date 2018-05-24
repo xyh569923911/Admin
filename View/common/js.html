@@ -1,0 +1,517 @@
+<!-- jQuery 2.1.4 -->
+<script src="__PUBLIC__/jquery/jQuery-2.1.4.min.js"></script>
+   
+<!-- Bootstrap 3.3.5 -->
+<script src="__PUBLIC__/admin/bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="__PUBLIC__/admin/webuploader/webuploader.min.js"></script>
+
+<script src="__PUBLIC__/admin/arttemplate/template.js"></script>
+
+<script src="__PUBLIC__/admin/datatables/jquery.dataTables.min.js"></script>
+<script src="__PUBLIC__/admin/datatables/dataTables.bootstrap.min.js"></script>
+
+<script src="__PUBLIC__/admin/ueditor/ueditor.config.js"></script>
+<script src="__PUBLIC__/admin/ueditor/ueditor.all.min.js"></script>
+
+<script src="__PUBLIC__/admin/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="__PUBLIC__/admin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<!-- AdminLTE App -->
+<script src="__PUBLIC__/admin/dist/js/app.min.js"></script>
+<!-- 地址下拉框 -->
+<script src="__PUBLIC__/admin/js/distpicker.data.js"></script>
+<script src="__PUBLIC__/admin/js/distpicker.js"></script>
+
+
+<script type="text/html" id="imageTemp">
+  <div class="imgBox">
+    <img src="__PUBLIC__<%=list.image%>" alt="" width="100%" height="100%">
+    <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+    <input type="hidden" name="image" value="<%=list.image%>">
+  </div>
+</script>
+
+<script type="text/html" id="imageTemp_s">
+  <div class="imgBoxs">
+    <img src="__PUBLIC__<%=list.image%>" alt="" width="100%" height="100%">
+    <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+    <input type="hidden" name="image" value="<%=list.image%>">
+  </div>
+</script>
+
+
+
+<script type="text/html" id="imagesTemp">
+  <div class="imgBox">
+    <img src="__PUBLIC__<%=list.image%>" alt="" width="100%" height="100%">
+    <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+    <input type="hidden" name="images[]" value="<%=list.image%>">
+  </div>
+</script>
+
+<script type="text/html" id="imagesTempss">
+  <div class="imgBox">
+    <img src="__PUBLIC__<%=list.image%>" alt="" width="100%" height="100%">
+    <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+    <input type="hidden" name="khimage[]" value="<%=list.image%>">
+  </div>
+</script>
+
+<script type="text/html" id="imagesTemps">
+  <div class="imgBox">
+    <img src="__PUBLIC__<%=list.image%>" alt="" width="100%" height="100%">
+    <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+    <input type="hidden" name="img[]" value="<%=list.image%>">
+  </div>
+</script>
+
+<script type="text/html" id="imageLoadingTemp">
+	<div class="imgloadingBox" style="width:100px;height:100px;padding:25px;float:left;margin:5px 5px 0px 0px;">
+	  <img src="__PUBLIC__/admin/image/loading.gif" alt="" width="100%" height="100%">
+	</div>
+</script>
+
+<script type="text/html" id="imageLoadingTemps">
+	<div class="imgloadingBoxs" style="width:100px;height:100px;padding:25px;float:left;margin:5px 5px 0px 0px;">
+	  <img src="__PUBLIC__/admin/image/loading.gif" alt="" width="100%" height="100%">
+	</div>
+</script>
+
+
+
+<script type="text/html" id="loadingTemp">
+  <span>上传中</span>
+  <img src="__PUBLIC__/admin/image/loading.gif" width="42px" heifht="42px;">
+</script>
+
+<style type="text/css">
+ #foonav{ padding-left:30px; display:inline-block;}
+ #foonav select{ height:30px; width:200px;}
+ #foonav2{ padding-left:30px; display:inline-block;}
+ #foonav2 select{ height:30px; width:200px;}
+</style>
+<script>
+	var language = {
+	  "sProcessing": "处理中...",
+	  "sLengthMenu": "显示 _MENU_ 项结果",
+	  "sZeroRecords": "没有匹配结果",
+	  "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+	  "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+	  "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+	  "sInfoPostFix": "",
+	  "sSearch": "搜索:",
+	  "sUrl": "",
+	  "sEmptyTable": "表中数据为空",
+	  "sLoadingRecords": "载入中...",
+	  "sInfoThousands": ",",
+	  "oPaginate": {
+	      "sFirst": "首页",
+	      "sPrevious": "上页",
+	      "sNext": "下页",
+	      "sLast": "末页"
+	  },
+	  "oAria": {
+	      "sSortAscending": ": 以升序排列此列",
+	      "sSortDescending": ": 以降序排列此列"
+	  }
+	};
+	
+	
+	 $('#example1').DataTable({
+		 	 "ordering": false,
+			"autoWidth": false,
+			"language": language,
+			"lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]],
+		  
+			initComplete: function () { //栏目筛选开始
+			  $("<div id='foonav'>筛选：</div>").appendTo($("#example1_length"));
+				$("<div id='foonav'></div>").appendTo($("#example1_length"));
+				var api = this.api();
+				
+					  api.columns().indexes().flatten().each( function ( i ) {
+					if(i == 5){
+						var column = api.column( i );
+					
+						var select = $('<select style="width: 150px;"><option value="">跟进状态(全部)</option></select>').appendTo( $("#foonav") ).on( 'change', function () {
+							
+								var val = $.fn.dataTable.util.escapeRegex(
+									$(this).val()
+								);
+								column
+									.search( val ? '^'+val+'$' : '', true, false )
+									.draw();
+									ss();
+									
+									//  var columns = api.column( 4 );
+									 
+									
+							} );
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+						
+					}
+					if(i == 4){
+						var column = api.column( i );
+					
+						var select = $('<select  style="margin-right: 3px; color:#444;width: 150px;"><option value="">客户类型(全部)</option></select>').appendTo( $("#foonav") ).on( 'change', function () {
+							
+								var val = $.fn.dataTable.util.escapeRegex(
+									$(this).val()
+								);
+								column
+									.search( val ? '^'+val+'$' : '', true, false )
+									.draw();
+									ss();
+									
+									//  var columns = api.column( 4 );
+									 
+									
+							} );
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+						
+					}
+
+				} );	
+				
+			} //栏目筛选结束
+		  });
+        
+	
+      $('#example2').DataTable({
+		 	 "ordering": false,
+			"autoWidth": false,
+			"language": language,
+			"lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]],
+		  
+			initComplete: function () { //栏目筛选开始
+				
+				$("<div id='foonav2'>栏目筛选：</div>").appendTo($("#example2_length"));
+				
+				var api = this.api();
+				
+					  api.columns().indexes().flatten().each( function ( i ) {
+					if(i == 2){
+						var column = api.column( i );
+					
+						var select = $('<select><option value=""></option></select>')
+							
+							.appendTo( $("#foonav2") )
+							.on( 'change', function () {
+								var val = $.fn.dataTable.util.escapeRegex(
+									$(this).val()
+								);
+								column
+									.search( val ? '^'+val+'$' : '', true, false )
+									.draw();
+							} );
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+					}
+					
+					
+				} );
+			} //栏目筛选结束
+		  });
+
+    
+	
+	$("input").attr("autocomplete", "off");
+
+    //member人员phone验证
+    $("#phones").focus(function(){
+        $("#phonets").html("<span><font color='green'>请填写正确手机号</font></span>");
+    });
+
+    $("#phones").blur(function(){
+        phone=$(this).val();
+        ob=$(this);
+        $.post("/Admin/Member/yzphone",{phone:phone},function(data){
+            if(data==1){
+                $("#phonets").html("<span><font color='red'>此手机号不可再申请</font></span>");
+                ob.attr('placeholder',ob.val());
+            }else{
+                $("#phonets").html("<span><font color='green'>此手机号可使用</font></span>");
+            }
+        });
+    });
+
+
+
+	// 表单非空验证
+	$("#myform").submit(function(){
+	  var _this = $(this);
+	  var flag = true;
+	  $('form .requires').each(function (k, v){
+	    if($(this).val() == ''){
+	
+	      flag = false;
+	      $(this).addClass("require");
+	    }
+	  });
+
+        if($("#phones").attr('placeholder')){
+            flag = false;
+        }
+
+	  if(!flag){
+	    window.location.href="#"
+	    return false;
+	  }
+	  var url = _this.attr('action');
+
+	  var data = _this.serialize();
+	  var toUrl = _this.attr("toUrl")? _this.attr("toUrl") : "";
+	  $.post(url, data, function (re){
+	//alert(re);return false;
+	    if(re == 1){
+	      alert('提交成功');
+	      if(toUrl){
+	      	window.location.href= toUrl;
+		
+	      }else{
+	      	window.location.reload();
+	      }
+	    }else if(re == 3){
+		    alert('此手机号不可再申请');
+	        //window.location.reload();
+		}else if(re == 4){
+		    window.location.reload();
+		}else if(re > 10){
+		    window.location.href='/Admin/uclient/addindex/id/'+re;
+		}else{
+	      alert('操作失败');
+	      window.location.reload();
+	    }
+	  })
+	  return false;
+	});
+	
+	
+	$("form input,select").focus(function(){
+	  $(this).removeClass("require");
+	});
+
+	// 日期选择器
+	$('#datetimepicker').datetimepicker({
+	  format: 'yyyy-mm-dd hh:ii',
+	  language : "zh-CN",
+	  todayHighlight: true,
+	  todayBtn: true,
+	});
+
+	// 图片上传
+	var uploader = WebUploader.create({
+	  auto: true,
+	  server: '/Admin/Upload/upload',
+	  swf:  '/Public/admin/webuploader/Uploader.swf',
+	  pick: '.imgPicker',
+	  multiple: 1,
+	  compress:false,
+	  accept: {
+	    title: 'Images',
+	    extensions: 'gif,jpg,jpeg,bmp,png',
+	    mimeTypes: 'image/*'
+	  }
+	});
+	// 上传完成重置队列
+	uploader.on( 'uploadFinished', function( file ) {
+	    uploader.reset();
+	});
+
+	uploader.on( 'uploadProgress', function( file, percentage ) {
+		var html = template("imageLoadingTemp", {});
+		$("#imgWrap").html(html);
+	});
+	// 生成缩略图
+	uploader.on( 'uploadSuccess', function( file , response ) {
+	    if(response.state == 1){
+	    	var html = template("imageTemp", {list : response});
+			var htmls = template("imageTemp_s", {list : response});
+	    	$("#imgWrap").html(html);
+			$("#imgWraps").html(html);
+	    }else{
+	    	alert(response.msg);
+	    }
+	});
+	
+	
+
+	var uploaders = WebUploader.create({
+	  auto: true,
+	  server: '/Admin/Upload/upload',
+	  pick: '.imgsPicker',
+	  multiple: 1,
+	  compress:false,
+	  accept: {
+	    title: 'Images',
+	    extensions: 'gif,jpg,jpeg,bmp,png',
+	    mimeTypes: 'image/*'
+	  }
+	});
+
+	uploaders.on( 'startUpload', function() {
+		var html = template("imageLoadingTemp", {});
+		$("#imgsWrap").append(html);
+	});
+
+	// 生成缩略图
+	uploaders.on( 'uploadSuccess', function( file , response ) {
+	    var html = template("imagesTemp", {list : response});
+	    $("#imgsWrap").append(html);
+	});
+   // 上传完成重置队列
+	uploaders.on( 'uploadFinished', function( file ) {
+	    uploaders.reset();
+	    $(".imgloadingBox").remove();
+	});
+	
+	
+	
+	var uploaders = WebUploader.create({
+	  auto: true,
+	  server: '/Admin/Upload/upload',
+	  pick: '.imgsPickerss',
+	  multiple: 1,
+	  compress:false,
+	  accept: {
+	    title: 'Images',
+	    extensions: 'gif,jpg,jpeg,bmp,png',
+	    mimeTypes: 'image/*'
+	  }
+	});
+
+	uploaders.on( 'startUpload', function() {
+		var html = template("imageLoadingTemp", {});
+		$("#imgsWrapss").append(html);
+	});
+
+	// 生成缩略图
+	uploaders.on( 'uploadSuccess', function( file , response ) {
+	    var html = template("imagesTempss", {list : response});
+	    $("#imgsWrapss").append(html);
+	});
+   // 上传完成重置队列
+	uploaders.on( 'uploadFinished', function( file ) {
+	    uploaders.reset();
+	    $(".imgloadingBox").remove();
+	});
+	
+	
+	
+   
+   var uploaders = WebUploader.create({
+	  auto: true,
+	  server: '/Admin/Upload/upload',
+	  pick: '.imgsPickers',
+	  multiple: 1,
+	  compress:false,
+	  accept: {
+	    title: 'Images',
+	    extensions: 'gif,jpg,jpeg,bmp,png',
+	    mimeTypes: 'image/*'
+	  }
+	});
+
+	uploaders.on( 'startUpload', function() {
+		var html = template("imageLoadingTemps", {});
+		$("#imgsWraps").append(html);
+	});
+
+	// 生成缩略图
+	uploaders.on( 'uploadSuccess', function( file , response ) {
+	    var html = template("imagesTemps", {list : response});
+	    $("#imgsWraps").append(html);
+	});
+
+	// 上传完成重置队列
+	uploaders.on( 'uploadFinished', function( file ) {
+	    uploaders.reset();
+	    $(".imgloadingBoxs").remove();
+	});
+
+
+
+	// 移除上传的图片
+	function removeImage(_this)
+	{
+	  $(_this).parent('.imgBox').remove();
+	}
+
+	// 通过ID删除
+	function delById(_this, id, m)
+	{
+	  if(!confirm("确定要删除吗？")){
+	    return false;
+	  }
+	  var delUrl = "{:U('Admin/Common/delById')}";
+	  $.post(delUrl, {id : id, m : m}, function (re){
+	    if(re == 1){
+	      $(_this).parents('tr').remove();
+	    }else if(re == 2){
+	    	alert("该分类下有子分类，请先删除子分类!");
+	    	return;
+	    }
+	  })
+	}
+
+	// 文件上传
+	var fileUploader = WebUploader.create({
+		auto: true,
+	    swf:  '/Public/admin/webuploader/Uploader.swf',
+	    server: '/Admin/Upload/fileUpload',
+	    pick: '.filePicker',
+	    resize: false
+	});
+	// 上传完成重置队列
+	fileUploader.on( 'uploadFinished', function( file ) {
+	    fileUploader.reset();
+	});
+	// 文件上传过程中创建进度条实时显示。
+	fileUploader.on( 'uploadProgress', function( file, percentage ) {
+		var html = template("loadingTemp", {});
+		$("#fileWrap").html(html);
+	});
+
+	// 生成缩略图
+	fileUploader.on( 'uploadSuccess', function( file , response ) {
+		if(response.state == 1){
+			$("#fileWrap").html('<div id="fileBox"><span>'+response.filename+'</span><a style="margin-left:10px;" href="javascript:removeFileBox();">取消</a><input type="hidden" value="'+response.fid+'" name="fid"><input type="hidden" value="'+response.filename+'" name="filename"></div>');
+		}else{
+			alert(response.msg);
+			$("#fileWrap").html('');
+		}
+	});
+
+	function removeFileBox(){
+		$("#fileBox").remove();
+	}
+
+	// 修改排序
+	function editSort(_this, m,id){
+	  var oldSort = $(_this).attr("old");
+	  var newSort = $(_this).val();
+	  var url = "{:U('Admin/Common/editSort')}";
+	  if(oldSort != newSort){
+	    $.post(url, {id : id, m: m, newSort: newSort}, function (re){
+	      if(re == 1){
+	        $(_this).attr("old", newSort);
+	      }
+	    })
+	  }
+	}
+
+	function clearHtml()
+	{
+		$.post("{:U('Admin/Base/clearHtml')}", function (data){
+			if(data == 1)
+			{
+				alert("缓存清除成功");
+				location.reload() 
+			}
+		})
+	}
+</script>

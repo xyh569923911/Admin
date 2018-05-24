@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        body {
+            height: 800px;
+            width: 1920px;
+        }
+        .box {
+            background: #f8f8f8;
+            height: 800px;
+            width: 1920px;
+        }
+        .content-wrapper, .right-side {
+            background: none;
+        }
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0;
+        }
+        .box .wrappers {
+            width: 750px;
+            height: 50px;
+            margin-top: 100px;
+        }
+        .box .wrappers li {
+            position: relative;
+            float: left;
+            width: 150px;
+            height: 50px;
+            line-height: 50px;
+            margin-right: -13px;
+            text-align: center;
+
+        }
+        .box .wrappers li a {
+            color: #fff;
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            width: 150px;
+            font-size: 17px;
+        }
+        .box .wrappers li img {
+            width: 150px;
+            height: 50px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: all 0.5s;
+        }
+        .five-bottom {
+            top: 20px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer/t/1">现金客户</a>>确认信息</h3>
+                        <div class="information">
+                            <ul class="wrappers">
+                                <li>
+                                    <img src="/Public/admin/images/green.png" alt="">
+                                    <a href="/Admin/Monetary/infos/t/1" class="urls">填写申请表</a>
+                                </li>
+                               <if condition="in_array('1',$_SESSION['sp_level'])">
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="18">
+                                        <a href="/Admin/Apply/yewutwo/t/1" class="urls">贷前资料收集</a>
+                                    </li>
+                                <else />
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="18">
+                                        <a href="javascript:void(0)" class="urls level">贷前资料收集</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('2',$_SESSION['sp_level'])">
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="19">
+                                        <a href="/Admin/Apply/yewuone/t/1" class="urls">客户信息查询</a>
+                                    </li>
+                                <else />
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="19">
+                                        <a href="javascript:void(0)" class="urls level">客户信息查询</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('3',$_SESSION['sp_level'])">
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="20">
+                                        <a href="/Admin/Apply/yewuthree/t/1" class="urls">产品确认</a>
+                                    </li>
+                                <else />
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="20">
+                                        <a href="javascript:void(0)" class="urls level">产品确认</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('4',$_SESSION['sp_level'])">
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="21">
+                                        <a href="/Admin/Apply/investigate/t/1" class="urls">考察</a>
+                                    </li>
+                                <else />
+                                    <li>
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="21">
+                                        <a href="javascript:void(0)" class="urls level">考察</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('5',$_SESSION['sp_level'])">
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="22">
+                                        <a href="/Admin/Apply/loan_approval/t/1" class="urls">审贷</a>
+                                    </li>
+                                <else />
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="22">
+                                        <a href="javascript:void(0)" class="urls level">审贷</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('6',$_SESSION['sp_level'])">
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="23">
+                                        <a href="/Admin/Apply/sign/t/1" class="urls">签约</a>
+                                    </li>
+                                <else />
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="23">
+                                        <a href="javascript:void(0)" class="urls level">签约</a>
+                                    </li>
+                                </if>
+                                <if condition="in_array('7',$_SESSION['sp_level'])">
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="24">
+                                        <a href="/Admin/Apply/yewufour" class="urls">放款</a>
+                                    </li>
+                                <else />
+                                    <li class="five-bottom">
+                                        <img src="/Public/admin/images/gray.png" class="state" alt="" name="24">
+                                        <a href="javascript:void(0)" class="urls level">放款</a>
+                                    </li>
+                                </if>
+                                <li class="five-bottom">
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="26">
+                                    <!-- <a href="/Admin/Apply/administrate" class="urls">还款中</a> -->
+                                    <a href="javascript:void(0)" class="urls">还款中</a>
+                                </li>
+                                <li class="five-bottom">
+                                    <img src="/Public/admin/images/gray.png" class="state" alt="" name="25">
+                                    <!-- <a href="/Admin/Apply/settlement" class="urls">结清</a> -->
+                                    <a href="javascript:void(0)" class="urls">结清</a>
+                                </li>
+                            </ul>
+                        </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+<script>
+    $(function(){
+        var url=document.URL;
+        var  getval =url.split('?')[1];
+        var  getvals=getval.split('&')[0];
+        $('.urls').each(function(){
+            var urls=$(this).attr('href')+'?'+getvals;
+            $(this).attr('href',urls);
+        });
+
+        //读取状态
+        var stat=getval.split('&')[1];
+        var stats=stat.split('=')[1];
+        $(".state").each(function(){
+            if($(this).attr('name')<=stats){
+                $(this).attr('src','/Public/admin/images/green1.png');
+            }
+            // alert($(this).attr('s'));
+        });
+
+        //滑动效果
+        var $li=$('.wrapper li');
+        $li.hover(function () {
+            index=$(this).index();
+            $img=$(this).find('img');
+            $img.css('transform','scale(1.07)');
+            if (index==0) {
+                $img.attr('src','/Public/admin/images/green-hover.png');
+            }else if ($img.attr('src')=='/Public/admin/images/green1.png' && $img.attr('name')<=stats){
+                $img.attr('src','/Public/admin/images/green1-hover.png');
+            }
+            else {
+                $img.attr('src','/Public/admin/images/gray-hover.png');
+            }
+        },function () {
+            $img.css('transform','scale(1)');
+            if (index==0) {
+                $img.attr('src','/Public/admin/images/green.png');
+            }else if ($img.attr('src')=='/Public/admin/images/green1-hover.png' && $img.attr('name')<=stats){
+                $img.attr('src','/Public/admin/images/green1.png');
+            }else {
+                $img.attr('src','/Public/admin/images/gray.png');
+            }
+        })
+
+
+
+    function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+
+    $(".level").click(function(){
+        alert("暂无权限操作");
+    });
+    })
+</script>
+</body>
+</html>

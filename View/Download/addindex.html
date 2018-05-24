@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  <style>
+    .require{
+      border-color: red;
+    }
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-10 col-lg-offset-1 col-sm-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">添加下载</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <form class="form-horizontal" action="{:U('Admin/Download/addindex')}" toUrl="/Admin/Download/index"  id="myform">
+                  <div class="box-body">
+                    
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">所属栏目：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="cid">
+                          <option value="">请选择</option>
+                          <foreach name="columns" item="value">
+                          <option value="{$value.id}" <if condition="$data['cid'] eq $value['id']">selected</if>>{$value._name}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="{$data.name}" name="name">
+                      </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">文件：</label>
+                      <div class="col-md-7">
+                        <div class="filePicker" style="width:120px;height:42px;float:left;">选择文件</div>
+                        <div id="fileWrap" style="float:left;margin-left: 30px;line-height: 42px;">
+                          <if condition="$data['fid'] neq ''">
+                            <span>{$data.filename}</span>
+                            <input type="hidden" value="{$data.fid}" name="fid">
+                            <input type="hidden" value="{$data.filename}" name="filename">
+                          </if>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">排序：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data['sort']?$data['sort']:10}" name="sort">
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-md-6">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value=" 提交 "></input>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+      
+    </div>
+
+    <include file="common:js" />
+    <script type="text/html" id="columnTemp">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v._name%></option>
+      <%/each%>
+    </script>
+    
+    <script type="text/javascript">
+      $("input[name='lang']").change(function(){
+        var lang = $(this).val();
+        $.get("{:U('Admin/Download/getLang')}", {lang:lang}, function (re){
+          if(re.length){
+            var html = template("columnTemp", {list:re});
+            $("select[name='cid']").html(html);
+          }else{
+            $("select[name='cid']").html('<option value="">请选择</option>');
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

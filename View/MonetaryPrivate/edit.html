@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+</head>
+<style type="text/css">
+    .submit_form {position: absolute;z-index:1;width: 100%;}
+    #example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow:hidden;}
+    #example1_filter .so:hover {background:#1F76A0;}
+    .addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+    .addall:hover{color:#fff;background:#d42020}
+    .nav-tabs a{margin-right:3px}
+    .posF {display: none;height: 100%;left: 0; position: fixed; top: 0;width: 100%; z-index: 99999;}
+    .posF .bg { background: #000 none repeat scroll 0 0; height: 100%; left: 0;opacity: 0.35; position: absolute;top: 0; width: 100%;z-index: -1;}
+    .posF .box500 {background: #fff none repeat scroll 0 0; border-radius: 6px;margin: 12% auto 0;width: 500px;}
+    .posF .box500 .hd { border-bottom: 2px solid #dfdfdf; position: relative;}
+    .posF .box500 .hd p {color: #535353; font-size: 20px;line-height: 50px; margin: 0; text-indent: 2em;}
+    .posF .box500 .hd .off {background: rgba(0, 0, 0, 0) url("/Public/home/images/pop-close.png") no-repeat; cursor: pointer; display: block; height: 33px; margin-top: -10.5px; position: absolute; right: 0px; top: 50%;width: 35px;}
+    .posF .bd { padding: 30px;}
+    .posF .rope { margin: 0 25px 10px;padding: 0;text-align: center;}
+    .posF .rope span {color: #535353;display: inline-block; }
+    .posF .rope select {border: 1px solid #e5e5e5;color: #333;height: 36px;outline: medium none;width: 310px;}
+    .posF .rope input {border: 1px solid #e5e5e5; color: #333;height: 34px;line-height: 34px;outline: medium none;padding: 0 7px; width: 296px;}
+    .posF .rope button.off {background-color: #b5b5b5;color: #fff; margin-left: 0;}
+    .posF .rope .submit {background: #f10215 none repeat scroll 0 0;color: #fff;}
+    .posF .rope a {border: 0 none; border-radius: 4px;cursor: pointer;display: inline-block;font-family: "Microsoft Yahei";font-size: 14px;height: 36px;line-height: 36px;margin-left: 23px;outline: medium none; padding: 0 15px;width: 105px;}
+    .show1{display: block;}
+
+    #example1_wrapper .row {position: relative;}
+    #example1_wrapper .row .col-sm-6:nth-child(1) {position: absolute;right: 0px;}
+    #example1_wrapper .row .col-sm-6:nth-child(2) {float:right;}
+    #example1_length {position: absolute;right: -14px;top: -46px;}
+    #example1_wrapper, .box-body {position: relative;}
+    #example1_length label{display:none}
+    #example1_paginate{display:none}
+    .page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+    .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+    .page a:hover,.page .on {background: #00a3ff;color:#fff}
+    .page div{display:inline;}
+    .remark {position: relative;cursor: pointer;}
+    .remark .text{width: 160px;display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+    .remark .hover {display: none;position: absolute;right:30px;top:55px;z-index: 5;width: 400px;min-height: 80px;padding: 15px;border:1px solid #ccc;background:#fff;box-sizing:border-box;border-radius:10px;}
+    .remark:hover .hover {display: block;}
+    .remark .hover:after {content: "";display: block;width: 14px;height: 14px;border-left:1px solid #ccc;border-top:1px solid #ccc;background:#fff;position: absolute;top: -7px;right: 40px;z-index: -5;transform: rotate(45deg);}
+    table.dataTable thead > tr > th {    padding-right: 0px!important;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px 0!important;
+    }
+    th {  text-align: center!important;  }
+    table.table-bordered th:last-child, table.table-bordered td:last-child {text-align: center!important;}
+    #foonav {display: none!important;}
+    .submit_lx {float: right;}
+    #khlx {height: 30px;}
+    #gjzt {height: 30px;}
+    button, input, select, textarea {height: 30px;}
+
+    #example1_wrapper .row .col-sm-6:nth-child(2){float: none;opacity: 0}
+    .txt{float:left;border:1px solid #ccc;width: calc(100% - 85px);margin-left: 15px;display: inline-block;vertical-align: middle;border-radius: 5px;font-size: 14px;padding: 10px;}
+    .msg{margin-top:10px;margin-bottom:20px;overflow:hidden;}
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:headPrivate" />
+    <!-- 头部结束 -->
+    <!-- 左侧 -->
+    <include file="common:sidePrivate" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title"><a href="/Admin/MonetaryPrivate/index">速分贷客户列表</a></h3>
+                        </div>
+                        <div class="box-body">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#home" data-toggle="tab">现金客户列表</a></li>
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade active in" id="home">
+                                    <div class="box-body">
+                                        <span>姓名：{$name}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>身份证：{$cardid}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>贷款编号：{$dkbh}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                                        保证金：{$margin}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>
+                                        <?php if($cp==60){
+                                        echo "渠道人员：谭儒辉";
+                                        }else if($cp==61){
+                                        echo "渠道人员：陈正伟";
+                                        }else if($cp==167){
+                                        echo "渠道人员：罗嘉欢";
+                                        }?></span>
+                                    </div>
+            <table class="table table-bordered table-hover" style="margin-top: 30px;">
+                <thead>
+                <tr>
+                    <th width="5%">ID</th>
+                    <th width="5%">期数</th>
+                    <th width="7%">初始本金</th>
+                    <th width="7%">本金余额</th>
+                    <th width="6%">月利率</th>
+                    <th width="6%">计息起日</th>
+                    <th width="6%">计息止日</th>
+                    <th width="6%">当期应付本金</th>
+                    <th width="8%">当期应付利息</th>
+                    <th width="5%">已归还本金</th>
+                    <th width="5%">已归还利息</th>
+                    <th width="6%">当月应还</th>
+                    <th width="5%">还款状态</th>
+                    <th width="6%">逾期天数</th>
+                    <th width="5%">滞纳金</th>
+                    <th width="6%">未还滞纳金</th>
+                    <!-- <th width="6%">操作</th> -->
+                </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                <volist name="details" id="value">
+                   
+                        <tr>
+                            <td>{$value.id}</td>
+                            <td>第{$value.num}期</td>
+                            <td>{$value.csbj}</td>
+                            <td>{$value.principal}</td>
+                            <td>{$value.rate}</td>
+                            <td>{$value.starttime}</td>
+                            <td>{$value.endtime}</td>
+                            <td>{$value.nowpri}</td>
+                            <td>{$value.nowinterest}</td>
+                            <td>{$value.returnpri}</td>
+                            <td>{$value.returninterest}</td>
+                            <td>{$value.arrears}</td>
+                            <td><?php echo $value['repayment']==1?'未还完':'已还完' ?></td>
+                            <td>{$value.yqday}</td>
+                            <td>{$value.yqmoney}</td>
+                            <!-- <td>{$value.whznj}</td> -->
+                         <if condition="$i eq 1">
+                            <td rowspan="<?php echo count($details) ?>"><span id="znj">{$znj}</span></td>
+                         </if>
+                        <!-- <td>
+                        <button class="updateone btn btn-primary btn-flat"  name="{$value.id}">更新</button>
+                        </td> -->
+                    </tr>
+            </volist> 
+                    <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>{$zyqd}</td>
+                            <td>{$zyqm}</td>
+                            <td></td>
+                    </tr>
+            </tbody>
+
+            </table>
+        <if condition="in_array('87',$_SESSION['level'])">
+            <div style="padding-left:400px;">
+            <input type="number" name="lastsum" class="hkje" placeholder="填写还款金额">
+            <!-- <button class="updateone btn btn-primary btn-flat"  name="{$ids}">还款</button> -->
+            <button class="updateone btn btn-primary btn-flat"  name="{$ids}">归还利息</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- <button class="before_sfd btn btn-primary btn-flat"  name="{$ids}">提前还款</button> -->
+            <button class="before_sfd btn btn-primary btn-flat"  name="{$ids}">归还本金</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="upd_znj btn btn-primary btn-flat"  name="{$ids}">还滞纳金</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="upd_fj btn btn-primary btn-flat"  name="{$ids}">罚息金额</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="updatejq btn btn-primary btn-flat" name="{$ids}">结清</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="upd_jq btn btn-primary btn-flat" name="{$ids}">提前结清</button></div> 
+        </if>
+
+        <div class="hkxq" style="width:50%;float:right">
+             <table class="table table-bordered table-hover" style="margin-top:30px;">
+                <thead>
+                <tr>
+                    <th width="5%">序号</th>
+                    <th width="20%">时间</th>
+                    <th width="20%">还款金额</th>
+                     <th width="20%">说明</th>
+                    <th width="20%">归还滞纳金</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    <volist name="info" id="val">
+                        <tr>
+                            <td>{$val.bs}</td>
+                            <td>{$val.time}</td>
+                            <td>{$val.sum}</td>
+                            <td>{$val.explain}</td>
+                            <td>{$val.returnlf}</td>   
+                        </tr>
+                    </volist> 
+                </tbody>
+            </table>
+        </div>
+        <div class="gjjl" style="width:48%;float:right;margin-right:20px;margin-top:30px;border:1px solid #ccc">
+            <textarea class="sac" style="margin:5px;height:auto; width:calc(100% - 20px);" rows="3" name="use" placeholder="请输入客户跟进记录，不超过300字..."></textarea>
+            <input type="hidden" name="ids" class="idsss" value="{$ids}">
+            <a style="margin-top:10px;width:200px;margin-left:calc(100% - 215px);" class="btn btn-block btn-primary btn-flat" onclick="liyt(this)" value="确定添加" autocomplete="off">确定添加</a>
+            <div id="message" style="padding:5px;overflow:hidden">
+                <foreach name="records" item="val">
+                    <div class="msg">
+                        <div class="act" style="float:left"><img width="60px" height="60px" src="/Public/admin/images/active-man.png"></div>
+                        <div class="txt">
+                          <i class="msg_input"></i>
+                          <span class="name" style="color:#00A0EA">{$val.admin_name}:</span>
+                          <p>{$val.content}</p>
+                          <div class="date">{$val.addtime|date="Y-m-d H:i",###}</div>
+                        </div>
+                    </div>
+                </foreach>
+            </div>
+            <div class="page" style="text-align:center;">{$show}</div>
+        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    </section>
+</div>
+</div>
+
+<div class="posF" id="express" >
+    <div class="bg"></div>
+    <div class="box500">
+        <div class="hd posR">
+            <p >更换跟进人审核</p>
+            <span class="off posA" onclick="check_off(this)">&nbsp;</span>
+        </div>
+        <div class="bd">
+            <div class="rope">
+                <span style="color:red">客户跟进业务员更换成<em class="middle_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+                <input type="hidden" name="send_id" class="send_id" id="send_id" value="">
+                <input type="hidden" name="send_id" class="send_username" value="">
+            </div>
+            <div class="rope" style="margin-top:25px">
+                <a onclick="oncheck('1')" style="background:#00a651" class="submit">通过</a><a onclick="oncheck('2')" class="submit">不通过</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="posF" id="Sign" >
+    <div class="bg"></div>
+    <div class="box500">
+        <div class="hd posR">
+            <p >交接渠道部审核</p>
+            <span class="off posA" onclick="Sign_off(this)">&nbsp;</span>
+        </div>
+        <div class="bd">
+            <div class="rope">
+                <span style="color:red">客户已签约，业务员交接给渠道部<em class="rank_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+                <input type="hidden" name="send_id" class="rank_id" value="">
+                <input type="hidden" name="send_id" class="rank_username" value="">
+            </div>
+            <div class="rope" style="margin-top:25px">
+                <a onclick="onSign('1')" style="background:#00a651" class="submit">通过</a><a onclick="onSign('2')" class="submit">不通过</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="posF" id="met" >
+    <div class="bg"></div>
+    <div class="box500">
+        <div class="hd posR">
+            <p >提示</p>
+            <span class="off posA" onclick="met_off(this)">&nbsp;</span>
+        </div>
+        <div class="bd">
+            <div class="rope">
+                <span style="color:red">待经理确定！</span>
+                <input type="hidden" name="met_id" class="met_id" id="met_id" value="">
+            </div>
+            <div class="rope" style="margin-top:25px">
+                <a onclick="onmet()" style="background:#00a651" class="submit">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    $('.updateone').click(function(){
+
+       var hkje=$(".hkje").val();
+       var id = $(this).attr('name');
+       var type='sfd';
+       if(hkje){
+           $.post("/Admin/MonetaryPrivate/updsd",{id:id,hkje:hkje,type:type},function(data){
+                
+                alert(data);
+                window.location.reload();
+           }); 
+       }else{
+         alert("请输入还款金额");
+       }
+    })
+
+     $('.updatejq').click(function(){
+       
+       var id = $(this).attr('name');
+
+       $.post("/Admin/MonetaryPrivate/updstate",{id:id},function(data){
+            if(data==1){
+                alert("贷款已结清");
+                window.location.href="/Admin/MonetaryPrivate/settle";
+            }else if(data==2){
+                alert("贷款未结清");
+                window.location.href="/Admin/MonetaryPrivate/settle";
+            }else{
+                alert("贷款未还完不能结清");
+            }
+
+       }); 
+    })
+
+     function liyt(){
+       var id = $(".idsss").val();
+       var content = $(".sac").val();
+       $.get('/Admin/MonetaryPrivate/record',{id:id,content:content},function(data){
+            if(data==2){
+                alert("录入失败");
+            }else{
+                alert("录入成功");
+                window.location.reload();                
+            }
+       });
+     }
+
+     $(".before_sfd").click(function(){
+        var id = $(this).attr('name');
+        var hkje=$(".hkje").val();
+        if(hkje>0){
+            $.post("/Admin/MonetaryPrivate/before_sfd",{id:id,hkje:hkje},function(data){
+            alert(data);
+            window.location.reload();
+            });
+        }
+     });
+        
+    $(".upd_fj").click(function(){
+        ids=$(this).attr("name");
+        hkje=$(".hkje").val();
+        if(hkje>0){
+            $.post('/Admin/MonetaryPrivate/upd_fj',{hkje:hkje,ids:ids},function(data){
+                alert(data);
+                window.location.reload();
+            });
+        }else{
+            alert("请输入罚金");
+            window.location.reload();
+        }
+     });
+     
+     $(".upd_znj").click(function(){
+        ids=$(this).attr("name");
+        znj=$("#znj").text();
+        hkje=$(".hkje").val();
+        if(hkje){
+            $.post('/Admin/MonetaryPrivate/upd_znj',{hkje:hkje,ids:ids,znj:znj},function(data){
+                alert(data);
+                window.location.reload();
+            });
+        }else{
+            alert("请输入滞纳金金额");
+            window.location.reload();
+        }
+     });
+
+     $(".upd_jq").click(function(){
+        var id = $(this).attr('name');
+        $.post("/Admin/MonetaryPrivate/upd_jq",{id:id},function(data){
+            if(data==1){
+                alert("贷款已提前结清");
+                window.location.href="/Admin/MonetaryPrivate/settle";
+            }else if(data==2){
+                alert("贷款未结清");
+                window.location.href="/Admin/MonetaryPrivate/settle";
+            }else{
+                alert("请确认本金余额是否归还");
+                window.location.href="/Admin/MonetaryPrivate/edit/id/"+id;
+            }
+
+       });
+     });
+</script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        body {
+            height: 800px;
+            width: 1920px;
+        }
+        .box {
+            background: #f8f8f8;
+            height: 800px;
+            width: 1920px;
+        }
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0;
+        }
+
+        /*修改*/
+        body {
+            width: 1280px;
+            font-size: 18px;
+        }
+        .top {
+            width: 1280px;
+            height: 75px;
+            line-height: 75px;
+            background: rgba(0,0,0,0.6);
+            padding-left: 20px;
+            position: relative;
+        }
+        .left {
+            text-align: left;
+            float: left;
+        }
+        .left img {
+            position: relative;
+            top: -2px;
+            margin-right: 5px;
+            width: 22px;
+        }
+      
+        .left a{
+            width: 90px;
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            font-size: 30px;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            /*overflow: hidden;*/
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            margin-bottom:0;
+            background: #f8f8f8;
+            height: auto;
+        }
+        .information .choose {
+            left: 170px;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            /*overflow: hidden;*/
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            margin-bottom:50px;
+            background: #f8f8f8;
+            height: auto;
+        }
+        .information .choose {
+            left: 202px;
+            bottom: 33px;
+        }
+        .property {
+            font-size: 18px;
+        }
+        .borders {
+            border: 1px solid #969393;
+        }
+        .box-title {
+            margin-left: 170px;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+     
+        .tjs {
+            width: 140px;
+        }
+        .imgs{margin-top: 10px;margin-left: 10px;}
+        .right{
+            float: left;
+            margin-left: 100px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="top">
+        <div class="left">
+            <a href="javascript:void(0)" id="back" class="goback"><img src="http://47.92.119.237:8888//img/back.png" alt="">返回</a>&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#fff">(共{$num}张)</span>
+        </div>
+        <div class="right">
+            <form action="/admin/ApplyPrivate/preview" method="post">
+                <?php for($i=0; $i<$num;$i++){ ?>
+                    <label style="color: #fff;"><?=$i+1?>&nbsp;&nbsp;<input type="checkbox" name="imgs[]" value="<?=$i?>"></label>
+                <?php } ?>
+                <input type="hidden" name="zd" value="{$zd}">
+                <input type="hidden" name="id" value="{$id}">
+                <input type="hidden" name="cloumnVal" value="{$cloumnVal}">
+                <input type="submit" value="删除" style="line-height:normal;border-radius:5px;margin-left: 20px;">
+            </form>
+        </div>
+    </div>
+    <div style="margin-top: 10px;">
+        <foreach name="arrs" item="vo">
+             <div class="imgs"><img width="1260px" src="http://47.92.119.237{$vo}"></div>
+        </foreach>
+    </div>
+    
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //返回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        window.close();
+        });
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>信息</title>
+    <script src="js/jquery.min.js"></script>
+    <include file="common:css" />
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .img {
+        width: 100%;
+        padding-bottom: 50px;
+        margin: auto;
+        background-size: 1280px 800px;
+        font-size: 24px;
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+    }
+    
+    a,input {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    
+    .top {
+        width: 100%;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+        margin-bottom: 22px;
+    }
+    
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    #form {
+        width: 100%;
+        /*height: 500px;*/
+        /*background: red;*/
+        /*margin: 50px auto;*/
+        box-sizing: border-box;
+        color: #333;
+    }
+  
+    
+    .input,.select {
+        width: 255px;
+        height: 42px;
+        line-height: 42px;
+        margin-left: 30px;
+        position: relative;
+        bottom: 6px;
+        border: none;
+        outline: none;
+        font-size: 21px;
+    }
+   
+    label {
+        margin-left: 10px;
+        position: relative;
+        bottom: 4px;
+        font-size: 22px;
+        color: #747474;
+        letter-spacing: 3px;
+    }
+    .button {
+        color: #fff;
+        background: #d9a229;
+        width: 250px;
+        display: block;
+        /*margin:0 auto;*/
+        margin-left: 206px;
+        outline: none;
+        font-size: 30px;
+        box-shadow: 2px 2px 2px #a0a0a0;
+        border-radius: 6px;
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        position: relative;
+        top: 20px;
+    }
+    .border {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .span {
+        color: red;
+        position: relative;
+        top:6px;
+    }
+   .grounp{
+    /*margin-left: 140px;*/
+    margin-top: 20px;
+   }
+   .xq{padding: 5px;font-size:18px;}
+   /*table{height:300px;}*/
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <span class="guan">信息填写</span>
+    </div>
+    <form action="/Admin/ApplyPrivate/wecatinfo" method="post" id="form">
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>姓&nbsp;&nbsp;名</label>
+                <input type="text" name="username" placeholder="必填" id="input2" class="input" required value="">
+            </div>
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>手机号</label>
+                <input type="number" name="phone" placeholder="必填" id="input2" class="input" required value="">
+            </div>
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="span">*</span>类&nbsp;&nbsp;型</label>
+                <select class="select">
+                    <option>速贷</option>
+                    <option>速分贷</option>
+                    <option>车贷</option>
+                </select>
+            </div>
+        <input type="submit" id="tjbtn" value="提交" class="button">
+    </form>
+</div>
+<include file="common:js" />
+<script>
+    
+</script>
+</body>
+</html>

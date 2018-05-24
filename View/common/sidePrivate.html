@@ -1,0 +1,28 @@
+<aside class="main-sidebar">
+  <section class="sidebar">
+    <ul class="sidebar-menu">
+      <?php if(in_array('81',$levels)){?>
+
+        <li class='treeview <?php if($isUclient == 'MonetaryPrivate'){?>active<?php }?>'>
+        <a href="#">
+            <i class="fa fa-dashboard"></i> <span>自有现金业务</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <?php if(in_array('82',$_SESSION['level'])){?>
+            <li><a href="/Admin/MonetaryPrivate/index"><i class="fa fa-circle-o"></i>速分贷列表</a></li>
+            <?php }?>
+            <?php if(in_array('84',$_SESSION['level'])){?>
+            <li><a href="/Admin/MonetaryPrivate/indexsd"><i class="fa fa-circle-o"></i>速贷列表</a></li>
+            <?php }?>
+            <?php if(in_array('86',$_SESSION['level'])){?>
+            <li><a class="addindex" href="/Admin/MonetaryPrivate/listCustomer"><i class="fa fa-circle-o"></i> 现金客户列表</a></li>
+            <?php }?>
+            <?php if(in_array('90',$_SESSION['level'])){?>
+            <li><a class="addindex" href="/Admin/MonetaryPrivate/settle"><i class="fa fa-circle-o"></i>已结清列表</a></li>
+            <?php }?>
+        </ul>
+        </li>
+        <?php }?>
+    </ul>
+  </section>
+</aside>

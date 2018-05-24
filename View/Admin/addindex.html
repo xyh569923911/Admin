@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+   
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">添加管理员</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                <form class="form-horizontal" toUrl="/Admin/Admin/index" action="{:U('Admin/Admin/addindex')}" id="myform">
+
+                 
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">部门：</label>
+                      <div class="col-md-2">
+                        <select class="form-control requires" name="branch_id">
+                          <option value="">请选择</option>
+                          <foreach name="columns" item="value">
+                          <option value="{$value.id}" <if condition="$data['branch_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                    </div>
+					
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">用户名：</label>
+                      <div class="col-md-2">
+                        <select class="form-control requires" name="member_id">
+                          <option value="">请选择</option>
+                          <foreach name="columnss" item="value">
+                          <option value="{$value.id}" <if condition="$data['member_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                    </div>            
+				   <?php if(in_array(59,$levels)){?>
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">密码：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="<?php echo $data['passw'];?>" name="password">
+                      </div>
+                    </div>
+				    <?php }else{?>
+					 <?php if($data['id'] == $_SESSION['aid']){?>
+					  <div class="form-group">
+                      <label class="col-md-2 control-label">密码：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="<?php echo $data['passw'];?>" name="password">
+                      </div>
+                      </div>
+					  <?php }?>
+                    <?php };?>
+                    
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">权限：</label>
+                      <div class="col-md-3">
+                        <select class="form-control requires" name="level_id">
+                          <option value="">请选择</option>
+                          <foreach name="level" item="value">
+                          <option value="{$value.id}" <if condition="$data['level_id'] eq $value['id']">selected</if>>{$value._name}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                     </div>  
+					<if condition="in_array($data['level_id'],$ayp)">
+                    <notempty name="data.id">
+					 <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">转移所属分组：</label>
+                      <div class="col-md-2">
+                        <select class="form-control" name="shift_ids">
+                          <option value="">请选择</option>
+                          <foreach name="srt" item="value">
+                          <option value="{$value.id}">{$value._name}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                     </div>  
+					 <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">转移数据：</label>
+                      <div class="col-md-2">
+                        <select class="form-control" name="shift_id">
+                          <option value="">请选择</option>
+                          <!-- <foreach name="srt" item="value">
+                          <option value="{$value.id}">{$value.username}</option>
+                          </foreach> -->
+                        </select>
+                      </div>
+                     </div>  
+                     </notempty>
+					 
+                     </if>
+					 
+					<div class="form-group">
+                      <label class="col-md-2 control-label">分配开关权限：</label>
+                      <div class="col-md-6">
+                        <label class="radio-inline">
+                          <input type="radio" name="types" <if condition="$data['types'] eq 0">checked</if> checked value="0"> 否
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="types" <if condition="$data['types'] eq 1">checked</if> value="1"> 是
+                        </label><span style="color:red;margin-left:20px">（注意：只对业务部使用，是否有权限控制开启关闭！）</span>
+                      </div>
+                    </div>
+					 
+					 <div class="form-group">
+                      <label class="col-md-2 control-label">系统分配：</label>
+                      <div class="col-md-6">
+                        <label class="radio-inline">
+                          <input type="radio" name="type" <if condition="$data['type'] eq 0">checked</if> checked value="0"> 可分配
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="type" <if condition="$data['type'] eq 1">checked</if> value="1"> 不可分配
+                        </label><span style="color:red;margin-left:20px">（注意：业务部使用）</span>
+                      </div>
+                    </div> 
+					<!-- <if condition="in_array('1',$_SESSION['level'])">
+					<div class="form-group">
+                      <label class="col-md-2 control-label">可上传文件：</label>
+                      <div class="col-md-6">
+                        <label class="radio-inline">
+                          <input type="radio" name="dow" <if condition="$data['dow'] eq 0">checked</if> checked value="0"> 否
+                        </label>
+                        <label class="radio-inline">
+                          <input type="radio" name="dow" <if condition="$data['dow'] eq 1">checked</if> value="1"> 是
+                        </label>
+                      </div>
+                     </div> 
+					 </if> -->
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-sm-9">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value="添加"></input>
+                      </div>
+                    </div>
+                </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+	<script type="text/html" id="columnTemp">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v.username%></option>
+      <%/each%>
+    </script>
+   <script type="text/html" id="columnTemps">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v.username%></option>
+      <%/each%>
+    </script>
+    <script type="text/javascript">
+      var ue = UE.getEditor('container', {});
+      $("select[name='branch_id']").change(function(){
+        var id = $(this).val();
+        $.get("{:U('Admin/Admin/getBranch')}", {id:id}, function (re){
+	    //alert(re);
+          if(re){
+            var html = template("columnTemp", {list:re});
+            $("select[name='member_id']").html(html);
+          }else{
+		  //alert(5);
+            $("select[name='member_id']").html('<option value="">请选择</option>');
+          }
+        })
+      })
+	  
+	  $("select[name='shift_ids']").change(function(){
+        var id = $(this).val();
+        $.get("{:U('Admin/Admin/getshift_ids')}", {id:id}, function (re){
+	    //alert(re);
+          if(re == 3){
+            $("select[name='shift_id']").html('<option value="">请选择</option>');
+          }else{
+		  //alert(5);
+		    var html = template("columnTemps", {list:re});
+            $("select[name='shift_id']").html(html);
+            
+          }
+        })
+      })
+    </script>
+    
+  </body>
+</html>

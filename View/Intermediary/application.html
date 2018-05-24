@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>Title</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .img {
+        width: 1280px;
+        padding-bottom: 50px;
+        background-size: 1280px 800px;
+        font-size: 30px;
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+    }
+    li {
+        list-style: none;
+    }
+    a,input {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    ul {
+        position: absolute;
+        bottom:0;
+    }
+    li {
+        width: 408px;
+        height: 200px;
+        line-height: 200px;
+        background: rgba(0,0,0,0.6);
+        float: left;
+        border-right: 1px solid #fff;
+        text-align: center;
+    }
+    li:not(:first-child) img {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        top: 8px;
+        padding-right: 15px;
+    }
+    li:first-child img {
+        width: 300px;
+        margin-top: 55px;
+    }
+    a {
+        color: #fff;
+    }
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+        margin-bottom: 22px;
+    }
+    .left {
+        text-align: left;
+        float: left;
+    }
+    .left img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        width: 22px;
+    }
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    #form {
+        width: 1010px;
+        /*height: 500px;*/
+        /*background: red;*/
+        margin: 50px auto;
+        box-sizing: border-box;
+        color: #333;
+    }
+    .grounp {
+        width: 500px;
+        height: 50px;
+        line-height: 50px;
+        background: #fff;
+        box-sizing: border-box;
+        border: 1px solid #cecece;
+        margin-bottom: 10px;
+        float: left;
+        margin-right: 10px;
+    }
+    .grounp:nth-of-type(2n) {
+        margin-right: 0px;
+    }
+    input::-ms-input-placeholder{color:#dadada}
+    input::-webkit-input-placeholder{color:#dadada}
+    input::-moz-placeholder{color:#dadada}
+    .input,.select {
+        float: right;
+        width: 200px;
+        height: 42px;
+        line-height: 42px;
+        margin-left: 30px;
+        position: relative;
+        border: none;
+        outline: none;
+        font-size: 21px;
+    }
+    .select {
+        color: #747474;
+    }
+    label {
+        margin-left: 10px;
+        position: relative;
+        bottom: 4px;
+        font-size: 22px;
+        color: #747474;
+        letter-spacing: 3px;
+    }
+    .button {
+        color: #fff;
+        background: #d9a229;
+        width: 1000px;
+        display: block;
+        margin:0 auto;
+        outline: none;
+        font-size: 30px;
+        box-shadow: 2px 2px 2px #a0a0a0;
+        border-radius: 6px;
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        position: relative;
+        top: 20px;
+    }
+    h2 {
+        font-size: 28px;
+        margin-bottom: 15px;
+        font-weight: normal;
+        color: #5b5555;
+    }
+    .border {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .span {
+        color: red;
+        position: relative;
+    }
+    .border_specialy {
+        position: relative;
+    }
+    .border_specialy .grounp {
+        float: none!important;
+
+    }
+    .grounp_specialy {
+        position: relative;
+    }
+    .grounp_specialy .inputs {
+        position: absolute;
+        left: 196px;
+        top: 0px;
+        font-size: 19px;
+    }
+    .two {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 497px;
+        height: 528px;
+        border: 1px solid #cecece;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    .two img {
+        width:95%;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */ 
+    color: #dadada; 
+    } 
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+    color: #dadada#dadada#dadada; 
+    } 
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+    color: #dadada#dadada; 
+    } 
+    :-ms-input-placeholder { /* Internet Explorer 10+ */ 
+    color: #dadada; 
+    } 
+
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <div class="left">
+            <a href="/Admin/Intermediary/index"><img src="http://47.92.119.237:8888/img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">申请表</span>
+    </div>
+    <form <?php echo  $data['name']!=''? "action='/Admin/Intermediary/upd'" : "action='/Admin/Intermediary/add'" ?> method="post" id="form" onsubmit="return checkform()" enctype="multipart/form-data">
+        <h2>申请人信息</h2>
+        <div class="border border_specialy" style="height: 553px;">
+            <div class="grounp">
+                <label for="input1">&nbsp;&nbsp;<span class="span">*</span>申请人姓名</label>
+                <input name="name" type="text" placeholder="必填" value="{$data['name']}" id="input1" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input40">&nbsp;&nbsp;<span class="span">*</span>性别</label>
+                <select name="sex" id="input40" class="select">
+                    <option value="3">请选择</option>
+                    <option value="0" <?php if($data['sex']==0) echo selected ?> >男</option>
+                    <option value="1" <?php if($data['sex']==1) echo selected ?> >女</option>
+                </select>
+            </div>
+            <!-- <div class="grounp">
+                 <label for="input40">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别</label>
+                 <input type="text" placeholder="请输入" id="input40" class="input">
+             </div>-->
+            <div class="grounp">
+                <label for="input2">&nbsp;&nbsp;<span class="span">*</span>手机号码</label>
+                <input type="number" name="phone" placeholder="必填" value="{$data['phone']}" id="input2" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input3">&nbsp;&nbsp;<span class="span">*</span>身份证号码</label>
+                <input type="text" name="cardid" placeholder="必填" value="{$data['cardid']}" id="input3" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input4">&nbsp;&nbsp;<span class="span">*</span>申请金额</label>
+                <input type="number" name="money" placeholder="必填" value="{$data['money']}" id="input4" class="input" required>&nbsp;&nbsp;<span style="font-size: 22px;color: #747474;position: absolute;left: 448px;">万元</span>
+            </div>
+            <div class="grounp">
+                <label for="input5">&nbsp;&nbsp;借款用途</label>
+                <input type="text" name="use" placeholder="选填" id="input5" value="{$data['use']}" class="input">
+            </div>
+            <div class="grounp">
+                <label for="get">&nbsp;&nbsp;<span class="span">*</span>婚姻状态</label>
+                <select name="maritalstatus" required id="get" class="select">
+                    <option value="0">请选择</option>
+                    <option value="1" <?php if($data['maritalstatus']==1) echo selected ?> >已婚</option>
+                    <option value="2" <?php if($data['maritalstatus']==2) echo selected ?> >未婚</option>
+                    <option value="3" <?php if($data['maritalstatus']==3) echo selected ?> >离异</option>
+                </select>
+            </div>
+            <div class="grounp daugter">
+                <label for="input7">&nbsp;&nbsp;<span class="span">*</span>子女</label>
+                <input type="text" name="children" value="{$data['children']}" placeholder="必填" id="input7" class="input" required>
+            </div>
+            <div class="grounp grounp_specialy">
+                <div class="input divs" style="width: 455px;overflow: hidden;">
+                    <label for="room" style="bottom: -5px;">照片
+                        <input class="inputs" id="room" name="photo"
+                               onchange="showPicture(this)" type="file" value="{$data['photo']}" />
+                        <input type="hidden" name="oldphoto" value="{$data['photo']}">
+                    </label>
+                </div>
+            </div>
+            <div class="two">
+                <!-- <img id="imgss" width="450" height="528" src="http://47.92.119.237{$data['photo']}"/> http://47.92.119.237-->
+                <img id="imgss0"  src="http://47.92.119.237{$data['photo']}"/>
+            </div>
+            <!--<script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>-->
+        </div>
+        
+        <div class="border" style="height:317px;">
+            <div class="grounp">
+                <label for="input10">&nbsp;&nbsp;来现居住地时间</label>
+                <input type="text" name="cometime"  value="{$data['cometime']}" placeholder="选填" id="input10" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input11">&nbsp;&nbsp;现居住地址/租金</label>
+                <input type="text" name="address" placeholder="选填" value="{$data['address']}" id="input11" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input12">&nbsp;&nbsp;<span class="span">*</span>单位名称</label>
+                <input type="text" name="company" placeholder="必填" value="{$data['company']}" id="input12" required class="input">
+            </div>
+            <div class="grounp">
+                <label for="input13">&nbsp;&nbsp;公司人数</label>
+                <input type="text" name="numpeople" placeholder="选填"  value="<?php echo $data['numpeople']==0?'':$data['numpeople'] ?>" id="input13" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input14">&nbsp;&nbsp;部门/职位</label>
+                <input type="text" name="department"  value="{$data['department']}" placeholder="选填" id="input14" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input15">&nbsp;&nbsp;现单位工作时间</label>
+                <input type="text" name="workhours" placeholder="选填" value="{$data['workhours']}" id="input15" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input16">&nbsp;&nbsp;单位座机</label>
+                <input type="number" name="telphone" placeholder="选填" value="{$data['telphone']}" id="input16" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input17">&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="companyaddress" placeholder="选填" value="{$data['companyaddress']}" id="input17" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input18">&nbsp;&nbsp;发薪日/发薪方式</label>
+                <input type="text" name="payday" value="{$data['payday']}" placeholder="选填" id="input18" class="input">
+            </div>
+            
+        </div>
+        <h2 class="h2-wifes">电核人员信息</h2>
+        <div class="border border-wife" style="height: 138px;">
+            <div class="grounp">
+                <label for="input19">&nbsp;&nbsp;<span class="span span-wife theWife">*</span>配偶姓名</label>
+                <input type="text" name="peioname" placeholder="必填" value="{$data['peioname']}" id="input19" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input20">&nbsp;&nbsp;<span class="span">*</span>手机号码</label>
+                <input type="number" name="peiotel" value="{$data['peiotel']}" placeholder="必填" id="input20" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input21">&nbsp;&nbsp;&nbsp;单位名称</label>
+                <input type="text" name="peiocompany" value="{$data['peiocompany']}" placeholder="选填" id="input21" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input22">&nbsp;&nbsp;&nbsp;单位地址</label>
+                <input type="text" name="peioaddress" value="{$data['peioaddress']}" placeholder="选填" id="input22" class="input">
+            </div>
+        </div>
+        <h2></h2>
+        <div class="border height" style="height: 139px;">
+            <div class="grounp">
+                <label for="input23">&nbsp;&nbsp;<span class="span">*</span>直系亲属姓名</label>
+                <input type="text" name="relativesname" value="{$data['relativesname']}" placeholder="必填" id="input23" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input24">&nbsp;&nbsp;<span class="span">*</span>电话</label>
+                <input type="number" name="relativestel" value="{$data['relativestel']}" placeholder="必填" id="input24" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input25">&nbsp;&nbsp;<span class="span">*</span>亲属关系</label>
+                <input type="text" name="arelatives" placeholder="必填" value="{$data['arelatives']}" id="input25" class="input" required>
+            </div>
+            <div class="grounp choose">
+                <label for="input42">&nbsp;&nbsp;住宅地址</label>
+                <input type="text" name="relativesaddres" value="{$data['relativesaddres']}" placeholder="选填" id="input42" class="input">
+            </div>
+        </div>
+        <h2></h2>
+        <div class="border" style="height: 198px;">
+            <div class="grounp">
+                <label for="input27">&nbsp;&nbsp;<span class="span">*</span>同事姓名</label>
+                <input type="text" name="colleaguename" value="{$data['colleaguename']}" placeholder="必填" id="input27" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input28">&nbsp;&nbsp;<span class="span">*</span>电话</label>
+                <input type="number" name="colleaguetel" value="{$data['colleaguetel']}" placeholder="必填" id="input28" class="input" required>
+            </div>
+            <div class="grounp">
+                <label for="input29">&nbsp;&nbsp;&nbsp;单位电话</label>
+                <input type="number" name="colleaguedwtel" value="{$data['colleaguedwtel']}"  placeholder="选填" id="input29" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input30">&nbsp;&nbsp;&nbsp;部门</label>
+                <input type="text" name="colleaguebm" value="{$data['colleaguebm']}" placeholder="选填" id="input30" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input31">&nbsp;&nbsp;&nbsp;职务</label>
+                <input type="text" name="colleaguezw" value="{$data['colleaguezw']}" placeholder="选填" id="input31" class="input">
+            </div>
+        </div>
+        <h2></h2>
+        <div class="border" style="height: 77px;">
+            <div class="grounp">
+                <label for="input32">&nbsp;&nbsp;&nbsp;朋友姓名</label>
+                <input type="text" name="friendname" placeholder="选填" value="{$data['friendname']}" id="input32" class="input">
+            </div>
+            <div class="grounp">
+                <label for="input33">&nbsp;&nbsp;&nbsp;电话</label>
+                <input type="number" name="friendtel" value="{$data['friendtel']}" placeholder="选填" id="input33" class="input">
+            </div>
+        </div>
+        <h2>客户情况描述</h2>
+        <!-- <div class="border" style="height: 77px;">
+           <textarea cols="147" name="description" rows="4" placeholder="1、房产余额及贷款空间&nbsp;&nbsp;2、民间负债情况&nbsp;&nbsp;3、收入来源" style="padding: 5px;" required></textarea>
+        </div> -->
+
+        <div class="border" style="height: 77px;    margin-bottom: 55px;">
+           <textarea cols="147" style="    color: #747474;font-size: 22px;padding: 10px 0 0 10px;height: 100px;width: 100%;" name="description" rows="4" placeholder="1、房产余额及贷款空间&nbsp;&nbsp;2、民间负债情况&nbsp;&nbsp;3、收入来源" style="padding: 5px;" required>{$data['description']}</textarea>
+        </div>
+        <h2>业务员信息</h2>
+        <div class="border" style="margin-bottom: 70px;">
+            <div class="grounp">
+                <label for="input41">&nbsp;&nbsp;部门</label>
+                <input type="hidden" id="branch_val" value="{$data['branch']}">
+                <select name="branch" id="branch" class="bumen sea select" onchange="fp(this.value)" required>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input43">&nbsp;&nbsp;<span class="span">*</span>业务员</label>
+                <input type="hidden" class="ywys" value="{$data['salesman']}">
+                <select  class="members sea select" id="ywy" name="salesman">
+                 <option value="{$data['salesman']}">{$data['admin_name']}</option>
+                </select>
+            </div>
+        </div>
+        <h2>产品确认</h2>        
+        <div class="border">
+            <div class="grounp">
+                <label for="get">&nbsp;&nbsp;<span class="span">*</span>类型</label>
+                <select name="type" required id="get" class="type bumen sea select">
+                    <option value="0">请选择</option>
+                    <option value="1" <?php if($data['type']==1) echo selected ?> >信用贷</option>
+                    <option value="2" <?php if($data['type']==2) echo selected ?> >抵押贷</option>
+                </select>
+            </div>
+            <div class="grounp">
+                <label for="input51">&nbsp;&nbsp;产品</label>
+                <select name="types" id="types" style="width: 250px;" class="bumen sea select"  >
+                    <option value="0">请选择</option>
+                </select>
+            </div>
+        </div>
+        <h2>录入</h2>
+        <div class="border">
+            <div class="grounp">
+                <label for="input51">&nbsp;&nbsp;录入人员</label><input type="text" style="color: #747474;font-size: 22px;" id="input45" class="input" name="entry_personnel" readonly
+                 value="<?php if ($data['entry_personnel']){echo  $data['entry_personnel'];}else{echo $_SESSION['aname'];} ?>" >
+                <!-- <input type="number" name="friendtel" value="{$data['friendtel']}" placeholder="必填" id="input33" class="input" required> -->
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{$data['id']}">
+        <input type="submit" id="tjbtn" value="提交" class="button">
+    </form>
+</div>
+<include file="common:js" />
+<script>
+    function checkform(){
+        if(flags){
+            flags=false;
+            $("#tjbtn").hide();
+            return true;
+        }else{
+            alert("不要重复提交");
+            return false;
+        }
+    }
+    function showPicture(img) {
+        var objUrl = getObjectURL(img.files[0]);
+        var $img=$("#imgss0");
+        if (objUrl) {
+            $img.attr("src", objUrl).load(function () {
+                var b=this.width/this.height;
+                var a=$('.two').width()/$('.two').height();
+                if (a>b) {
+                    $img.css('height','95%').css('width','auto');
+                }else {
+                    $img.css('height','auto').css('width','95%');
+                }
+            });
+            $('.two').css('background','#ededed')
+
+        }
+    }
+
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+
+        return url;
+    }
+
+    $("#input2").blur(function(){
+        var phone=$(this).val();
+        $.get('/Admin/Apply/selectphone',{phone:phone},function(data){
+            if(data==1){
+                $("#lyhs").show();
+            }else{
+                $("#lyhs").hide();
+            }
+        });
+    });
+
+    var flag=true;
+    $('#get').change(function (e) {
+                if ($('#get').find('option:selected').val()==2 && flag) {
+                    $('#input7').attr('required',false);
+                    $('.theWife').html('*').parent().next().attr({
+                        'placeholder':'必填',
+                        'required':false
+                    });
+                    $('#input20').attr({
+                        'placeholder':'选填',
+                        'required':false
+                    }).prev().children().html('&nbsp;');
+                    $('.daugter').hide();
+                    $('.height').animate({
+                        'height':'260px'
+                    },500);
+                   $('.h2-wife,.border-wife').hide();
+                   $('.choose').after('<br><div class="grounp a"> <label for="name">&nbsp;&nbsp;<span class="span">*</span>其他亲属姓名</label>'+
+                '<input type="text" placeholder="必填" name="qtrelativesname" class="input"></div> <div class="grounp b">'+
+                '<label for="name">&nbsp;&nbsp;<span class="span">*</span>电话</label>'+
+                '<input type="number" placeholder="必填" name="qtrelativestel" class="input"> </div> <div class="grounp c">'+
+                '<label for="name">&nbsp;&nbsp;<span class="span">*</span>单位</label>'+
+                '<input type="text" placeholder="必填" name="qtrelativesdw" class="input"> </div> <div class="grounp d">'+
+                '<label for="name">&nbsp;&nbsp;住宅地址</label>'+
+                '<input type="text" placeholder="选填" name="qtrelativesadrs" class="input"></div>');
+                    flag=false;
+        }else if ($('#get').find('option:selected').val()!=2) {
+                    $('#input7').attr('required',true);
+                    $('.theWife').html('*').parent().next().attr({
+                        'placeholder':'必填',
+                        'required':true
+                    });
+                    $('#input20').attr({
+                        'placeholder':'必填',
+                        'required':true
+                    }).prev().children().html('*');
+                    $('.daugter').show();
+                    $('.h2-wife,.border-wife').show();
+            $('.height').animate({
+                'height':'123px'
+            },500,function () {
+                $('.a,.b,.c,.d').remove();
+                $('.height').animate({
+                    'paddingBottom':'16px'
+                })
+            });
+                if ($('#get').find('option:selected').val()==3) {
+                    $('.theWife').html('&nbsp;').parent().next().attr({
+                        'placeholder':'选填',
+                        'required':false
+                    });
+                    $('#input20').attr({
+                        'placeholder':'选填',
+                        'required':false
+                    }).prev().children().html('&nbsp;');
+
+                }
+            flag=true;
+        }
+    });
+
+     //分配客户
+    function fp(rid){
+        if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    // $(function(){
+    //     rid=$(".bumen").val();
+    //     fp(rid);
+
+    // });
+
+    $(".type").change(function(){
+        if($(this).val()==1){
+            $("#types").empty();
+            $("#types").append("<option value='1'>房供贷</option><option value='2'>保单贷</option><option value='3'>小额贷</option><option value='4'>网贷</option><option value='5'>工薪贷</option><option value='6'>车贷</option>");
+        }else if($(this).val()==2){
+            $("#types").empty();
+            $("#types").append("<option value='16'>消费贷</option><option value='17'>经营贷</option>");
+        }
+    });
+
+    //加载部门
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+        branchs(b_val);
+
+        //修改信息选中类型
+        if($(".type").val()==1){
+            $("#types").empty();
+            $("#types").append("<option value='1' <?php if($data['types']==1) echo selected ?>>房供贷</option><option value='2' <?php if($data['types']==2) echo selected ?>>保单贷</option><option value='3' <?php if($data['types']==3) echo selected ?>>小额贷</option><option value='4' <?php if($data['types']==4) echo selected ?>>网贷</option><option value='5' <?php if($data['types']==5) echo selected ?>>工薪贷</option><option value='6' <?php if($data['types']==6) echo selected ?>>车贷</option>");
+        }else if($(".type").val()==2){
+            $("#types").empty();
+            $("#types").append("<option value='16' <?php if($data['types']==16) echo selected ?>>消费贷</option><option value='17' <?php if($data['types']==17) echo selected ?>>经营贷</option>");
+        }    
+    });
+</script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title">审批权限分配</h3>
+                    <div class="information">
+                    <form action="/Admin/Admin/sqrank" method="post">
+                      
+                       <p>权限：<label><input type="checkbox" class="cb" name="sp_level[]" value="8">填写申请表</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="1">贷前资料收集</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="2">客户信息查询</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="3">产品确认</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="4">考察</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="5">审贷</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="6">签约</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="7">放款</label>
+                       <label><input type="checkbox" class="cb" name="sp_level[]" value="9">客户列表</label>
+                       </p>
+                        <p>部门：<select style="height: 25px;width: 200px;" id="branch" class="bumen input2" name="branchs" onchange="fp(this.value)"></select>
+                        </p>
+                        <input type="hidden" id="branch_val" value="{$data['branchs']}">
+                        <input type="hidden" class="ywys" value="{$data['salesmans']}">
+                        <p>人员：<select style="height: 25px;width: 200px;" class="input2" value="" id="ywy" name="salesmans"><option value='{$data.salesman}'><?php echo $data['salesmans']==''? "请选择":$data['salesmans'] ?></option></select>
+                        </p>
+                        <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left:40px;">
+                    </form>
+                    </div>
+                     </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+
+    function fp(rid){
+         if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $("#ywy").empty();
+            for(i=0;i<data.length;i++){
+                $("#ywy").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+            info();
+          })
+           
+        }
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+    })
+     //加载部门
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+         branchs(b_val); 
+    });
+
+    $("#ywy").change(function(){
+        info();
+    });
+
+    function info(){
+        var ywy=$("#ywy").val();
+        $.get('/Admin/Admin/sqrank',{ywy:ywy},function(data){
+
+            $('.cb').each(function(){
+                if($.inArray($(this).val(),data)>=0){
+                    $(this).prop("checked","checked");
+                }else{
+                    $(this).prop("checked",false);  
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

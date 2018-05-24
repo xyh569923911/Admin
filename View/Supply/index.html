@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+<style type="text/css">
+	.submit_form {position: absolute;z-index:1;}
+	#example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow:hidden;}
+	#example1_filter .so:hover {background:#1F76A0;}
+	.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+	.addall:hover{color:#fff;background:#d42020}
+	.nav-tabs a{margin-right:3px}
+	.posF {display: none;height: 100%;left: 0; position: fixed; top: 0;width: 100%; z-index: 99999;}
+	.posF .bg { background: #000 none repeat scroll 0 0; height: 100%; left: 0;opacity: 0.35; position: absolute;top: 0; width: 100%;z-index: -1;}
+	.posF .box500 {background: #fff none repeat scroll 0 0; border-radius: 6px;margin: 12% auto 0;width: 500px;}
+	.posF .box500 .hd { border-bottom: 2px solid #dfdfdf; position: relative;}
+	.posF .box500 .hd p {color: #535353; font-size: 20px;line-height: 50px; margin: 0; text-indent: 2em;}
+	.posF .box500 .hd .off {background: rgba(0, 0, 0, 0) url("/Public/home/images/pop-close.png") no-repeat; cursor: pointer; display: block; height: 33px; margin-top: -10.5px; position: absolute; right: 0px; top: 50%;width: 35px;}
+	.posF .bd { padding: 30px;}
+	.posF .rope { margin: 0 25px 10px;padding: 0;text-align: center;}
+	.posF .rope span {color: #535353;display: inline-block; }
+	.posF .rope select {border: 1px solid #e5e5e5;color: #333;height: 36px;outline: medium none;width: 310px;}
+	.posF .rope input {border: 1px solid #e5e5e5; color: #333;height: 34px;line-height: 34px;outline: medium none;padding: 0 7px; width: 296px;}
+	.posF .rope button.off {background-color: #b5b5b5;color: #fff; margin-left: 0;}
+	.posF .rope .submit {background: #f10215 none repeat scroll 0 0;color: #fff;}
+	.posF .rope a {border: 0 none; border-radius: 4px;cursor: pointer;display: inline-block;font-family: "Microsoft Yahei";font-size: 14px;height: 36px;line-height: 36px;margin-left: 23px;outline: medium none; padding: 0 15px;width: 105px;}
+	.show1{display: block;}
+	
+	#example1_wrapper .row {position: relative;}
+	#example1_wrapper .row .col-sm-6:nth-child(1) {position: absolute;right: 0px;}
+	#example1_wrapper .row .col-sm-6:nth-child(2) {float:right;}
+	#example1_length {position: absolute;right: -14px;top: -46px;}
+	#example1_wrapper, .box-body {position: relative;}
+	#example1_length label{display:none}
+	#example1_paginate{display:none}
+	.page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+	.page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+	.page a:hover,.page .on {background: #00a3ff;color:#fff}
+	
+	.remark {position: relative;cursor: pointer;}
+	.remark .text{width: 160px;display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.remark .hover {display: none;position: absolute;right:30px;top:55px;z-index: 5;width: 400px;min-height: 80px;padding: 15px;border:1px solid #ccc;background:#fff;box-sizing:border-box;border-radius:10px;}
+	.remark:hover .hover {display: block;}
+	.remark .hover:after {content: "";display: block;width: 14px;height: 14px;border-left:1px solid #ccc;border-top:1px solid #ccc;background:#fff;position: absolute;top: -7px;right: 40px;z-index: -5;transform: rotate(45deg);}
+	.sea {padding:5px 15px;}
+	th.label {width: 90%!important;margin:15px auto!important;}
+</style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">公海列表</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">公海列表</a></li>
+					<form action="/Admin/Supply/index" method="GET" class="submit_formss">
+					    <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;margin-left:93px">
+	                       	<label>
+		                         总搜索：<input type="text" name="sou" value="<?php echo $_GET['sou']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+		                        <a href="javascript:;" onclick="tjs()" class="so">确定</a>
+	                       	</label>
+	                     </div>
+					</form> 
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                      <div class="box-body">
+					  <form action="/Admin/Supply/index" method="GET" class="submit_form">
+					  <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:none;">
+                                <label>
+                                  日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                  至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                  <a href="javascript:;" onclick="tj()" class="so">确定</a>
+                                </label>
+                        </div>
+					   </form>
+                        <script>
+							 function tj(){
+							  $(".submit_form").submit();
+							 } 
+							 function tjs(){
+							  $(".submit_formss").submit();
+							 } 
+						</script>	
+						<form action="/Admin/Supply/del" method="post" class="submit_forms" >
+                        <table id="example3" class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="5%">ID</th>
+                              <!-- <th>标题</th> -->
+                              <th width="5%">姓名</th>
+							  <!-- <th width="5%">姓别</th> -->
+							  <th width="5%">手机</th>
+							  <th width="10%">联系时间</th>
+                              <th width="7%">客户类型</th>
+							  <th width="7%">跟进状态</th>
+							  <th width="7%">跟进业务员</th>
+							  <th width="8%">备注</th>
+							  <th width="6%">推广来源</th>
+							  <th width="5%">来源</th>
+                              <th width="13%">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <foreach name="ch_data" item="value">
+                            <tr>
+                              <th><if condition="in_array('34',$_SESSION['level'])">  
+							  <input type="checkbox" name="id[]" value="{$value.id}">
+								  <elseif condition="in_array('38',$_SESSION['level'])"/>
+									  <input type="checkbox" name="id[]" value="{$value.id}">
+							  </if>
+
+							  &nbsp;&nbsp;{$value.id}</th>
+                             <!--  <th>{$value.title}</th> -->
+                              <th>{$value.username}</th>
+							  <!-- <th><if condition="$value.sex eq 0">男<else/>女</if></th> -->
+							  <th>{$value.phones}</th>
+							  <th>{$value.lxtime|date='Y-m-d H:i',###}</th>
+                              <th class="label"  style="background:{$value.type_id.color};padding:5px 5px;display: block;width: 58%;">{$value.type_id.name}</th>
+							  <th  style="background:{$value.state_id.color};color:#fff">{$value.state_id.name}</th>
+							  <th>{$value.admin_id}</th>
+							  <th class="remark">
+											<div class="text">{$value.content}</div>
+											<notempty name="value.content">
+											<div class="hover">
+                                             {$value.content}
+											</div>
+											</notempty>
+							  </th>
+							  <th class="remark">
+											<div  class="text"  style="width: 60px;">{$value.promotion}</div>
+											<notempty name="value.promotion">
+											<div class="hover">
+                                             {$value.promotion}
+											</div>
+											</notempty>
+										</th>
+							  <if condition="$value.allot eq 0">
+										<th class="label" style="background:#336600;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;" >
+										<if condition="$value.sources neq ''">
+										    {$value.sources}
+										<elseif condition="$value.source neq ''"/>
+											{$value.source}
+										<else/>	
+										    录入
+										</if>
+										</th> 
+										<else/>
+										<th class="label" style="background:red;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;" >
+										<if condition="$value.sources neq ''">
+										    {$value.sources}
+										<elseif condition="$value.source neq ''"/>
+											{$value.source}
+										<else/>	
+										    推广
+										</if>
+										</th> 
+										</if>
+                              <td>
+							   <a href="/Admin/Supply/viewindex/id/{$value.id}" style="background-color:#00c0ef" class="btn btn-primary btn-sm">预览</a>
+							  <if condition="in_array('32',$_SESSION['level'])">  
+							  <if condition="(in_array($admin_level['level_id'],$typ)) OR (in_array('1001',$_SESSION['level']))">
+                                <a href="/Admin/Supply/editindex/id/{$value.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit" style="font-size:16px;"></i></a>
+							  </if>		
+							  </if>	
+							   <if condition="in_array('34',$_SESSION['level'])">  
+                                <a class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'Uclient')"><i class="fa fa-trash" style="font-size:16px;"></i></a>
+							   </if>	
+                              </td>
+                            </tr>
+                            </foreach>
+                          </tbody>
+                        </table>
+						</form>
+
+						<if condition="in_array('1001',$_SESSION['level'])">
+							<form action="/Admin/Supply/fenpei" method="post" class="fpform">
+								<input type="button" value="全选" name="t" id="xz">
+								<b>选中批量分配：</b>
+								<select name="fb" class="bumen sea" onchange="fp(this.value)">
+									<option value=0 disabled selected>请选择</option>
+									<option value=30>科技园分部负责人</option>
+									<option value=29>科技园现金1部总监</option>
+									<option value=35>科技园现金1部</option>
+									<option value=36>科技园现金2部总监</option>
+									<option value=37>科技园现金2部</option>
+									<option value=18>南山分部负责人</option>       
+									<option value=19>南山分部总监</option>
+									<option value=39>南山分部</option>
+									<option value=16>西乡分部负责人</option>     
+									<option value=17>西乡分部总监</option>
+									<option value=34>西乡分部</option>  
+									<option value=7>福永分部负责人</option>     
+									<option value=8>福永分部总监</option>
+									<option value=32>福永分部</option>
+								</select>
+
+								<select class="members sea" name="members">
+									<option value=0>请选择</option>
+								</select>
+								<input type="hidden" value="" name="ids" class="idss">
+								<input type="button" onclick="ucid()" style="border-radius:10px;" value="确定" class="btn btn-primary btn-flat">
+							</form>
+						<elseif condition="in_array('1002',$_SESSION['level'])" />
+							<form action="/Admin/Supply/fenpei" method="post" class="fpform">
+								<input type="button" value="全选" name="t" id="xz">
+								<b>选中批量分配：</b>
+								<select name="fb" class="bumen" onchange="fp(this.value)">
+									<if condition="$_SESSION['rank_name']==福永分部负责人">
+											<option value=7 selected>福永分部负责人</option>
+											<option value=8 >福永分部总监</option>
+											<option value=32 >福永分部</option>
+										<elseif condition="$_SESSION['rank_name']==福永分部总监" />
+											<option value=8 >福永分部总监</option>
+											<option value=32 >福永分部</option>
+										<elseif condition="$_SESSION['rank_name']==西乡分部负责人" />
+											<option value=16 selected>西乡分部负责人</option>
+											<option value=17 >西乡分部总监</option>
+											<option value=34 >西乡分部</option>
+										<elseif condition="$_SESSION['rank_name']==西乡分部总监" />
+											<option value=17 >西乡分部总监</option>
+											<option value=34 >西乡分部</option>
+										<elseif condition="$_SESSION['rank_name']==南山分部负责人" />
+											<option value=18 selected>南山分部负责人</option>
+											<option value=19 >南山分部总监</option>
+											<option value=39 >南山分部</option>
+										<elseif condition="$_SESSION['rank_name']==南山分部总监" />
+											<option value=19 >南山分部总监</option>
+											<option value=39 >南山分部</option>
+										<elseif condition="$_SESSION['rank_name']==科技园分部负责人" />
+											<option value=30 selected>科技园分部负责人</option>
+											<option value=29 >科技园现金1部总监</option>
+											<option value=35>科技园现金1部</option>
+											<option value=36>科技园现金2部总监</option>
+											<option value=37>科技园现金2部</option>
+										<elseif condition="$_SESSION['rank_name']==科技园现金1部总监" />
+											<option value=29 >科技园现金1部总监</option>
+											<option value=35>科技园现金1部</option>
+										<elseif condition="$_SESSION['rank_name']==科技园现金2部总监" />	
+											<option value=36>科技园现金2部总监</option>
+											<option value=37>科技园现金2部</option>
+										<else />
+											<option value=30>科技园分部负责人</option>
+											<option value=29>科技园现金1部总监</option>
+											<option value=35>科技园现金1部</option>
+											<option value=36>科技园现金2部总监</option>
+											<option value=37>科技园现金2部</option>
+											<option value=18>南山分部负责人</option>       
+											<option value=19>南山分部总监</option>
+											<option value=39>南山分部</option>
+											<option value=16>西乡分部负责人</option>     
+											<option value=17>西乡分部总监</option>
+											<option value=34>西乡分部</option>  
+											<option value=7>福永分部负责人</option>     
+											<option value=8>福永分部总监</option>
+											<option value=32>福永分部</option>
+									</if>
+								</select>
+
+
+								<select class="members" name="members">
+									<option value=0>请选择</option>
+								</select>
+								<input type="hidden" value="" name="ids" class="idss">
+								<input type="button" onclick="ucid()" style="border-radius:10px;" value="确定" class="btn btn-primary btn-flat">
+							</form>
+						 </if>
+
+						<br>
+
+						<if condition="in_array('34',$_SESSION['level'])">  
+						<a onClick="del()" style="background:#dd4b39;float:left;margin-top:10px" class="addall" href="javascript:;">选中删除</a>
+						</if>
+						<div class="page">  {$show} </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+<!--	<script>
+        $('#example2').DataTable({
+            "ordering": false,
+            "autoWidth": false,
+            "language": language,
+            "lengthMenu": [[50, 100, 200, -1], [50, 100, 200, "All"]],
+
+            initComplete: function () { //栏目筛选开始
+
+                $("<div id='foonav2'>栏目筛选：</div>").appendTo($("#example2_length"));
+
+                var api = this.api();
+
+                api.columns().indexes().flatten().each( function ( i ) {
+                    if(i == 2){
+                        var column = api.column( i );
+
+                        var select = $('<select><option value=""></option></select>')
+
+                            .appendTo( $("#foonav2") )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    }
+
+
+                } );
+            } //栏目筛选结束
+        });
+	</script>-->
+    <script>
+
+	//批量删除
+	function del(){
+	     var d = $("input[type='checkbox']").is(':checked');
+		 if(!d){
+		  alert('请选择删除数据！');return false;
+		 }
+		// return false;
+	    $(".submit_forms").addClass("submit_orms");
+	    var gnl=confirm("确定删除吗?");
+		if (gnl!=true){
+		return false;
+		};
+		$(".submit_orms").submit();
+	}
+
+	//获取批量id
+	function ucid(){
+		var chk_value =[];
+		 $("input[type='checkbox']:checked").each(function(){
+		 	chk_value.push($(this).val());
+		 });
+		 $(".idss").val(chk_value);
+		 if($(".idss").val() && $(".bumen").val()){
+			 $(".fpform").submit();
+		}else{
+			alert("请选择数据！");
+		}
+	}
+
+
+	//分配客户
+	function fp(rid){
+		$.post("/Admin/Supply/memberss",{rid,rid},function(data){
+			$(".members").empty();
+			for(i=0;i<data.length;i++){
+				$(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+			}
+		})
+
+	}
+
+	$(function(){
+		rid=$(".bumen").val();
+		fp(rid);
+
+	})
+
+//全选按钮
+    $("#xz").click(function(){
+        if($(this).attr("name")=="t"){
+            $("input[type='checkbox']").prop("checked",true);
+            $(this).attr("name",'f');
+            $(this).val("反选");
+        }else{
+            $("input[type='checkbox']").attr("checked",false);
+            $(this).attr("name",'t');
+            $(this).val("全选");
+        }
+
+    });
+
+
+	</script>
+  </body>
+</html>

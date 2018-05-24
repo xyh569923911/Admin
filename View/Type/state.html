@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+    <style type="text/css">
+	 #foonav{ display:none !important;}
+  
+	.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+	.addall:hover{color:#fff;background:#d42020}
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">状态列表<span style="color:red">（"15天内联系"是指:15天内没有联系自动投入公海数据）</span></h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">状态列表</a></li>
+                   <!--  <a class="addall" href="/Admin/Type/addstate">添加状态</a> -->
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                      <div class="box-body">
+					  
+                        <table id="example1" class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="5%">ID</th>
+                              <!-- <th>标题</th> -->
+                              <th width="10%">类型名称</th>
+							  <th width="10%">显示颜色</th>
+                              <th width="15%">时间</th>
+							  <th width="10%">数据类型</th>
+							  <th width="10%">跟进类型</th>
+							  <th width="5%">排序</th>
+                              <th width="10%">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <foreach name="data" item="value">
+                            <tr>
+                              <th>{$value.id}</th>
+                             <!--  <th>{$value.title}</th> -->
+                              <th><span class="label"  style="background:{$value.color};padding:5px 5px">{$value.name}</span></th>
+							  <th style="color:{$value.color}">{$value.color}</th>
+                              <th>{$value.addtime|date='Y-m-d H:i',###}</th>
+							  <th><if condition="$value.type eq 1"><span style="color:red">属公海数据</span>
+							  <elseif condition="$value.type eq 2"/>15天内联系
+							  <elseif condition="$value.type eq 3"/><span style="color:#00a651">已成交数据</span>
+							  <else/><span style="color:#3c8dbc">未成交数据</span>
+							  </if></th>
+							  <th><if condition="$value.state eq 0">业务员
+							  <elseif condition="$value.state eq 1"/><span style="color:#3366CC">渠道部</span>
+							  <elseif condition="$value.state eq 2"/><span style="color:#FF00FF">财务部</span>
+							  </if></th>
+							  <th>
+                                <input type="text" style="width:100%;" class="form-control" old="{$value.sotr}" onblur="editSort(this, 'state', {$value.id})" value="{$value.sort}">
+                              </th>
+                              <td>
+                                <a href="addstate/id/{$value.id}" class="btn btn-primary btn-sm">编辑</a>
+								<!-- <a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm">权限</a> -->
+								
+                                <!-- <button class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'State')">删除</button> -->
+							
+                              </td>
+                            </tr>
+                            </foreach>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+      
+  </body>
+</html>

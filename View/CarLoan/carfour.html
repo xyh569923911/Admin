@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/CarLoan/index">车贷客户</a>><a style="cursor: pointer;" class="goback">返回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">签合同确认</h4>
+                            <a href="/Admin/CarLoan/over?state_id=31&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">已&nbsp;签&nbsp;合&nbsp;同</a>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+</script>
+</body>
+</html>

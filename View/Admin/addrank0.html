@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  <style>
+  .bor_der {border-bottom:1px solid #ccc;}
+  .bor_der label{ width:150px}
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">添加权限</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                <form class="form-horizontal" toUrl="/Admin/Admin/rank" action="/Admin/Admin/addrank" id="myform">
+				    
+				   <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">所属栏目：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="pid" id="pid">
+                          <option value="0">顶级栏目</option>
+                          <foreach name="columns" item="value">
+                          <option value="{$value.id}" <if condition="$data['pid'] eq $value['id']">selected</if>>{$value._name}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                    </div>
+				
+                   <div class="form-group">
+                      <label class="col-md-2 control-label">权限名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.name}" name="name">
+                      </div>
+                    </div>
+                   
+				     <div class="form-group">
+                      <label class="col-md-2 control-label">描述：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="desc">{$data.desc}</textarea>
+                      </div>
+                    </div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">工作台权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1101',$data['level'])){?>checked<?php }?> value="1101"> 最高管理工作台
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1102',$data['level'])){?>checked<?php }?> value="1102"> 业务部工作台
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1103',$data['level'])){?>checked<?php }?> value="1103"> 渠道部工作台
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1104',$data['level'])){?>checked<?php }?> value="1104"> 财务部工作台
+						  </label>
+						  
+						</div>
+					 </div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">人员查看权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1001',$data['level'])){?>checked<?php }?> value="1001"> 可查看全部人员
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1002',$data['level'])){?>checked<?php }?> value="1002"> 可查看所属人员
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1003',$data['level'])){?>checked<?php }?> value="1003"> 可管理全部人员
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1004',$data['level'])){?>checked<?php }?> value="1004"> 可管理查看渠道部
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1005',$data['level'])){?>checked<?php }?> value="1005"> 可查看手机号
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1006',$data['level'])){?>checked<?php }?> value="1006"> 可管理产品
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1007',$data['level'])){?>checked<?php }?> value="1007"> 可数据备份
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1008',$data['level'])){?>checked<?php }?> value="1008"> 可转移单数据
+						  </label>
+						</div>
+					  </div>
+					 <div class="form-group">
+						<label class="col-md-2 control-label">权限管理权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('50',$data['level'])){?>checked<?php }?> value="50"> 权限管理
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('51',$data['level'])){?>checked<?php }?> value="51"> 管理员列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('52',$data['level'])){?>checked<?php }?> value="52"> 管理员编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('53',$data['level'])){?>checked<?php }?> value="53"> 管理员添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('54',$data['level'])){?>checked<?php }?> value="54"> 管理员删除
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('59',$data['level'])){?>checked<?php }?> value="59"> 可看所有密码
+						   </label>
+						   <br/>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('55',$data['level'])){?>checked<?php }?> value="55"> 权限列表
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('56',$data['level'])){?>checked<?php }?> value="56"> 权限编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('57',$data['level'])){?>checked<?php }?> value="57"> 权限添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('58',$data['level'])){?>checked<?php }?> value="58"> 权限删除
+						   </label>
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label class="col-md-2 control-label">类型/状态管理权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('0',$data['level'])){?>checked<?php }?> value="0"> 类型/状态管理
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('1',$data['level'])){?>checked<?php }?> value="1"> 类型列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('2',$data['level'])){?>checked<?php }?> value="2"> 类型编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('3',$data['level'])){?>checked<?php }?> value="3"> 类型添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('4',$data['level'])){?>checked<?php }?> value="4"> 类型删除
+						   </label><br/>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('5',$data['level'])){?>checked<?php }?> value="5"> 状态列表
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('6',$data['level'])){?>checked<?php }?> value="6"> 状态编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('7',$data['level'])){?>checked<?php }?> value="7"> 状态添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('8',$data['level'])){?>checked<?php }?> value="8"> 状态删除
+						   </label>
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label class="col-md-2 control-label">未成交客户信息权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('10',$data['level'])){?>checked<?php }?> value="10"> 未成交客户信息
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('11',$data['level'])){?>checked<?php }?> value="11">  未成交客户列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('12',$data['level'])){?>checked<?php }?> value="12"> 未成交编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('13',$data['level'])){?>checked<?php }?> value="13"> 未成交添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('14',$data['level'])){?>checked<?php }?> value="14"> 未成交删除
+						   </label>
+						   <!-- <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('15',$data['level'])){?>checked<?php }?> value="15"> 可查看电话号
+						   </label> -->
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('16',$data['level'])){?>checked<?php }?> value="16"> 可审核
+						   </label>
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label class="col-md-2 control-label">已成交客户信息权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('20',$data['level'])){?>checked<?php }?> value="20">  已成交客户信息
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('21',$data['level'])){?>checked<?php }?> value="21">  已成交客户列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('22',$data['level'])){?>checked<?php }?> value="22"> 已成交编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('23',$data['level'])){?>checked<?php }?> value="23"> 已成交添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('24',$data['level'])){?>checked<?php }?> value="24"> 已成交删除
+						   </label>
+						   <!-- <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('25',$data['level'])){?>checked<?php }?> value="25"> 可查看电话号
+						   </label> -->
+						   
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label class="col-md-2 control-label">公海客户管理权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('30',$data['level'])){?>checked<?php }?> value="30"> 公海客户管理
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('31',$data['level'])){?>checked<?php }?> value="31"> 公海客户列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('32',$data['level'])){?>checked<?php }?> value="32"> 提取公海客户
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('33',$data['level'])){?>checked<?php }?> value="33"> 公海客户添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('34',$data['level'])){?>checked<?php }?> value="34"> 公海客户删除
+						   </label>
+						   <!-- <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('35',$data['level'])){?>checked<?php }?> value="35"> 可查看电话号
+						   </label> -->
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('36',$data['level'])){?>checked<?php }?> value="36"> 可审核
+						   </label>
+						</div>
+					  </div>
+					  <div class="form-group">
+						<label class="col-md-2 control-label">内部人员管理权限：</label>
+						<div class="col-md-9 bor_der">
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('40',$data['level'])){?>checked<?php }?> value="40"> 内部人员管理
+						  </label><br/>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('41',$data['level'])){?>checked<?php }?> value="41"> 部门分类
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('42',$data['level'])){?>checked<?php }?> value="42"> 部门编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('43',$data['level'])){?>checked<?php }?> value="43"> 部门添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('44',$data['level'])){?>checked<?php }?> value="44"> 部门删除
+						   </label><br/>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('45',$data['level'])){?>checked<?php }?> value="45"> 人员列表
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('46',$data['level'])){?>checked<?php }?> value="46"> 人员编辑
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('47',$data['level'])){?>checked<?php }?> value="47"> 人员添加
+						   </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('48',$data['level'])){?>checked<?php }?> value="48"> 人员删除
+						   </label>
+						  
+						</div>
+					  </div>
+					   <div class="form-group">
+						<label class="col-md-2 control-label">留言管理权限：</label>
+						<div class="col-md-9 bor_der">
+						<label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('66',$data['level'])){?>checked<?php }?> value="66"> 留言管理
+						  </label><br/>
+						 <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('60',$data['level'])){?>checked<?php }?> value="60"> 修改
+						  </label>
+						  <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('61',$data['level'])){?>checked<?php }?> value="61"> 删除
+						  </label>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('62',$data['level'])){?>checked<?php }?> value="62"> 分配
+						   </label>
+						   <label class="radio-inline">
+							<input type="radio" name="level[]" <?php if(in_array('63',$data['level'])){?>checked<?php }?> value="63"> 可查看全部
+						   </label>
+						   <label class="radio-inline">
+						   <input  type="radio" name="level[]" <?php if(in_array('65',$data['level'])){?>checked<?php }?> value="65"> 可查看所属人员
+						   </label><br/>
+						   <label class="radio-inline">
+							<input type="checkbox" name="level[]" <?php if(in_array('64',$data['level'])){?>checked<?php }?> value="64"> 导入导出
+						   </label><br/>
+						</div>
+					  </div>
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-sm-9">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value="添加"></input>
+                      </div>
+                    </div>
+                </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+    
+  </body>
+</html>

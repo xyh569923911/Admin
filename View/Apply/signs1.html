@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer/t/1">现金客户</a>><a style="cursor: pointer;" class="goback">还回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">签约</h4>
+                            <form action="/Admin/Apply/sign" method="post"
+                             enctype="multipart/form-data">
+
+                             <label style="display: inline;position: relative;left: 12px;">借款合同：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path1" name="loan_contract" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="借款合同上传" onclick="path1.click()">
+                            <label style="position: relative;right: 102px; top:10px;">借据：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path2" name="iou" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="借据上传" onclick="path2.click()">
+                            <label style="position: relative;right: 102px;top:10px;">承诺书：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path3" name="letter_commitment" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="承诺书上传" onclick="path3.click()">
+                            <label style="position: relative;right: 102px;top:10px;">通讯录：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path4" name="mail_list" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="通讯录照片上传" onclick="path4.click()">
+                            <label style="position: relative;right: 102px;top:10px;">签约现场拍照：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path5" name="sign_scene" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:69px;left: 122px;" value="照片上传" onclick="path5.click()">
+
+                                 <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                 <input type="hidden" value="1" name="t">
+                                 <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left:0px;">
+                            <a href="/Admin/Apply/over/t/1?state_id=23&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">签&nbsp;&nbsp;约&nbsp;&nbsp;成&nbsp;&nbsp;功</a>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+</script>
+</body>
+</html>

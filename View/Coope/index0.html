@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+    <style type="text/css">
+.submit_form {position: absolute;z-index:1;}
+	#example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow:hidden;}
+	#example1_filter .so:hover {background:#1F76A0;}
+	.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+	.addall:hover{color:#fff;background:#d42020}
+	.nav-tabs a{margin-right:3px}
+	.posF {display: none;height: 100%;left: 0; position: fixed; top: 0;width: 100%; z-index: 99999;}
+	.posF .bg { background: #000 none repeat scroll 0 0; height: 100%; left: 0;opacity: 0.35; position: absolute;top: 0; width: 100%;z-index: -1;}
+	.posF .box500 {background: #fff none repeat scroll 0 0; border-radius: 6px;margin: 12% auto 0;width: 500px;}
+	.posF .box500 .hd { border-bottom: 2px solid #dfdfdf; position: relative;}
+	.posF .box500 .hd p {color: #535353; font-size: 20px;line-height: 50px; margin: 0; text-indent: 2em;}
+	.posF .box500 .hd .off {background: rgba(0, 0, 0, 0) url("/Public/home/images/pop-close.png") no-repeat; cursor: pointer; display: block; height: 33px; margin-top: -10.5px; position: absolute; right: 0px; top: 50%;width: 35px;}
+	.posF .bd { padding: 30px;}
+	.posF .rope { margin: 0 25px 10px;padding: 0;text-align: center;}
+	.posF .rope span {color: #535353;display: inline-block; }
+	.posF .rope select {border: 1px solid #e5e5e5;color: #333;height: 36px;outline: medium none;width: 310px;}
+	.posF .rope input {border: 1px solid #e5e5e5; color: #333;height: 34px;line-height: 34px;outline: medium none;padding: 0 7px; width: 296px;}
+	.posF .rope button.off {background-color: #b5b5b5;color: #fff; margin-left: 0;}
+	.posF .rope .submit {background: #f10215 none repeat scroll 0 0;color: #fff;}
+	.posF .rope a {border: 0 none; border-radius: 4px;cursor: pointer;display: inline-block;font-family: "Microsoft Yahei";font-size: 14px;height: 36px;line-height: 36px;margin-left: 23px;outline: medium none; padding: 0 15px;width: 105px;}
+	.show1{display: block;}
+	
+	#example1_wrapper .row {position: relative;}
+	#example1_wrapper .row .col-sm-6:nth-child(1) {position: absolute;right: 0px;}
+	#example1_wrapper .row .col-sm-6:nth-child(2) {float:right;}
+	#example1_length {position: absolute;right: -14px;top: -46px;}
+	#example1_wrapper, .box-body {position: relative;}
+	#example1_length label{display:none}
+	#example1_paginate{display:none}
+	.page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+	.page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+	.page a:hover,.page .on {background: #00a3ff;color:#fff}
+	
+	.remark {position: relative;cursor: pointer;}
+	.remark .text{width: 160px;display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.remark .hover {display: none;position: absolute;right:30px;top:55px;z-index: 5;width: 400px;min-height: 80px;padding: 15px;border:1px solid #ccc;background:#fff;box-sizing:border-box;border-radius:10px;}
+	.remark:hover .hover {display: block;}
+	.remark .hover:after {content: "";display: block;width: 14px;height: 14px;border-left:1px solid #ccc;border-top:1px solid #ccc;background:#fff;position: absolute;top: -7px;right: 40px;z-index: -5;transform: rotate(45deg);}
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">已成交客户列表</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">已成交客户员列表</a></li>
+          
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                      <div class="box-body">
+					  <form action="/Admin/Coope/index" method="GET" class="submit_form">
+					  <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+                                <label>
+                                  日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                  至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                                  <a href="javascript:;" onclick="tj()" class="so">确定</a>
+                                </label>
+                        </div>
+					   </form>
+                        <script>
+							 function tj(){
+							  $(".submit_form").submit();
+							 } 
+						</script>	
+                        <form action="/Admin/Coope/del" method="post" class="submit_forms" >						
+                        <table id="example1" class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="5%">ID</th>
+                              <!-- <th>标题</th> -->
+                              <th width="5%">姓名</th>
+							  <!-- <th width="3%">姓别</th> -->
+							  <th width="5%">手机</th>
+							  <th width="7%">联系时间</th>
+							  <th width="7%">客户类型</th>
+							  <th width="7%">跟进状态</th>
+							  <th width="6%">跟进业务员</th>
+							  <th width="6%">跟进渠道部</th>
+							  <th width="6%">跟进财务部</th>
+							  <th width="5%">客户回款</th>
+							  <th width="8%">备注</th>
+							  <th width="7%">推广来源</th>
+							  <th width="3%">来源</th>
+                              <th width="15%">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <foreach name="ch_data" item="value">
+                            <tr>
+                              <th>
+							  <if condition="in_array('24',$_SESSION['level'])">  
+							  <input type="checkbox" name="id[]" value="{$value.id}">
+							  </if>
+							  &nbsp;&nbsp;{$value.id}
+							  </th>
+                             <!--  <th>{$value.title}</th> -->
+                              <th>{$value.username}</th>
+							  <!-- <th><if condition="$value.sex eq 0">男<else/>女</if></th> -->
+							  <th>{$value.phone}</th>
+							  <th>{$value.lxtime|date='Y-m-d H:i',###}</th>
+							 <th class="label"  style="background:{$value.type_id.color};padding: 5px 5px;margin-top: 10px;display: block;width: 80%;">{$value.type_id.name}</th>
+							 
+							  <th style="background:{$value.state_id.color};color:#fff;padding:5px 6px;">
+							  {$value.state_id.name}
+							  </th>
+                              
+
+							  <th>{$value.admin_id}</th>
+							  <th>{$value.rank_admin_id}</th>
+							  <th>{$value.finance_admin_id}</th>
+							  <th><if condition="$value.finance_state eq 0"><span style="color:red">否</span><else/>是</if></th>
+							  <th class="remark">
+											<div class="text">{$value.content}</div>
+											<notempty name="value.content">
+											<div class="hover">
+                                             {$value.content}
+											</div>
+											</notempty>
+							  </th>
+							  <th class="remark">
+											<div  class="text"  style="width: 60px;">{$value.promotion}</div>
+											<notempty name="value.promotion">
+											<div class="hover">
+                                             {$value.promotion}
+											</div>
+											</notempty>
+										</th>
+							  <if condition="$value.allot eq 0">
+										<th class="label" style="background:#336600;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;" >
+										<if condition="$value.sources neq ''">
+										    {$value.sources}
+										<elseif condition="$value.source neq ''"/>
+											{$value.source}
+										<else/>	
+										    录入
+										</if>
+										</th> 
+										<else/>
+										<th class="label" style="background:red;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;" >
+										<if condition="$value.sources neq ''">
+										    {$value.sources}
+										<elseif condition="$value.source neq ''"/>
+											{$value.source}
+										<else/>	
+										    推广
+										</if>
+										</th> 
+							</if>
+                              <td> 
+							  <!--   <a href="viewindex/id/{$value.id}" style="background-color:#00c0ef" class="btn btn-primary btn-sm">预览</a> -->
+							    <if condition="in_array('22',$_SESSION['level'])">
+								<if condition="$value.state eq 1">
+                                <a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit" style="font-size:16px;"></i></a>
+								</if>
+								</if>
+								
+								<if condition="in_array('24',$_SESSION['level'])">  
+                                <a class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'Uclient')"><i class="fa fa-trash" style="font-size:16px;"></i></a>
+								</if>
+								<if condition="in_array('16',$_SESSION['level'])">  
+								<if condition="$value.state eq 0">
+								<a href="javascript:;" style="background:#3c763d" onClick="check(this,{$value.id},'{$value.middle_admin_username}')" class="btn btn-primary btn-sm checkdel{$value.id}">待审核</a>
+								</if>
+								</if>
+                              </td>
+                            </tr>
+                            </foreach>
+                          </tbody>
+						  
+                        </table>
+						</form>
+						<if condition="in_array('24',$_SESSION['level'])">  
+						<a onClick="del()" style="background:#dd4b39;float:left;margin-top:10px" class="addall" href="javascript:;">选中删除</a>
+						</if>
+						<div class="page">  {$show} </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+	
+<div class="posF" id="express" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >更换跟进人审核</p>
+        <span class="off posA" onclick="check_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">客户跟进业务员更换成<em class="middle_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+			<input type="hidden" name="send_id" class="send_id" id="send_id" value="">
+			<input type="hidden" name="send_id" class="send_username" value="">
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="oncheck('1')" style="background:#00a651" class="submit">通过</a><a onclick="oncheck('2')" class="submit">不通过</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+    <include file="common:js" />
+   
+    <script>
+	//批量删除
+	function del(){
+	    $(".submit_forms").addClass("submit_orms");
+	    var gnl=confirm("确定删除吗?");
+		if (gnl!=true){
+		return false;
+		};
+		$(".submit_orms").submit();
+	}
+	
+	function check(_this,id,username){
+	   $(".middle_admin_username").html('['+username+']');
+	   $(".send_id").attr('value',id);
+	   $(".send_username").attr('value',username);
+	   $("#express").addClass('show1');
+	}
+	
+	function oncheck(sun){
+	  var id = $(".send_id").val();
+	  var username = $(".send_username").val();
+	  $.get('/Admin/Uclient/getcheck', {sun:sun,id:id}, function (data){
+	     if(data == 1){
+		   alert('审核通过');
+		  
+		   $(".middle_username"+id).html(username);
+		   $(".checkdel"+id).remove();
+		   $("#express").removeClass("show1");
+		 }
+	  })
+	}
+	
+	function check_off(_this){
+       $("#express").removeClass("show1");
+    }
+	
+	</script>  
+  </body>
+</html>

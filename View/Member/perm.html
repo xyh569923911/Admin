@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">权限</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                <form class="form-horizontal" toUrl="/Admin/Member/index" action="{:U('Admin/Member/addindex')}" id="myform">
+
+                  <div class="form-group">
+                      <label class="col-md-2 control-label">会员：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.username}" disabled="true" >
+                      </div>
+                    </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">权限：</label>
+                    <div class="col-md-6">
+                      <label class="radio-inline">
+                        <input type="checkbox" name="lang" <if condition="$data['lang'] eq 0">checked</if> checked value="0"> 中文
+                      </label>
+                       <label class="radio-inline">
+                        <input type="checkbox" name="lang" <if condition="$data['lang'] eq 1">checked</if> value="1"> 英文
+                      </label>
+                    </div>
+                  </div>
+                    
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-sm-9">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value="添加"></input>
+                      </div>
+                    </div>
+                </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+    <script type="text/html" id="columnTemp">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v._name%></option>
+      <%/each%>
+    </script>
+
+    <script type="text/javascript">
+      var ue = UE.getEditor('container', {});
+      $("input[name='lang']").change(function(){
+        var lang = $(this).val();
+        $.get("{:U('Admin/Article/getLang')}", {lang:lang}, function (re){
+	
+          if(re.length){
+            var html = template("columnTemp", {list:re});
+            $("select[name='cid']").html(html);
+          }else{
+            $("select[name='cid']").html('<option value="">请选择</option>');
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

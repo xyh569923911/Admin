@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>冠成金服客户管理系统</title>
+   <meta name="Keywords" content="冠成金服客户管理系统" />
+   <meta name="description" content="冠成金服客户管理系统" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<style type="text/css">
+* {margin: 0;padding: 0;}
+body {font-family: "Microsoft Yahei"}
+#header {width: 100%;background:#fff;padding: 19px 0;}
+#header .header {width: 1200px;margin: 0 auto;}
+#header .header .logo {height: 50px;}
+#content {width: 100%;position: relative; }
+#content .content {width: 100%;height: 620px;background: url(/Public/admin/images/bg.jpg) no-repeat center top;}
+#content .content .content-layout {width: 1200px;margin: 0 auto;overflow: hidden;position: relative;height: 620px;z-index: 999;}
+.login-box-warp {position: absolute;top: 120px;right: 60px;padding: 15px;background-color: rgba(255,255,255,0.5);}
+#login {width: 400px;height: 370px;float: right;background-color: #fff;}
+#login h2 {color: #f39430;font-size: 21px;text-align: center;margin-top:30px;font-weight: normal;}
+#login h2 span {color: #999;font-size: 18px;font-weight: normal;}
+fieldset {border: 0 none;margin: 0;padding: 0;}
+#inputs {width: 360px;margin: 20px auto 0;}
+#inputs .field {color: #333;height: 42px;margin-bottom:20px;position: relative;}
+#inputs .field label {width: 70px;height: 42px;line-height: 42px;display:block;float: left;}
+#inputs .field span.ph-label {float: right;display: block;width: 290px;height: 42px;position: relative;}
+#inputs .field span.ph-label .ico {width: 40px;height: 40px;background:#eee url(/Public/admin/images/input_icons.png) no-repeat;border-right: 1px solid #a4b0c3;position: absolute;left: 1px;top: 1px;}
+#inputs .field span.ph-label .ico.ico1 {background-position: 0px 0px;}
+#inputs .field span.ph-label .ico.ico2 {background-position: 0px -40px;}
+#inputs .field span.ph-label input {width: 233px;height: 40px;margin: 0 0 15px;padding:0px 5px 0px 50px;border: 1px solid #a4b0c3;background-color: #fff;}
+#inputs .field span.ph-label input:focus {background-color: #fff !important;border-color: #218cf0;box-shadow: 0 0 0 1px #ddd inset;outline: medium none;}
+#inputs .field span.ph-label img {float: right;}
+/*#username {
+background: #f6f6f6 url("http://www.crm..cn/Public/admin/images/input_icons.png") no-repeat 3px -11px;
+}
+#password {
+background: #f6f6f6 url("http://www.crm..cn/Public/admin/images/input_icons.png") no-repeat 3px -89px;
+}*/
+#verycode {width: 105px !important;height: 38px !important;line-height: 38px;border: none;padding: 0 0 0 10px !important;background: #f6f6f6;}
+#jzmm {padding-left: 65px;}
+#memberPass {float: left;width: 15px !important;height: 15px !important;border: none !important;margin: 0 !important;padding: 0 !important;background: #218cf0 !important;}
+#memberPassLabel {float: left;color:  #218cf0 !important;font-size: 14px;line-height: 15px;}
+#jzmm a {display: block;float: left;color: #218cf0;font-size: 14px;line-height: 15px;margin-left: 90px;text-decoration: none;}
+#actions {width: 360px;margin: 10px auto 0;text-align: right;}
+#submit {width: 290px;height: 45px;border: none;border-radius: 3px;background: #16a4fa;cursor: pointer;color: #fff;font-size: 18px;font-family: "Microsoft Yahei"}
+#footer {width: 100%;height: 72px;text-align: center;background-color: #fff;}
+#footer p {line-height: 72px;color: #333;font-size: 15px;}
+#footer p a {color: #333;text-decoration: none;}
+</style>
+</head>
+<body>
+	<div id="header">
+		<div class="header">
+			<div class="logo">
+				<a href="" target="_blank">
+					<img src="/Public/admin/images/logo.png" width=340px alt="冠成金服" title="冠成金服">
+				</a>
+			</div>
+		</div>
+	</div>
+	<div id="content">
+		<div class="content">			
+			<div class="content-layout">
+				<div class="login-box-warp">
+					<form id="login" action="{:U('Admin/Login/doLogin')}" class="loginForm" method="post">
+						<h2>用户登录 <span>UserLogin</span></h2>
+					   <fieldset id="inputs">
+					      	<div class="field">
+					      		<label>用户名：</label>
+					      		<span class="ph-label">
+					      			<div class="ico ico1"></div>
+					      			<input type="text" required="" autofocus="" name="username" class="requires" placeholder="Username" id="username"> 
+					      		</span>
+					      	</div>  
+								<div class="field">
+									<label>密　码：</label>
+									<span class="ph-label">
+										<div class="ico ico2"></div>
+										<input type="password" placeholder="Password" name="password" class="requires" id="password"> 
+									</span>
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+								<div class="field">
+									<label>验证码：</label>
+									<span class="ph-label">
+										<input  required="" placeholder="验证码" class="requires" name="code" id="verycode" maxlength="5" size="14" >
+										<img width="160" height="40" style="cursor:hand;" alt="看不清？点击刷新" onClick="this.src=this.src+'?'" src="/Admin/Verify/index">
+									</span>
+									
+								</div>
+								<p id="jzmm">
+								<!-- <input type="checkbox" checked="checked" name="memberPass" id="memberPass"> -->
+								<!-- <a style="float:left" target="_blank" href="/"><label class="" id="memberPassLabel" for="memberPass">记住密码</label></a>
+								<a target="_blank" href="http:///">联系客服</a> -->
+								</p>
+					   </fieldset>
+					   <fieldset id="actions">
+					      <button type="submit" value="" id="submit">登　录</button>
+					   </fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<p>©2017 ALL Rights 冠成金服客户管理系统  版权所有   <a href="" target="_blank"></a>  </p>
+	</div>
+	<script src="__PUBLIC__/jquery/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+ 
+    $(".loginForm").submit(function(){
+	//alert(1);
+      var _this = $(this);
+      var flag = true;
+      $('form .requires').each(function (k, v){
+        if($(this).val() == ''){
+          flag = false;
+          $(this).addClass("require");
+        }
+      });
+      if(!flag){
+        window.location.href="#"
+        return false;
+      }
+      var url = _this.attr('action');
+      var data = _this.serialize();
+      $.post(url, data, function (re){
+        if(re.state == 1){
+          window.location.href=re.url;
+        }else{
+          alert(re.msg);
+          window.location.reload();
+        }
+      })
+
+      return false;
+    })
+
+    $("form input,select").focus(function(){
+      $(this).removeClass("require");
+    });
+  </script> 
+</body>
+</html>

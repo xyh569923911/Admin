@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>任务列表</title>
+    <include file="common:css" />
+  </head>
+  
+  <style type="text/css">
+  #foonav{ display:none !important;}
+  #foonav2{ display:none !important;}
+  </style>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">任务列表</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">任务列表</a></li>
+                   
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                      <div class="box-body">
+                        <table id="example1" class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th width="5%">ID</th>
+							  <th>负责人</th>
+                              <th >任务</th>
+                              <th width="15%">发布时间</th>
+                              <th width="15%">完成时间</th>
+							  <th>状态</th>
+                              <th width="11%">操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <foreach name="ch_data" item="value">
+                            <tr>
+                              <th>{$value.id}</th>
+							  <th title="点击详情" onclick="getMessage({$value.id}, this, 'Temp')" >{$value.username}</th>
+                              <th title="点击详情" onclick="getMessage({$value.id}, this, 'Temp')" class="zxx_flow" >{$value.name}</th>
+							  <th title="点击详情" onclick="getMessage({$value.id}, this, 'Temp')" >{$value.addtime|date='Y-m-d h:i',###}</th>
+                              <th title="点击详情" onclick="getMessage({$value.id}, this, 'Temp')" >{$value.waddtime|date='Y-m-d h:i',###}</th>
+							  <td>
+							    <if condition="$value['state'] eq 1">
+                                <button class="btn btn-success btn-sm">已完成</button>
+								<else/>
+								<button href="javascript:;" class="btn btn-danger btn-sm" >未完成</button>
+								</if>
+								</th>
+                              <td>
+							    
+                                <a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm">编辑</a>
+								<if condition="$_SESSION['aid'] eq 1">
+                                <button class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'Temp')">删除</button>
+								</if>
+                              </td>
+                            </tr>
+                            </foreach>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+        
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+	
+	
+	<style>
+	.modal-body {
+	  border-bottom: solid #ccc 1px;
+	  }
+	</style>
+	 <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+       aria-labelledby="myModalLabel" aria-hidden="true">
+       <div class="modal-dialog">
+          <div class="modal-content">
+             <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal" aria-hidden="true">
+                      &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                   任务：
+                </h4>
+             </div>
+             <div class="modal-body name"></div>
+			 
+			 <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                   负责人：
+                </h4>
+             </div>
+             <div class="modal-body member_id"></div>
+			 
+			 <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                   添加时间：
+                </h4>
+             </div>
+			 <div class="modal-body addtime"></div>
+			 
+			 <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                   完成时间：
+                </h4>
+             </div>
+			 <div class="modal-body waddtime"></div>
+			 
+			 <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                   添加人：
+                </h4>
+             </div>
+             <div class="modal-body user_id"></div>
+
+             <div class="modal-footer">
+                <button type="button" class="btn btn-default" 
+                   data-dismiss="modal">关闭
+                </button>
+             </div>
+          </div><!-- /.modal-content -->
+    </div><!-- /.modal -->	
+
+    <include file="common:js" />
+    
+    <script type="text/javascript">
+      function getMessage(id, _this, modal){
+	     $.get('/Admin/Base/getBase', {id:id,modal:modal}, function (data){
+			if(data){
+			  $("#myModal .name").html(data.name);
+			  $("#myModal .member_id").html(data.member_id);
+			  $("#myModal .addtime").html(data.addtime);
+			  $("#myModal .waddtime").html(data.waddtime);
+			  $("#myModal .user_id").html(data.user_id);
+			
+
+			  $('#myModal').modal('show');
+			
+			}
+		  }, 'json');
+	  }
+	  
+	  $('#myModal').on('hidden.bs.modal', function () {
+      $("#myModal .modal-body").html('');
+      })
+	  
+	  $(document).ready(function(){
+				//限制字符个数
+				$(".zxx_flow").each(function(){
+				var maxwidth=28;
+				if($(this).text().length>maxwidth){
+				$(this).text($(this).text().substring(0,maxwidth));
+				$(this).html($(this).html()+'…');
+				}
+				});
+			});
+    </script>
+  </body>
+</html>

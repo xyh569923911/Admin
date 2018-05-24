@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        body {
+            height: 800px;
+            width: 1920px;
+        }
+        .box {
+            background: #f8f8f8;
+            height: 800px;
+            width: 1920px;
+        }
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0;
+        }
+
+        /*修改*/
+        body {
+            height: 800px;
+            width: 1280px;
+            overflow: hidden;
+            font-size: 18px;
+        }
+        .top {
+            width: 1280px;
+            height: 75px;
+            line-height: 75px;
+            background: rgba(0,0,0,0.6);
+            padding-left: 20px;
+            position: relative;
+        }
+        .left {
+            text-align: left;
+            float: left;
+        }
+        .left img {
+            position: relative;
+            top: -2px;
+            margin-right: 5px;
+            width: 22px;
+        }
+        .guan {
+            color: #fff;
+            font-size: 30px;
+            display: inline-block;
+            width: 300px;
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            text-align: center;
+        }
+        .left a{
+            width: 90px;
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            font-size: 30px;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            /*overflow: hidden;*/
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            margin-bottom:0;
+            background: #f8f8f8;
+            height: auto;
+        }
+        .content-wrappers {
+            height: 725px;
+            background: #f8f8f8;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            overflow: hidden;
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            margin-bottom:50px;
+            background: #f8f8f8;
+        }
+        .information .choose {
+            left: 202px;
+            bottom: 33px;
+        }
+        .property {
+            font-size: 18px;
+        }
+        .borders {
+            border: 1px solid #969393;
+        }
+        .box-title {
+            margin-left: 170px;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+        .information {
+            margin-left: 170px;
+        }
+        .information .choose {
+            left: 220px;
+            bottom: 29px;
+            width: 134px;
+            height: 39px;
+        }
+        .comment-radio {
+            width: 21px;
+            height: 21px;
+            position: relative;
+            top: 3px;
+            margin-right: 5px;
+        }
+        .comment-checkbox {
+            width: 19px;
+            height: 19px;
+            position: relative;
+            top: 3px;
+        }
+        input[type=radio] {
+            margin-right: 9px;
+        }
+        .information input[type=checkbox] {
+            margin-right: 10px;
+        }
+        .h4 {
+            margin-top: 50px;
+        }
+        body {
+        }
+        .cirlce,.cirlce1 {
+            width: 30px;
+            height: 30px;
+            background: #00a2d4;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 18px;
+            position: absolute;
+            left: 122px;
+            top: -27px;
+            cursor: pointer;
+        }
+        .cirlce1 {
+            top: -3px;
+        }
+        .append,.append1 {
+            position: relative;
+            margin-bottom: -33px;
+        }
+        .append1 {
+            margin-top: -29px;
+        }
+        #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11,#path一,#path二,#path三,#path四,#path五,#path六,
+        #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88,#path70{
+            position: relative;
+        }
+        .btn {
+            font-size: 18px;
+        }
+        .btn1{
+            border: 1px solid #ccc;
+            background: #00A2D4;
+            color: #fff;
+            width: 110px;
+        }
+        .preview{
+            position:relative;
+            top:-60px;
+            left: 260px;
+        }
+        .length {
+            width: 150px!important;
+            margin: 0 0 20px 60px;
+        }
+    </style>
+    <style>
+        .btn {
+            font-size: 18px;
+        }
+        .btn1{
+            border: 1px solid #ccc;
+            background: #00A2D4;
+            color: #fff;
+            width: 110px;
+        }
+        .preview{
+            position:relative;
+            top:-60px;
+            left: 260px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="top">
+        <div class="left">
+            <a href="/Admin/Intermediary/ipadSystem" id="back"><img src="http://47.92.119.237:8888//img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">放款</span>
+    </div>
+    <div class="content-wrappers">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                     <h3 class="box-title"><a href="/Admin/Intermediary/index?t=2">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/Credit_m?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                            <h4 class="h4">放款</h4>
+                            <form action="/Admin/Intermediary/public_fun" method="post">
+                                <div>
+                                    <label>放款金额：</label>
+                                    <input type="number" class="length" name="loan"
+                                           value="{$data['loan']}">
+                                </div>
+                                <div>
+                                    <label>创收金额：</label>
+                                    <input type="number" class="length" name="create_income"
+                                           value="{$data['create_income']}">
+                                </div>
+
+                                <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                <input type="hidden" value="CreditFive_m" name="step">
+                                <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+                                <a href="/Admin/Intermediary/over/t/2/s/fivetime?state_id=10&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+    <script>
+        function checkform(){
+            return true;
+        }
+        var url=document.URL;
+        var ids=url.split('=');
+        $("#ids").val(ids[ids.length-1]);
+
+        //完成
+        var dlc=$(".over").attr('href');
+        $(".over").attr('href',dlc+ids[ids.length-1]);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+        body {
+            font-size: 15px;
+            background: url("images/index.jpg") no-repeat!important;
+            background-size: 100%;
+        }
+        input[type=submit],input[type=reset],input[type=button],input[type=text],input[type=number],select{
+            -webkit-appearance:none;
+            border-radius:0
+        }
+        input:focus{ outline:none; }
+        input[type=number] {
+            outline: none;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .form-form {
+            text-align: center;
+            /*color: #fff;*/
+        }
+        .container {
+            margin-top: 30px;
+        }
+        label {
+            font-weight: normal;
+        }
+        th {
+            /*color: #fff;*/
+            font-weight: normal;
+            text-align: center;
+        }
+        td {
+            text-align: center;
+        }
+        .submit {
+            width: 38%;
+            border: none;
+            background:rgba(255,255,255,0.2);
+            box-shadow:1px 3px 9px #57a0d1!important;
+            height: 32px;
+            line-height: 32px;
+            /*color: #fff;*/
+            border-radius: 6px!important;
+        }
+        select,input {
+            height: 32px;
+            line-height: 32px;
+            width: 40%;
+            margin-left: 5px;
+            margin-right: 10px;
+            background: rgba(255,255,255,0);
+            border-color: #ccc;
+            text-indent: 10px;
+        }
+        tbody tr:nth-child(2n-1) {
+            background: #f5fbff;
+        }
+        tbody tr:nth-child(2n) {
+            /*background: #fff;*/
+        }
+        .table-bordered,.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+            border: 1px solid #d0eaff!important;
+        }
+    </style>
+    
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+<include file="common:head" />
+<!-- 头部结束
+<!-- 左侧 -->
+<include file="common:side" />
+<!-- 左侧结束 -->
+
+<div class="content-wrapper">
+    <section class="content">
+    <div class="box" style="height: 1900px;width: 100%">
+    <h3 class="box-title"><a href="/Admin/CarLoan/index">车贷客户</a>><a style="cursor: pointer;" class="goback">返回流程条</a>>上传资料</h3>
+    <div class="information">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-11 col-md-offset-1" >
+                    <form action="" class="form-horizontal form-form">
+                        <div class="form-group">
+                            <label for="approve" style="margin-left: 14px;">审批金额</label>
+                            <input type="number" id="approve" style="width: 40%">元
+                        </div>
+                        <div class="form-group">
+                            <label for="refund">还款方式</label>
+                            <select name="" id="refund">
+                                <option value="1">等额本息</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="refund">资金来源</label>
+                            <select name="" id="cbll">
+                                <option value="1">中金</option>
+                                <option value="2">皖江</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">还款期限</label>
+                            <select name="" id="time" onchange="funs($(this).val())">
+                                <option value="0">请选择</option>
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthly">还款利率</label>
+                            <select  name="repayment_rate" id="monthly">
+                                <option value="0">请选择</option>
+                               <!-- <option value="0.0079">0.79%</option>
+                                <option value="0.0099">0.99%</option>
+                                <option value="0.0119">1.19%</option>-->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthly">放款日期</label>
+                            <input type="text" onClick="WdatePicker()" name="starttime" value="" placeholder="" aria-controls="example1" autocomplete="off" placeholder="必填" id="fkrq" required onchange="fkdate(this.value)" style="width: 40%">
+                        </div>
+                        <div class="form-group">
+                            <label for="monthly">借款到期</label>
+                            <input type="text" value="" name="endtime"  readonly = "readonly" id="jkdq" required style="width: 40%">
+                        </div>
+                        <div class="form-group">
+                            <label for="time">业务部门</label>
+                            <select name="branch" id="branch" class="bumen sea select" onchange="fp(this.value)" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthly">业务人员</label>
+                            <select id="ywy" class="members sea select" name="salesman" required>
+                                    <option value=''>请选择</option>
+                            </select>
+                        </div>
+
+                    </form>
+                    <div class="form-group" style="text-align: center;">
+                        <input type="submit" style="margin-left: 44px;" value="开始计算" class="submit">
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <a class="hq btn btn1  present" style="width:38%;background: #66cd00;color:#fff;margin-left:30px;" onclick="func_hq()" name="" title="" href="javascript:void(0)">放款</a>
+                    </div>
+                    <!-- <div class="form-group" style="text-align: center;">
+                        <a href="/Admin/CarLoan/over?state_id=33&id=" target="_blank" class="btn btn1 over present" style="width:38%;background: #66cd00;color:#fff;margin-left:30px;">完成</a>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row colors" style="display: none;">
+                <div class="col-md-11 col-md-offset-1">
+                    <table class=" table table-bordered table-hover">
+                        <thead>
+                        <tr style="background: #278bdf;">
+                            <th style="width: 20%;">期限</th>
+                            <th>本金(元)</th>
+                            <th>利息及服务费(元)</th>
+                            <th>当月还款金额(元)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+</div>
+</div>
+<include file="common:js" />
+
+<script>
+   
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    var url=document.URL;
+    var ids=url.split('=');
+    $(".ids").val(ids[1]);
+    var dlc=$(".downloadpic").attr('href');
+    $(".downloadpic").attr('href',dlc+ids[1]);
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]);
+
+    $(".preview").each(function(){
+        var ss=$(this).attr('href');
+        $(this).attr('href',ss+ids[1]);
+    });
+
+    $(function(){
+        var str=$("#xszd").val().split(',');
+        
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+        
+    });
+
+    function funs(f) {
+        var e = '<option value="0.0119">1.19%</option>';
+        var d = '<option value="0.0099">0.99%</option>';
+        var g = '<option value="0.0119">1.19%</option><option value="0.0099">0.99%</option><option value="0.0079">0.79%</option>';
+        if (f == 12) {
+            $("#monthly").html(e)
+        } else {
+            if (f == 24) {
+                $("#monthly").html(d)
+            } else {
+                $("#monthly").html(g)
+            }
+        }
+
+        //借款到期时间
+         stime=$("#fkrq").val();
+         if(stime){
+          var qss=Number(f);
+          var st=stime;
+          var d = new Date(st);
+          d.setMonth(d.getMonth()+qss);
+          
+          if(((d.getMonth()<9?'0':'')+(d.getMonth()))==00 && (((d.getDate()<10?'0':'')+(d.getDate()-1))==00)){
+
+           var et=(d.getFullYear()-1)+'-'+12+'-'+31;
+
+          }else if(((d.getDate()<10?'0':'')+(d.getDate()-1))==00){
+
+            if(((d.getMonth()<9?'0':'')+(d.getMonth()))==04 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==06 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==09 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==11){
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+30;
+
+            }else if(((d.getMonth()<9?'0':'')+(d.getMonth()))==02){
+              if (d.getFullYear()%4==0) {
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+29;
+              }else{
+                var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+28;
+              }
+
+            }else{
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+31;
+            }
+            
+          }else{
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()+1))+'-'+(d.getDate()<11?'0':'')+(d.getDate()-1);
+          }
+          $("#jkdq").val(et);
+        }else{
+          $("#jkdq").val("");
+        }
+
+
+    }
+
+    var money = $("#approve").val(),
+        refund = $("#refund").find("option:selected").val(),
+        time = $("#time").find("option:selected").val(),
+        monthly = $("#monthly").find("option:selected").val();
+    $(".submit").click(function () {
+    var d = $("#approve").val(),
+        c = $("#refund").find("option:selected").val(),
+        f = $("#time").find("option:selected").val(),
+        a = $("#monthly").find("option:selected").val(),
+        cbll=$("#cbll").find("option:selected").val(),
+        h = "",
+        e = 0,
+        num=600,
+        b = Math.ceil(((d / f + d * Number(a)) * (Math.pow((1 + (0.11 / 12)), f) - 1)) / (0.11 / 12 * Math.pow((1 + (0.11 / 12)), f) * 100)),
+        allMoney = b * 100,
+        sum = Math.round(allMoney * (0.11 / 12) * Math.pow((1 + (0.11 / 12)), f) / (Math.pow((1 + (0.11 / 12)), f) - 1) * 1000),
+        allSum = sum / 1000,
+        //新
+        allMoneys=d,
+        lv=0;
+        if(cbll==1){
+           if (f==36) {
+                lv=0.0057;
+            }else if(f==24){
+                lv=0.006;
+            }else {
+                lv=0.007;
+            }
+        }else{
+            if (f==36) {
+                lv=0.006;
+            }else if(f==24){
+                lv=0.0065;
+            }else {
+                lv=0.0075;
+            }
+        }
+        
+        // alert(lv);
+        var sums = Math.round(allMoneys * lv * Math.pow((1 + lv), f) / (Math.pow((1 + lv), f) - 1) * 1000),
+        allSums = sums / 1000;
+        //新
+
+    if (f != 0) {
+        $(".colors").show();
+        g(f)
+    } else {
+        $(".colors").hide()
+    }
+    function g(n) {
+        if (f==12) {
+            num=100;
+        }
+        for (var k = 0; k < n; k++) {
+            var j = (allMoney * (0.11 / 12) - allSum) * Math.pow(((0.11 / 12) + 1), k) + allSum;
+            var p = Math.round(j * 1000);
+            var m = String((p + (num*1000)) / 1000).split("");
+            var o = m.slice(0, m.indexOf(".") + 3);
+            if (m.indexOf(".") == -1) {
+                m = String((p + (num*1000)) / 1000).split("");
+                o = m.slice(0, m.indexOf(".") + 7).concat([".", "0", "0"])
+            }
+
+            //新
+            var lj = (allMoneys * lv - allSums) * Math.pow((lv + 1), k) + allSums;
+            var lp = Math.round(lj * 1000);
+            var lm = String((lp + (num*1000)) / 1000).split("");
+            var lo = lm.slice(0, lm.indexOf(".") + 3);
+            if (lm.indexOf(".") == -1) {
+                lm = String((lp + (num*1000)) / 1000).split("");
+                lo =lm.slice(0, m.indexOf(".") + 7).concat([".", "0", "0"])
+            }
+            //新
+
+            // console.log(o.join(""));
+            h += "<tr> <td>" + (k + 1) + "</td><td>" + ((allSum * 1000 - p) / 1000).toFixed(2) + "</td><td>" + o.join("") + "</td> " + "<td>" + (allSum + num).toFixed(2) + "</td> " + "</tr>"
+            // console.log(((allSums * 1000 - lp) / 1000).toFixed(2)+'----'+((allSum * 1000 - p) / 1000).toFixed(2))
+            // console.log((lo.join("")-100)+'----'+o.join(""))
+            if(k == 0){
+                cbj=(allSums + num).toFixed(2)-100;
+                
+                $(".hq").attr('title',cbj);
+            }
+            
+        }
+        $("tbody").html(h);
+        var l = $("tbody").find("tr")
+    }
+
+     $(".hq").attr('name', allMoney);
+});
+   
+
+    //获取列表数据
+    function func_hq(){
+
+       var arr=[],newarr=[];
+        $('tbody tr').find('td').each(function(){
+            arr.push($(this).text());
+        });
+       for(var i=0;i<arr.length/4;i++) {
+        newarr[i]=arr.slice((i*4),((i+1)*4));
+       }
+
+       spje=$("#approve").val();
+       fbje=$(".hq").attr('name');
+       cbj=$(".hq").attr('title');
+       cbj_type=$("#cbll").find("option:selected").val();
+       cid=ids[1];
+       // alert(newarr);
+       fkrq=$("#fkrq").val();
+       jkdq=$("#jkdq").val();
+
+       bumen=$(".bumen").val();
+       members=$(".members").val();
+
+       hklv=$("#monthly").val();
+
+       $.post('/Admin/CarLoan/Carsix',{newarr:newarr,fbje:fbje,spje:spje,cid:cid,fkrq:fkrq,jkdq:jkdq,bumen:bumen,members:members,hklv:hklv,cbj:cbj,cbj_type:cbj_type},function(data){
+            if(data=="放款成功"){
+                 alert(data);
+                 window.location.href="/Admin/CarLoan/over?state_id=33&id="+cid;
+            }else{
+                alert(data);
+            }
+        });
+    }
+
+    //放款时间
+     function fkdate(stime){
+        
+        var qs=$("#time").val();
+        var qss=Number(qs);
+        var st=stime;
+        var d = new Date(st);
+        if(d.getDate()==29 || d.getDate()==30 || d.getDate()==31){
+          alert("请选择29，30，31以外的日期");
+          $("#fkrq").val("");
+          exit();
+        }
+        d.setMonth(d.getMonth()+qss);
+        //4、6、9、11
+        if(((d.getMonth()<9?'0':'')+(d.getMonth()))==00 && (((d.getDate()<10?'0':'')+(d.getDate()-1))==00)){
+
+           var et=(d.getFullYear()-1)+'-'+12+'-'+31;
+
+          }else if(((d.getDate()<10?'0':'')+(d.getDate()-1))==00){
+
+          if(((d.getMonth()<9?'0':'')+(d.getMonth()))==04 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==06 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==09 || ((d.getMonth()<9?'0':'')+(d.getMonth()))==11){
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+30;
+
+          }else if(((d.getMonth()<9?'0':'')+(d.getMonth()))==02){
+            if (d.getFullYear()%4==0) {
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+29;
+            }else{
+              var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+28;
+            }
+
+          }else{
+            var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()))+'-'+31;
+          }
+          
+        }else{
+          var et=d.getFullYear()+'-'+((d.getMonth()<9?'0':'')+(d.getMonth()+1))+'-'+(d.getDate()<11?'0':'')+(d.getDate()-1);
+        }
+
+        $("#jkdq").val(et);
+     }
+
+      function fp(rid){
+        if(rid=='33'){
+             gyd();
+        }else{
+           $.post("/Admin/CarLoan/memberss",{rid,rid},function(data){
+            
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    //加载部门
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+         branchs(b_val); 
+    });
+</script>
+</body>
+</html>

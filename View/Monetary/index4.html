@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>后台管理</title>
+	<include file="common:css" />
+	<script src="__PUBLIC__/admin/js/branch.js"></script>
+</head>
+<style type="text/css">
+	.submit_form {position: absolute;z-index:1;width: 100%;}
+	#example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow:hidden;}
+	#example1_filter .so:hover {background:#1F76A0;}
+	.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+	.addall:hover{color:#fff;background:#d42020}
+	.nav-tabs a{margin-right:3px}
+	.posF {display: none;height: 100%;left: 0; position: fixed; top: 0;width: 100%; z-index: 99999;}
+	.posF .bg { background: #000 none repeat scroll 0 0; height: 100%; left: 0;opacity: 0.35; position: absolute;top: 0; width: 100%;z-index: -1;}
+	.posF .box500 {background: #fff none repeat scroll 0 0; border-radius: 6px;margin: 12% auto 0;width: 500px;}
+	.posF .box500 .hd { border-bottom: 2px solid #dfdfdf; position: relative;}
+	.posF .box500 .hd p {color: #535353; font-size: 20px;line-height: 50px; margin: 0; text-indent: 2em;}
+	.posF .box500 .hd .off {background: rgba(0, 0, 0, 0) url("/Public/home/images/pop-close.png") no-repeat; cursor: pointer; display: block; height: 33px; margin-top: -10.5px; position: absolute; right: 0px; top: 50%;width: 35px;}
+	.posF .bd { padding: 30px;}
+	.posF .rope { margin: 0 25px 10px;padding: 0;text-align: center;}
+	.posF .rope span {color: #535353;display: inline-block; }
+	.posF .rope select {border: 1px solid #e5e5e5;color: #333;height: 36px;outline: medium none;width: 310px;}
+	.posF .rope input {border: 1px solid #e5e5e5; color: #333;height: 34px;line-height: 34px;outline: medium none;padding: 0 7px; width: 296px;}
+	.posF .rope button.off {background-color: #b5b5b5;color: #fff; margin-left: 0;}
+	.posF .rope .submit {background: #f10215 none repeat scroll 0 0;color: #fff;}
+	.posF .rope a {border: 0 none; border-radius: 4px;cursor: pointer;display: inline-block;font-family: "Microsoft Yahei";font-size: 14px;height: 36px;line-height: 36px;margin-left: 23px;outline: medium none; padding: 0 15px;width: 105px;}
+	.show1{display: block;}
+	
+	#example1_wrapper .row {position: relative;}
+	#example1_wrapper .row .col-sm-6:nth-child(1) {position: absolute;right: 0px;}
+	#example1_wrapper .row .col-sm-6:nth-child(2) {float:right;}
+	#example1_length {position: absolute;right: -14px;top: -46px;}
+	#example1_wrapper, .box-body {position: relative;}
+	#example1_length label{display:none}
+	#example1_paginate{display:none}
+	.page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+	.page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+	.page a:hover,.page .on {background: #00a3ff;color:#fff}
+	.page div{display:inline;}
+	.remark {position: relative;cursor: pointer;}
+	.remark .text{width: 160px;display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.remark .hover {display: none;position: absolute;right:30px;top:55px;z-index: 5;width: 400px;min-height: 80px;padding: 15px;border:1px solid #ccc;background:#fff;box-sizing:border-box;border-radius:10px;}
+	.remark:hover .hover {display: block;}
+	.remark .hover:after {content: "";display: block;width: 14px;height: 14px;border-left:1px solid #ccc;border-top:1px solid #ccc;background:#fff;position: absolute;top: -7px;right: 40px;z-index: -5;transform: rotate(45deg);}
+    table.dataTable thead > tr > th {    padding-right: 0px!important;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px 0!important;
+    }
+    th {  text-align: center!important;  }
+    table.table-bordered th:last-child, table.table-bordered td:last-child {text-align: center!important;}
+	#foonav {display: none!important;}
+	.submit_lx {float: right;}
+	#khlx {height: 30px;}
+	#gjzt {height: 30px;}
+	button, input, select, textarea {height: 30px;}
+
+	#example1_wrapper .row .col-sm-6:nth-child(2){float: none;opacity: 0}
+	.dsh{background:rgb(232, 184, 184)}
+</style>
+ <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title"><a href="/Admin/Monetary/index">速分贷客户列表</a></h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">速分贷客户列表</a></li>
+					
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                     <div class="box-body">
+
+						 <form action="/Admin/Monetary/index" method="GET" class="submit_form" style="width: 80%">
+							 <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+								 <label id="sjss">
+									 日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+									 至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+
+									 <div id="example1_filter" style="text-align:left;display:inline-block;margin-left:38px">
+										 部门：<select id="sbranch" name="branch">
+									 </select>
+									 </div>
+
+									 <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;margin-left:38px">
+										 <label>
+											 总搜索：<input type="text" name="sou" value="<?php echo $_GET['sou']?>" class="form-control input-sm" placeholder="姓名/手机/业务员" aria-controls="example1" autocomplete="off">
+										 </label>
+									 </div>
+
+									 <a href="javascript:void(0)" onclick="tj()" id="zj" class="so">确定</a>
+								 </label>
+							 </div>
+						 </form>
+						 <a href="/Admin/Monetary/index/yqkh/1"  class="btn btn-danger btn-sm" style="float:right;margin-right:100px;">逾期客户</a>
+						 
+					 </div>
+	                       <script>
+								function tj(){
+								  $(".submit_form").submit();
+								} 
+						   </script>
+                     <form action="/Admin/Monetary/del" method="post" class="submit_forms" >
+                       <table id="" class="table table-bordered table-hover" style="margin-top:30px;">
+                          	<thead>
+	                            <tr>
+	                           		<th width="5%">ID</th>
+	                           		<th width="5%">姓名</th>
+								  	<th width="4%">类型</th>
+						   			<th width="7%">放款金额</th>
+						   			<th width="7%">本金余额</th>
+	                                <th width="3%">期数</th>
+								  	<th width="8%">放款日期</th>
+								  	<th width="8%">到期日期</th>
+								  	<th width="5%">业务员</th>
+									<th width="4%">状态</th>
+									<th width="7%">当月还款<a href="/Admin/Monetary/index/sort/a" id="sorts">(升序)</a></th>
+	                                <th width="8%">累计利息</th>
+	                                <th width="5%">应还利息</th>
+	                                <th width="5%">已还利息</th>
+	                                <th width="4%">滞纳金</th>
+	                                <th width="5%">逾期天数</th>
+	                                <th width="5%">捆绑业务</th>
+							        <th width="14%">操作</th>
+	                           </tr>
+                          	</thead>
+							<tbody style="text-align: center;">
+							<foreach name="cashinfo" item="value">
+								<tr <?php echo $value['audit_status']==2?"class='dsh'":'' ?> <?php echo $value['latefee']>0? "class='yq'":'' ?>>
+									<td><input  type="checkbox" name="id[]" value="{$value.id}">&nbsp;&nbsp;{$value.id}</td>
+
+									<td>{$value.name}</td>
+									<td><?php echo $value['type']==1?'速分贷':'速贷' ?></td>
+									<td>{$value.money}</td>
+									<td>{$value.principal}</td>
+									<td>{$value.num}</td>
+									<td><?php echo date("Y-m-d",$value['starttime']); ?></td>
+									<td><?php echo date("Y-m-d",$value['endtime']); ?></td>
+									<td>{$value.salesman}</td>
+									<td><?php if($value['audit_status']==2){
+										echo "待审核";
+										}else if($value['audit_status']==1){
+										echo "已审核";}
+									 ?></td>
+									 <td>{$value.etime}</td>
+									<td>{$value.cumulativeInterest}</td>
+									<td><?php echo $value['whlx']?$value['whlx']:0 ?></td>
+									<td><?php echo $value['yhlx']?$value['yhlx']:0 ?></td>
+									<td>{$value.latefee}</td>
+									<td>{$value.days}</td>
+									<td><?php if($value['bundlingservice']==1){
+										echo "是";
+										}else if($value['bundlingservice']==2){
+										echo "否";}
+									 ?></td>
+									<td>
+                                        <if condition="in_array('89',$_SESSION['level'])">
+                                            <a href="/Admin/Monetary/modify/id/{$value.id}" class="btn btn-primary btn-sm"><i class="fa fa-edit" style="font-size:16px;"></i></a>
+                                        </if>
+                                       <if condition="$value['audit_status'] eq 1">
+                                        <a href="/Admin/Monetary/edit/id/{$value.id}" class="btn btn-primary btn-sm"><i class="fa fa-tasks" style="font-size:16px;"></i></a>
+                                        </if>
+									<if condition="in_array('88',$_SESSION['level'])">
+									     <a class="btn btn-danger btn-sm" href="javascript:if(confirm('确实要删除该内容吗?'))location='/Admin/Monetary/dels/id/{$value.id}'"><i class="fa fa-trash" style="font-size:16px;"></i></a>
+									</if>
+									</td>
+								</tr>
+							</foreach>
+							<tr style="background:#D8BFD8">
+								<td><font color="red">统计</font></td>
+								<td></td>
+								<td></td>
+								<td>{$tmoney}</td>
+								<td>{$tprincipal}</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>{$tcumulativeInterest}</td>
+								<td>{$twhlx}</td>
+								<td>{$tyhlx}</td>
+								<td>{$tlatefee}</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</tbody>
+						  
+                        </table>
+						 <span>共计{$count}条</span>
+						</form>
+
+						<!-- <if condition="in_array('14',$_SESSION['level'])">  
+						<a onClick="del()" style="background:#dd4b39;float:left;margin-top:20px;" class="addall" href="javascript:;">选中删除</a>
+						</if> -->
+
+						<div class="page">{$show}</div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+	
+  <div class="posF" id="express" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >更换跟进人审核</p>
+        <span class="off posA" onclick="check_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">客户跟进业务员更换成<em class="middle_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+			<input type="hidden" name="send_id" class="send_id" id="send_id" value="">
+			<input type="hidden" name="send_id" class="send_username" value="">
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="oncheck('1')" style="background:#00a651" class="submit">通过</a><a onclick="oncheck('2')" class="submit">不通过</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <div class="posF" id="Sign" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >交接渠道部审核</p>
+        <span class="off posA" onclick="Sign_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">客户已签约，业务员交接给渠道部<em class="rank_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+			<input type="hidden" name="send_id" class="rank_id" value="">
+			<input type="hidden" name="send_id" class="rank_username" value="">
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="onSign('1')" style="background:#00a651" class="submit">通过</a><a onclick="onSign('2')" class="submit">不通过</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <div class="posF" id="met" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >提示</p>
+        <span class="off posA" onclick="met_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">待经理确定！</span>
+			<input type="hidden" name="met_id" class="met_id" id="met_id" value="">			
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="onmet()" style="background:#00a651" class="submit">确定</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <include file="common:js" />
+   
+    <script>
+	//约见审核
+	function met(_this,id){
+	  $(".met_id").attr('value',id);
+	  $("#met").addClass('show1');
+	}
+	
+	function met_off(){
+	  $("#met").removeClass("show1");
+	}
+	
+	function onmet(){
+	  var id = $(".met_id").val();
+	  $.get('/Admin/Uclient/getmet', {id:id}, function (data){
+	     if(data == 1){
+		   alert('确定成功');
+		   $(".met"+id).html("已约见");
+		   $(".mets"+id).html('<a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm">编辑</a>');
+		   $("#met").removeClass("show1");
+		 }else{
+		  alert('审核不通过');
+		  window.location.reload();
+		 }
+	  })
+	}
+	
+	//提示
+	function Signed(val){
+	 alert(val);
+	}
+	
+	function onSign(sun){
+	  var id = $(".rank_id").val();
+	  var username = $(".rank_username").val();
+	 // alert(sun);return false;
+	  $.get('/Admin/Uclient/getrank', {sun:sun,id:id}, function (data){
+	     if(data == 1){
+		   alert('审核通过');
+		   $(".middle_username"+id).html(username);
+		   $(".checkdel"+id).remove();
+		   $("#Sign").removeClass("show1");
+		 }else{
+		  alert('审核不通过');
+		  window.location.reload();
+		 }
+	  })
+	}
+	
+	function Sign_off(_this){
+       $("#Sign").removeClass("show1");
+    }
+	
+	function Sign(_this,id,username){
+	   $(".rank_admin_username").html('['+username+']');
+	   $(".rank_id").attr('value',id);
+	   $(".rank_username").attr('value',username);
+	   $("#Sign").addClass('show1');
+	}
+	
+	//批量删除
+	function del(){
+	     var d = $("input[type='checkbox']").is(':checked');
+		 if(!d){
+		  alert('请选择删除数据！');return false;
+		 }
+		// return false;
+	    $(".submit_forms").addClass("submit_orms");
+	    var gnl=confirm("确定删除吗?");
+		if (gnl!=true){
+		return false;
+		};
+		$(".submit_orms").submit();
+	}
+	
+	function check(_this,id,username){
+	   $(".middle_admin_username").html('['+username+']');
+	   $(".send_id").attr('value',id);
+	   $(".send_username").attr('value',username);
+	   $("#express").addClass('show1');
+	}
+	
+	function oncheck(sun){
+	  var id = $(".send_id").val();
+	  var username = $(".send_username").val();
+	  $.get('/Admin/Uclient/getcheck', {sun:sun,id:id}, function (data){
+	     if(data == 1){
+		   alert('审核通过');
+		  
+		   $(".middle_username"+id).html(username);
+		   $(".checkdel"+id).remove();
+		   $("#express").removeClass("show1");
+		 }
+	  })
+	}
+	
+	function check_off(_this){
+       $("#express").removeClass("show1");
+    }
+
+   //获取批量id
+	function ucid(){
+		var chk_value =[];
+		 $("input[type='checkbox']:checked").each(function(){
+		 	chk_value.push($(this).val());
+		 });
+		 $(".idss").val(chk_value);
+		 if($(".idss").val() && $(".bumen").val()){
+			 $(".fpform").submit();
+		}else{
+			alert("请选择数据！");
+		}
+	}
+
+
+	//分配客户
+	function fp(rid){
+		$.post("/Admin/Supply/memberss",{rid,rid},function(data){
+			$(".members").empty();
+			for(i=0;i<data.length;i++){
+				$(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+			}
+		})
+
+	}
+
+	$(function(){
+		rid=$(".bumen").val();
+		fp(rid);
+
+	})
+
+//全选按钮
+    $("#xz").click(function(){
+        if($(this).attr("name")=="t"){
+            $("input[type='checkbox']").prop("checked",true);
+            $(this).attr("name",'f');
+            $(this).val("反选");
+        }else{
+            $("input[type='checkbox']").attr("checked",false);
+            $(this).attr("name",'t');
+            $(this).val("全选");
+        }
+
+    });
+
+   //逾期行
+   $(".yq").css("background",'#e8b8b8');
+
+   //加载部门
+	window.onload=(function(){
+       	sbranch();
+       });
+	
+	//排序
+	// $('#sorts').click(function(){
+	// 	var ss='ss';
+	// 	$.post("/Admin/Monetary/index",{ss:ss},function(data){
+	// 		alert(data);
+	// 	});
+
+	// });
+	</script>  
+  </body>
+</html>

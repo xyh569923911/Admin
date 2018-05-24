@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">添加部门</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                <form class="form-horizontal" toUrl="/Admin/Member/branch" action="/Admin/Member/addbranch" id="myform">
+                   <div class="form-group">
+                      <label class="col-md-2 control-label">部门名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.name}" name="name">
+                      </div>
+                    </div>
+                   
+				     <div class="form-group">
+                      <label class="col-md-2 control-label">描述：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="desc">{$data.desc}</textarea>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-sm-9">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value="添加"></input>
+                      </div>
+                    </div>
+                </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+    
+  </body>
+</html>

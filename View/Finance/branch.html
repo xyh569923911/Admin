@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+
+</head>
+<style type="text/css">
+    .table-bordered {
+    }
+    tbody tr:nth-child(1) td {
+        font-weight: bold;
+    }
+   form{font-size:18px;}
+   .input{border-radius: 0;box-shadow: none;}
+   .input, .sinput{margin-top: 10px;width: 100px;}
+   .topd{margin-bottom:20px;}
+   .btns{box-shadow: 3px 3px 3px #a0a0a0;background:#d9a229;width:100px;border-radius:6px;color: #fff;}
+   b{font-size:20px;}
+   .addss,.adds{display: none}
+    .so {
+        width: 100px;
+        height: 30px;
+        background: #1485BD;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        margin-left: 20px;
+        border-radius: 3px;
+        overflow: hidden;
+        border:0 ;
+        outline: none;
+    }
+    input::-webkit-input-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input::-moz-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input:-ms-input-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    form {
+        font-size: 15px;
+    }
+    .table {
+        width: 95%;
+        font-size: 15px;
+        margin-top: 15px;
+        text-align: left;
+        letter-spacing: 1px;
+    }
+    tbody tr:first-child {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    tbody tr:first-child:hover {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    b {
+        font-size: 15px;
+    }
+    td{
+      width: 15%;
+      text-align: center;
+    }
+    .wu {
+        text-align: left;
+    }
+    tr,td {
+        text-indent: 7px;
+    }
+    tr:nth-child(2n) {
+        background:#f6f6f6;
+    }
+    .btns {
+        height: 33px;
+        background: #2aa6ff;    
+    }
+    table,.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+        border: 1px solid #e6e6e6;
+    }
+    .table-bordered {
+        border: 1px solid #e6e6e6;
+    }
+
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+ <div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束 -->
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+<div class="content-wrapper">
+    <section class="content">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">分部利润表</h3>
+        </div>
+        <div class="box-body">
+            <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <div class="box-body">
+                    <form action="/Admin/Finance/branch" method="post" onsubmit="return checkform()">
+                        年份：<select name="year" class="sinput input" id="year" style="margin-right: 15px;">
+                              <option>2018</option>
+                              <option>2019</option>
+                              <option>2020</option>
+                              <option>2021</option>
+                              <option>2022</option>
+                              <option>2023</option>
+                              <option>2024</option>
+                              <option>2025</option>
+                            </select>
+                        月份：<select name="month" class="sinput input" id="month">
+                              <option value="0">请选择</option>
+                              <option <?php echo $month==1?'selected':"" ?>>1</option>
+                              <option <?php echo $month==2?'selected':"" ?>>2</option>
+                              <option <?php echo $month==3?'selected':"" ?>>3</option>
+                              <option <?php echo $month==4?'selected':"" ?>>4</option>
+                              <option <?php echo $month==5?'selected':"" ?>>5</option>
+                              <option <?php echo $month==6?'selected':"" ?>>6</option>
+                              <option <?php echo $month==7?'selected':"" ?>>7</option>
+                              <option <?php echo $month==8?'selected':"" ?>>8</option>
+                              <option <?php echo $month==9?'selected':"" ?>>9</option>
+                              <option <?php echo $month==10?'selected':"" ?>>10</option>
+                              <option <?php echo $month==11?'selected':"" ?>>11</option>
+                              <option <?php echo $month==12?'selected':"" ?>>12</option>
+                            </select>
+                        <input type="hidden" name="b" value="{$b}" id="branch">
+                        <input type="submit" value="查看" class="tianjia so">
+                        <input type="button" value="修改" id="upd" class="tianjia so">
+                        <a href="/Admin/Finance/branch/y/2"><input type="button" name="month-self" value="本年累积" class="tianjia so"></a>
+                        <a href="/Admin/Finance/add"><input type="button" name="add" value="添加" class="tianjia so"></a>
+                       </form>
+                       <div id="info">
+                        <div class="left">
+                            <table border="1" id="lyt" cellpadding="80px" class="table table-bordered table-hover">
+                                <h3 style="width:100px;margin: 20px 0 20px 550px;">居间业务</h3>
+                                <tr>
+                                    <td>分部</td>
+                                    <td class="fy">福永分部</td>
+                                    <td class="xx">西乡分部</td>
+                                    <td class="kjy">科技园分部</td>
+                                    <td class="ns">南山分部</td>
+                                    <td class="hz">汇总</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="wu"><b>一、营业收入</b></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">1、居间费用收入</td>
+                                    <td class="fy">{$fy_data['residence_fee']}</td>
+                                    <td class="xx">{$xx_data['residence_fee']}</td>
+                                    <td class="kjy">{$kjy_data['residence_fee']}</td>
+                                    <td class="ns">{$ns_data['residence_fee']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">2、预收客户定金转收入</td>
+                                    <td class="fy">{$fy_data['deposit']}</td>
+                                    <td class="xx">{$xx_data['deposit']}</td>
+                                    <td class="kjy">{$kjy_data['deposit']}</td>
+                                    <td class="ns">{$ns_data['deposit']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">3、额外费用收入</td>
+                                    <td class="fy">{$fy_data['additional_fee']}</td>
+                                    <td class="xx">{$xx_data['additional_fee']}</td>
+                                    <td class="kjy">{$kjy_data['additional_fee']}</td>
+                                    <td class="ns">{$ns_data['additional_fee']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">营业收入合计</td>
+                                    <td class="fy">{$fy_data['income']}</td>
+                                    <td class="xx">{$xx_data['income']}</td>
+                                    <td class="kjy">{$kjy_data['income']}</td>
+                                    <td class="ns">{$ns_data['income']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wu" colspan="6"><b>二、费用</b></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">1、工资及社保</td>
+                                    <td class="fy">{$fy_data['wages']}</td>
+                                    <td class="xx">{$xx_data['wages']}</td>
+                                    <td class="kjy">{$kjy_data['wages']}</td>
+                                    <td class="ns">{$ns_data['wages']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">2、办公场地租金及水电</td>
+                                    <td class="fy">{$fy_data['office_rent']}</td>
+                                    <td class="xx">{$xx_data['office_rent']}</td>
+                                    <td class="kjy">{$kjy_data['office_rent']}</td>
+                                    <td class="ns">{$ns_data['office_rent']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">3、跟单费</td>
+                                    <td class="fy">{$fy_data['documentary_charges']}</td>
+                                    <td class="xx">{$xx_data['documentary_charges']}</td>
+                                    <td class="kjy">{$kjy_data['documentary_charges']}</td>
+                                    <td class="ns">{$ns_data['documentary_charges']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">4、其他</td>
+                                    <td class="fy">{$fy_data['other_fee']}</td>
+                                    <td class="xx">{$xx_data['other_fee']}</td>
+                                    <td class="kjy">{$kjy_data['other_fee']}</td>
+                                    <td class="ns">{$ns_data['other_fee']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">费用合计</td>
+                                    <td class="fy">{$fy_data['residence_total_cost']}</td>
+                                    <td class="xx">{$xx_data['residence_total_cost']}</td>
+                                    <td class="kjy">{$kjy_data['residence_total_cost']}</td>
+                                    <td class="ns">{$ns_data['residence_total_cost']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">三、利润</td>
+                                    <td class="fy">{$fy_data['profit']}</td>
+                                    <td class="xx">{$xx_data['profit']}</td>
+                                    <td class="kjy">{$kjy_data['profit']}</td>
+                                    <td class="ns">{$ns_data['profit']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wu" style="font-weight: bold;">四、分配人</td>
+                                    <td class="fy">{$fy_data['assignor']}</td>
+                                    <td class="xx">{$xx_data['assignor']}</td>
+                                    <td class="kjy">{$kjy_data['assignor']}</td>
+                                    <td class="ns">{$ns_data['assignor']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="right">
+                            <table border="1" id="lyt1" cellpadding="80px" class="table table-bordered table-hover">
+                                <h3 style="width:100px;margin: 20px 0 20px 550px;">现金业务</h3>
+                                <tr>
+                                    <td>分部</td>
+                                    <td class="fy">福永分部</td>
+                                    <td class="xx">西乡分部</td>
+                                    <td class="kjy">科技园分部</td>
+                                    <td class="ns">南山分部</td>
+                                    <td class="hz">汇总</td>
+                                </tr>
+                                <tr>
+                                    <td class="wu" colspan="6"><b>一、速贷收入</b></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">1、库存值</td>
+                                    <td class="fy">{$fy_data['inventory_value']}</td>
+                                    <td class="xx">{$xx_data['inventory_value']}</td>
+                                    <td class="kjy">{$kjy_data['inventory_value']}</td>
+                                    <td class="ns">{$ns_data['inventory_value']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">2、应收利息</td>
+                                    <td class="fy">{$fy_data['interest_receivable']}</td>
+                                    <td class="xx">{$xx_data['interest_receivable']}</td>
+                                    <td class="kjy">{$kjy_data['interest_receivable']}</td>
+                                    <td class="ns">{$ns_data['interest_receivable']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">3、实收利息</td>
+                                    <td class="fy">{$fy_data['interest_rate']}</td>
+                                    <td class="xx">{$xx_data['interest_rate']}</td>
+                                    <td class="kjy">{$kjy_data['interest_rate']}</td>
+                                    <td class="ns">{$ns_data['interest_rate']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">4、滞纳金、罚息</td>
+                                    <td class="fy">{$fy_data['penalty']}</td>
+                                    <td class="xx">{$xx_data['penalty']}</td>
+                                    <td class="kjy">{$kjy_data['penalty']}</td>
+                                    <td class="ns">{$ns_data['penalty']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wu" colspan="6"><b>二、费用支出</b></td>
+                                </tr>
+                                <!-- <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">二、费用支出</td>
+                                    <td class="fy">{$fy_data['expense_expenditure']}</td>
+                                    <td class="xx">{$xx_data['expense_expenditure']}</td>
+                                    <td class="kjy">{$kjy_data['expense_expenditure']}</td>
+                                    <td class="ns">{$ns_data['expense_expenditure']}</td>
+                                    <td class="confluence"></td>
+                                </tr> -->
+                                <tr class="trs">
+                                    <td class="wu">1、提成</td>
+                                    <td class="fy">{$fy_data['commission']}</td>
+                                    <td class="xx">{$xx_data['commission']}</td>
+                                    <td class="kjy">{$kjy_data['commission']}</td>
+                                    <td class="ns">{$ns_data['commission']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu">2、支出</td>
+                                    <td class="fy">{$fy_data['expense_expenditure']}</td>
+                                    <td class="xx">{$xx_data['expense_expenditure']}</td>
+                                    <td class="kjy">{$kjy_data['expense_expenditure']}</td>
+                                    <td class="ns">{$ns_data['expense_expenditure']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">费用合计</td>
+                                    <td class="fy">{$fy_data['commission']}</td>
+                                    <td class="xx">{$xx_data['commission']}</td>
+                                    <td class="kjy">{$kjy_data['commission']}</td>
+                                    <td class="ns">{$ns_data['commission']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr class="trs">
+                                    <td class="wu" style="font-weight: bold;">三、净利润</td>
+                                    <td class="fy">{$fy_data['net_profit']}</td>
+                                    <td class="xx">{$xx_data['net_profit']}</td>
+                                    <td class="kjy">{$kjy_data['net_profit']}</td>
+                                    <td class="ns">{$ns_data['net_profit']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                                <tr>
+                                    <td class="wu" style="font-weight: bold;">四、分配人</td>
+                                    <td class="fy">{$fy_data['xj_assignor']}</td>
+                                    <td class="xx">{$xx_data['xj_assignor']}</td>
+                                    <td class="kjy">{$kjy_data['xj_assignor']}</td>
+                                    <td class="ns">{$ns_data['xj_assignor']}</td>
+                                    <td class="confluence"></td>
+                                </tr>
+                        
+                            </table>
+                            <input style="margin-left: 550px;" type="button" class="btns" value="生成excle" id="makexcle">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+</div>
+</div>
+  <include file="common:js" />
+  <script type="text/javascript">
+     
+      //验证
+      function checkform(){
+        var b=$("#month").val();
+        if(b==0){
+            alert('请选择月份');
+             return false;
+        }        
+      }
+    //年
+    // $("#year").change(function(){
+    //     var year=$(this).val();
+    //     var month=$("#month").val();
+    //     var branch=$(".branch").val();
+    //     $.post('/Admin/Finance/branch',{branch:branch,year:year,month:month},function(data){
+    //         if(data){
+
+    //             $("#info").html()
+    //         }
+    //     });
+    // });
+    // //月
+    // $("#month").change(function(){
+    //     var month=$(this).val();
+    //     var year=$("#year").val();
+    //     $.post('/Admin/Finance/branch',{branch:branch,year:year,month:month},function(data){
+    //         if(data){
+               
+    //         }
+    //     });
+    // });
+
+    //make excel
+    $("#makexcle").click(function(){
+        var month=$("#month").val();
+        var branch=$("#branch").val();
+        var year=$("#year").val();
+        if(year==0){
+            alert("请选择年月份");
+            return false;
+        }
+        if(month<1){
+            window.location="/Admin/Finance/makexcle?branch="+branch+"&year="+year
+        }else{
+           window.location="/Admin/Finance/makexcle?branch="+branch+"&month="+month+"&year="+year
+        }
+        
+    });
+    // 添加
+    var flag=true;
+    $('.tianjia').click(function(){
+        if(flag){
+            $(".tianjia").html('隐藏')
+            $(".adds").show();
+            flag=false;
+        }else{
+             $(".tianjia").html('添加')
+            $(".adds").hide();
+            flag=true;
+        }
+        
+    });
+    var flags=true;
+    $('.tjs').click(function(){
+        if(flags){
+            $(".tjs").html('隐藏')
+            $(".addss").show();
+            flags=false;
+        }else{
+             $(".tjs").html('添加')
+            $(".addss").hide();
+            flags=true;
+        }
+        
+    });
+
+    //加载部门
+    // window.onload=(function(){
+    //     sbranch();
+    //    });
+
+    window.onload=(function(){
+        $('.trs').each(function(){
+            var one=Number($(this).find('td').eq(1).text());
+            var two=Number($(this).find('td').eq(2).text());
+            var three=Number($(this).find('td').eq(3).text());
+            var four=Number($(this).find('td').eq(4).text());
+            var vals=Number(one+two+three+four).toFixed(2);
+            $(this).find('td').eq(5).text(vals);
+        });
+
+        var branch=$("#branch").val();
+        if(branch==1){
+            $(".xx").hide();
+            $(".kjy").hide();
+            $(".ns").hide();
+            $(".confluence").hide();
+            $(".hz").hide();
+        }
+        if(branch==10){
+            $(".xx").hide();
+            $(".kjy").hide();
+            $(".fy").hide();
+            $(".confluence").hide();
+            $(".hz").hide();
+        }
+        if(branch==11){
+            $(".ns").hide();
+            $(".kjy").hide();
+            $(".fy").hide();
+            $(".confluence").hide();
+            $(".hz").hide();
+        }
+        if(branch==19){
+            $(".ns").hide();
+            $(".xx").hide();
+            $(".fy").hide();
+            $(".confluence").hide();
+            $(".hz").hide();
+        }
+
+    });
+
+    $("#upd").click(function(){
+        var month=$("#month").val();
+        var year=$("#year").val();
+        if(month<1){
+            alert("请选择年月份");
+            return false;
+        }
+        window.location.href="/Admin/Finance/upd?month="+month+"&year="+year;
+    });
+     
+  </script>
+</body>
+</html>

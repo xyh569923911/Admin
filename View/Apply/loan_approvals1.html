@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        body {
+            height: 800px;
+            width: 1920px;
+        }
+        .box {
+            background: #f8f8f8;
+            height: 800px;
+            width: 1920px;
+        }
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer/t/1">现金客户</a>><a style="cursor: pointer;" class="goback">还回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">审贷</h4>
+                           <form action="/Admin/Apply/loan_approval" method="post">
+                               <div>
+                                    <label style="position: relative;top:-87px;right:-1px;">审贷会意见：</label><textarea cols="80" name="approval_comments" rows="5">{$data['approval_comments']}</textarea>
+                               </div>
+                               <div style="margin-top: 10px;">
+                                    <label style="margin-left:3px;">风险值：</label>
+                                    <input style="margin-left: 21px;" type="text" id="risk" name="risk" value="{$data['risk']}">
+                                    
+                               </div>
+                               <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                               <input type="hidden" value="1" name="t">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 120px;font-size: 16px;">
+                               <a href="javascript:void(0)" onclick="fxzs()" target="_blank" class="btn btn1" style="position: relative;top:-2px;height:35px;background: #66cd00;color:#fff;width: 120px;margin-left:70px;font-size: 16px;">查看风险指数</a>
+                            
+                            <a href="/Admin/Apply/over/t/1?state_id=22&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-2px;height:35px;background: #66cd00;color:#fff;width: 120px;margin-left:78px;font-size: 16px;">审&nbsp;&nbsp;核&nbsp;&nbsp;完&nbsp;&nbsp;成</a>
+                           </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    function  fxzs(){
+        var id=$("#ids").val();
+        var risk=$("#risk").val();
+
+        window.location.href="/Admin/Apply/fxzs?risk="+risk+"&id="+id;
+    }
+</script>
+</body>
+</html>

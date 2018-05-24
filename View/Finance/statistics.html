@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+
+</head>
+<style type="text/css">
+    .table-bordered {
+    }
+    tbody tr:nth-child(1) td {
+        font-weight: bold;
+    }
+   form{font-size:18px;}
+   .input{border-radius: 0;box-shadow: none;}
+   .input, .sinput{margin-top: 10px;width: 100px;}
+   .topd{margin-bottom:20px;}
+   .btns{box-shadow: 3px 3px 3px #a0a0a0;background:#d9a229;width:100px;border-radius:6px;color: #fff;}
+   b{font-size:20px;}
+   .addss,.adds{display: none}
+    .so {
+        width: 100px;
+        height: 30px;
+        background: #1485BD;
+        color: #fff;
+        display: inline-block;
+        text-align: center;
+        line-height: 20px;
+        margin-left: 20px;
+        border-radius: 3px;
+        overflow: hidden;
+        border:0 ;
+        outline: none;
+    }
+    input::-webkit-input-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input::-moz-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    input:-ms-input-placeholder{
+        color: #dadada;
+        font-size: 15px;
+        padding-left: 7px;
+    }
+    form {
+        font-size: 15px;
+    }
+    .table {
+        width: 100%;
+        font-size: 15px;
+        margin-top: 15px;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+    tbody tr:first-child {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    tbody tr:first-child:hover {
+        text-align: center;
+        background: #2a89cd;
+        color: #fff;
+    }
+    b {
+        font-size: 15px;
+    }
+    td{
+      width: 10%;
+    }
+    tr:nth-child(2n) {
+        background:#f6f6f6;
+    }
+    .btns {
+        height: 33px;
+        background: #2aa6ff;    
+    }
+    table,.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+        border: 1px solid #e6e6e6;
+    }
+    .table-bordered {
+        border: 1px solid #e6e6e6;
+    }
+
+</style>
+<body class="hold-transition skin-blue sidebar-mini">
+
+ <div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束 -->
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+<div class="content-wrapper">
+    <section class="content">
+    <div class="row">
+    <div class="col-md-12">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">分部利润表</h3>
+        </div>
+        <div class="box-body">
+            <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <div class="box-body">
+                    <form action="/Admin/Finance/statistics" method="post" onsubmit="return checkform()">
+                        年份：<select name="year" class="sinput input" id="year" style="margin-right: 15px;">
+                              <option>2018</option>
+                              <option>2019</option>
+                              <option>2020</option>
+                              <option>2021</option>
+                              <option>2022</option>
+                              <option>2023</option>
+                              <option>2024</option>
+                              <option>2025</option>
+                            </select>
+                        月份：<?php echo $_POST['month']=='08' ?><select name="month" class="sinput input" id="month" style="margin-right: 15px;">
+                        <option value="0" selected>请选择</option>
+                        <option <?php echo $_POST['month']=='01'?'selected':'' ?>>01</option>
+                        <option <?php echo $_POST['month']=='02'?'selected':'' ?>>02</option>
+                        <option <?php echo $_POST['month']=='03'?'selected':'' ?>>03</option>
+                        <option <?php echo $_POST['month']=='04'?'selected':'' ?>>04</option>
+                        <option <?php echo $_POST['month']=='05'?'selected':'' ?>>05</option>
+                        <option <?php echo $_POST['month']=='06'?'selected':'' ?>>06</option>
+                        <option <?php echo $_POST['month']=='07'?'selected':'' ?>>07</option>
+                        <option <?php echo $_POST['month']=='08'?'selected':'' ?>>08</option>
+                        <option <?php echo $_POST['month']=='09'?'selected':'' ?>>09</option>
+                        <option <?php echo $_POST['month']=='10'?'selected':'' ?>>10</option>
+                        <option <?php echo $_POST['month']=='11'?'selected':'' ?>>11</option>
+                        <option <?php echo $_POST['month']=='12'?'selected':'' ?>>12</option>
+                        </select>
+                         类型：<select name="type" style="margin-right: 15px;">
+                            <option value="1" <?php echo $_POST['type']==1?'selected':'' ?>>速分贷</option>
+                            <option value="2" <?php echo $_POST['type']==2?'selected':'' ?>>速贷</option>
+                          </select>
+                        部门：<select name="branch" class="sinput input" id="sbranch" style="margin-right: 15px;" onchange="fp(this.value)"></select>
+                          <input type="hidden" name="ywys" class="ywys">
+                        业务员：<select name="salesman" class="sinput input" id="ywy" style="margin-right: 15px">
+                                </select>
+                        下载：<label><input type="radio" name="down" class="down" value="1">是</label>
+                        <label><input type="radio" name="down" class="nodown" value="2">否</label>
+                        <input type="submit" class="so" value="查&nbsp;&nbsp;&nbsp;&nbsp;询">
+                       </form>
+                          <?php foreach($salesman as $k=>$v){ ?>
+                            <table border="1" id="lyt" cellpadding="80px" class="table table-bordered table-hover">
+                                <h3 style="width:100px;margin: 20px 0 20px 560px;"><?php echo $k ?></h3>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>客户姓名</td>
+                                    <td>放款金额</td>
+                                    <td>本金余额</td>
+                                    <td>当月还款时间</td>
+                                    <td>应还利息</td>
+                                    <td>已还利息</td>
+                                    <td>业务员提成</td>
+                                    <td>部门提成</td>
+                                </tr>
+                                <?php foreach($v as $key=>$val){ ?>
+                                <tr>
+                                    <td><?php echo $val['id'] ?></td>
+                                    <td><?php echo $val['name'] ?></td>
+                                    <td><?php echo $val['money'] ?></td>
+                                    <td><?php echo $val['principal'] ?></td>
+                                    <td><?php echo $val['etime'] ?></td>
+                                    <td><?php echo $val['whlx'] ?></td>
+                                    <td><?php echo $val['yhlx'] ?></td>
+                                    <td><?php echo $val['s_percentage'] ?></td>
+                                    <td><?php echo $val['b_percentage'] ?></td>
+                                </tr>
+                                <?php } ?>
+                                <tr>
+                                    <td>合计</td>
+                                    <td></td>
+                                    <td><?php echo $total[$k]['tmoney'] ?></td>
+                                    <td><?php echo $total[$k]['tprincipal'] ?></td>
+                                    <td></td>
+                                    <td><?php echo $total[$k]['twhlx'] ?></td>
+                                    <td><?php echo $total[$k]['tyhlx'] ?></td>
+                                    <td><?php echo $total[$k]['ts_percentage'] ?></td>
+                                    <td><?php echo $total[$k]['tb_percentage'] ?></td>
+                                </tr>
+                            </table>
+                          <?php } ?>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </section>
+</div>
+</div>
+  <include file="common:js" />
+  <script type="text/javascript">
+      //验证
+      function checkform(){
+        if($("#sbranch").val()==null || $("#month").val()==0){
+            alert('请选择部分或者月份');
+             return false;
+        }        
+      }
+
+    //加载部门
+    window.onload=(function(){
+        sbranch();
+       });
+
+    function fp(rid){
+         if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/Finance/memberss",{rid,rid},function(data){
+            arr=[];
+            $("#ywy").empty();
+            $("#ywy").append("<option value='0'>请选择</option>");
+            for(i=0;i<data.length;i++){
+                $("#ywy").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+                arr.push(data[i]['id']);
+            }
+            $(".ywys").val(arr);
+          })
+        }
+    }
+
+    //下载
+    $(".nodown").click(function(){
+        $(".so").val("查询");
+    });
+    $(".down").click(function(){
+        $(".so").val("下载");
+    });
+
+  </script>
+</body>
+</html>

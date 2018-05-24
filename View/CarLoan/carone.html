@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        .sectionOne .btn1 {
+            right:76px;
+            top: 32px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+<div class="content-wrapper">
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box" style="height:1000px;">
+             <h3 class="box-title"><a href="/Admin/CarLoan/index">车贷客户</a>><a style="cursor: pointer;" class="goback">返回流程条</a>>评估</h3>
+                <div class="information">
+                    <div class="sectionOne">
+                        <h4 class="h4">贷前流程</h4>
+                        
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <p class="property" style="margin-left: 70px;">1、查型号 : </p>
+                                 <form action="/Admin/CarLoan/carone" method="post" enctype="multipart/form-data" style="margin-bottom: 30px;">
+                                <a href="http://www.qixiubao.cn/v4.14.14/index.php#!/index/vin" target="_blank" class="btn btn1" >汽修宝</a>
+                                <input type="file" style="top: 3px;" id="path5" name="qxb" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path5.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="qxb" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -27px;left: 300px;">
+                                </form>
+                                <a href="/Admin/CarLoan/preview?zd=qxb&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -90px;left: 550px;" name="qxb">预览</a>
+                            </div>
+                            <div class="form-group" style="margin-top: -72px;">
+                                <p class="property" style="margin-left: 70px;">2、查车价 : </p>
+                                <form action="/Admin/CarLoan/carone" method="post" enctype="multipart/form-data">
+                                <a href="https://www.che300.com/" target="_blank" class="btn btn1">车300</a>
+                                <input type="file" style="top: 3px;" id="path7" name="chethree" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="chethree" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -27px;left: 300px;">
+                                </form>
+                                <a href="/Admin/CarLoan/preview?zd=chethree&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="chethree">预览</a>
+                                <form action="/Admin/CarLoan/carone" method="post" enctype="multipart/form-data" style="margin-top: -68px;">
+                                <a href="https://www.iautos.cn/quanguo/" target="_blank" class="btn btn1" style="right: -70px;">第一车网</a>
+                                <input type="file" style="top: 3px;" id="path7" name="firstcar" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+                                <input type="hidden" value="" name="id" class="ids">
+                                <input type="hidden" value="firstcar" name="zd">
+                                <input  type="submit" class="btn btn1" style="position:relative;top: -27px;left: 300px;">
+                                </form>
+                                <a href="/Admin/CarLoan/preview?zd=firstcar&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -63px;left: 550px;" name="firstcar">预览</a>
+                            </div>
+                            <div class="form-group" style="margin-top: -60px;">
+                                <p class="property" style="margin-left: 70px;">3、评估价 : </p>
+                                <form action="/Admin/CarLoan/carone" method="post">
+                                    <p style="visibility: hidden;"><input type="text"></p>
+                                    <p style="margin-left: 70px;font-size: 15px;">
+                                        <label>贷款金额 = 评估价 </label>
+                                        <input type="number" value="{$evaluate}" class="loans" name="evaluate"> 元 ×70%=
+                                        <input type="number" value="{$money}" class="figure" name="money" readonly> 元
+                                    </p>
+                                     <input type="hidden" value="" name="id" class="ids">
+                                    <input  type="submit" class="btn btn1" style="position:relative;top: -45px;left: 548px;">
+                                </form>
+                            </div>
+                            <div class="form-group" style="margin-top: -50px;margin-left: 113px;">
+                            <a href="/Admin/CarLoan/over?state_id=28&id=" target="_blank" class="btn btn1 over" style="right: -122px;top: 60px;background: #66cd00";>完成</a>
+                                <input type="hidden" id="xszd" value="{$str}">
+                            </div>
+                        
+                    </div>
+                </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+        var url=document.URL;
+        var ids=url.split('=');
+        $(".ids").val(ids[1]);
+        var dlc=$(".downloadpic").attr('href');
+        $(".downloadpic").attr('href',dlc+ids[1]);
+        //完成
+        var dlc=$(".over").attr('href');
+        $(".over").attr('href',dlc+ids[1]);
+
+        $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+
+        $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+    $('.loans').keyup(function () {
+        $('.figure').val($(this).val()*70/100);
+    })
+
+    $(".goback").click(function(){
+        window.history.back();
+        });
+</script>
+</body>
+</html>

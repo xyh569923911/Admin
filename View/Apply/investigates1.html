@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+    body {
+        overflow-y: hidden;
+    }
+    body {
+        height: 800px;
+        width: 1920px;
+    }
+    .box {
+        background: #f8f8f8;
+        height: 800px;
+        width: 1920px;
+    }
+    .content-wrapper, .right-side, .main-footer {
+        margin-left: 0;
+    }
+
+        /*修改*/
+    body {
+        height: 800px;
+        width: 1280px;
+        overflow: hidden;
+        font-size: 18px;
+    }
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+        position: relative;
+    }
+    .left {
+        text-align: left;
+        float: left;
+    }
+    .left img {
+        position: relative;
+        top: -2px;
+        margin-right: 5px;
+        width: 22px;
+    }
+    .guan {
+        color: #fff;
+        font-size: 30px;
+        display: inline-block;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    .left a{
+        width: 90px;
+        display: inline-block;
+        color: #fff;
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        font-size: 30px;
+    }
+    .content-wrapper,.row {
+        width: 1280px;
+        background: #f8f8f8;
+        /*overflow: hidden;*/
+    }
+    .box {
+        border-top: none;
+        box-shadow: none;
+        margin-bottom:0;
+        background: #f8f8f8;
+        height: auto;
+    }
+    .information .choose {
+        left: 170px;
+    }
+    .content-wrappers {
+        height: 725px;
+        background: #f8f8f8;
+    }
+    .content-wrapper,.row {
+        width: 1280px;
+        background: #f8f8f8;
+        /*overflow: hidden;*/
+    }
+    .box {
+        border-top: none;
+        box-shadow: none;
+        margin-bottom:50px;
+        background: #f8f8f8;
+        height: auto;
+    }
+    .information .choose {
+        left: 202px;
+        bottom: 33px;
+    }
+    .property {
+        font-size: 18px;
+    }
+    .borders {
+        border: 1px solid #969393;
+    }
+    .box-title {
+        margin-left: 155px;
+        font-size: 25px;
+        margin-top: 10px;
+    }
+    .information {
+        margin-left: 154px;
+    }
+    .information .choose {
+        left: 220px;
+        bottom: 29px;
+        width: 134px;
+        height: 39px;
+    }
+    .tjs {
+        width: 133px;
+    }
+    .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+    }
+    .preview{
+        position:relative;
+        top:-52px;
+        left: 260px;
+    }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="top">
+        <div class="left">
+            <a href="http://47.92.119.237/Admin/Monetary/ipadSystem" id="back"><img src="http://47.92.119.237:8888//img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">考察</span>
+    </div>
+    <div class="content-wrappers">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer/t/1">现金客户</a>><a style="cursor: pointer;" class="goback">还回流程条</a></h3>
+                        <div class="information">
+                        <h4 class="h4">考察</h4>
+                        <form action="/Admin/Apply/investigate" method="post"
+                             enctype="multipart/form-data">
+                        <div class="form-group">
+                            考察人员：
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            部门：<select style="margin-bottom: 7px;height: 35px;" id="branch" class="bumen input2" name="branchs" onchange="fp(this.value)">
+                                </select>
+                            <input type="hidden" id="branch_val" value="{$data['branchs']}">
+                            <input type="hidden" class="ywys" value="{$data['salesmans']}">
+                            业务员：<select style="height: 35px;" class="input2" value="" id="ywy" name="salesmans">
+                            <option value='{$data.salesmans}'><?php echo $data['salesmanss']==''? "请选择":$data['salesmanss'] ?></option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: inline;">家里照片：</label>
+                                <input type="file" style="top:-17px;left: 168px;" id="path1" name="house_photo1" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="照片一上传" onclick="path1.click()">
+                                <a href="/Admin/Apply/preview?zd=house_photo1&id=" target="_blank" 
+                                    class="btn btn1 preview" name="house_photo1">预览</a>
+                                <input type="file" style="top:-17px;left: 168px;" id="path2" name="house_photo2" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="照片二上传" onclick="path2.click()">
+                                <a href="/Admin/Apply/preview?zd=house_photo2&id=" target="_blank" 
+                                    class="btn btn1 preview" name="house_photo2">预览</a>
+                                <input type="file" style="top:-17px;left: 168px;" id="path3" name="house_photo3" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="照片三上传" onclick="path3.click()">
+                                <a href="/Admin/Apply/preview?zd=house_photo3&id=" target="_blank" 
+                                    class="btn btn1 preview" name="house_photo3">预览</a>
+                                
+                            <label style="position:relative;right:292px;top: 18px;">客户补充资料：</label>
+                                <input type="file" style="top:-17px;left: 168px;" id="path4" name="data_supplement" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="资料上传" onclick="path4.click()">
+                                <a href="/Admin/Apply/preview?zd=data_supplement&id=" target="_blank" 
+                                    class="btn btn1 preview" name="data_supplement">预览</a>
+                            <label style="position:relative;right:257px;top: 18px;">公司照片：</label>
+                                <input type="file" style="top:-17px;left: 168px;" id="path6" name="company_photo" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="照片上传" onclick="path6.click()">
+                                <a href="/Admin/Apply/preview?zd=company_photo&id=" target="_blank" 
+                                    class="btn btn1 preview" name="company_photo">预览</a>
+                            <div>
+                                <label style="margin-right:18px;position:relative;right:2px;top:-116px;">客户考察描述：</label>
+                                <textarea style="position: relative;right: 29px;" cols="80" rows="5" name="inv_description" required>{$data['inv_description']}</textarea>
+                            </div>
+                            <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                            <input type="hidden" value="1"  name="t">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+                            <a href="/Admin/Apply/over/t/1?state_id=21&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 133px;margin-left:78px;font-size: 18px;">考&nbsp;&nbsp;察&nbsp;&nbsp;完&nbsp;&nbsp;成</a>
+                           </form>
+                           <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+
+    function fp(rid){
+         if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $("#ywy").empty();
+            for(i=0;i<data.length;i++){
+                $("#ywy").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+        var str=$("#xszd").val().split(',');
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+
+    })
+     //加载部门
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+         branchs(b_val); 
+    });
+
+     $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+</script>
+</body>
+</html>

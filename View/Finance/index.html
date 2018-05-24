@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        网站信息
+    </title>
+    <include file="common:css" />
+</head>
+<style>
+    .box-body .col-sm-6,.col-sm-5,.col-sm-7{display:none}
+    .topHeader_ul {display:inline;margin-left: 40px;}
+    .topHeader_ul li {font-size:16px;display: inline;padding:0 20px;}
+    .red-bg {background-color: #d95043;}
+    .green-bg {background-color:#26c281;}
+    .base-row {color: #fff;padding:80px 0;}
+    .base-row i {display:block;font-size:50px;}
+    .base-row .title{font-size: 2.5em;line-height: 1.8;text-align:center;padding:10px 0;}
+    .base-row .count{font-size: 4em;}
+    .base-row .num {font-size: 1.2em}
+    .base-row em{font-size: 2em;margin-left:15px}
+    .base-row .item {text-align:center;line-height:1.8;}
+    .panel .panel-heading h2 {height: 100%;width: auto;position: relative;margin:0;font-size: 18px;height:40px;line-height: 40px;font-weight: 400;letter-spacing:0;}
+    .panel .panel-heading h2 i {float: left;line-height: 40px;font-size:1.2em;}
+    .panel .panel-heading h2 span {font-size: 16px;font-weight: 700;margin-left:15px;float: left;line-height: 40px;}
+    .panel .panel-heading h2 span a {color:#222;}
+    .panel .panel-heading h2 span a:hover {color: #005993;}
+    .table>tbody>tr>td{border-top: 0;border-bottom: 1px solid #ddd;}
+    .table>thead>tr>th {border-bottom:2px solid #ddd;}
+    .orange-bg {background:#00c0ef;}
+    .purple-bg {background:#FFA500;}
+    .weeks{ margin-top: -70px; margin-left: 15px; }
+    .xtalok{margin-left:40%;margin-bottom:10px;font-size:1.1em}
+    .xtalok span{font-size:1.3em}
+
+    .table {background:#fff;border:1px solid #ccc;}
+    .table thead tr th {background:#eee;border:1px solid #dcdcdc;border-bottom-width: 2px;}
+    .table tbody tr th {border:1px solid #dcdcdc;}
+    .carousel {margin: 15px -15px 50px;}
+    .carousel-inner {border-radius:8px;padding: 25px;text-align: center;}
+    .carousel-inner.red {background-color:#D44C4C;}
+    .carousel-inner.blue {background-color:#49A3DE;}
+    .carousel-inner.green {background-color:#58C383;}
+    .carousel-inner .tile-icon {color: #fff;font-size:3.2rem;margin-bottom: 5px;}
+    .carousel-inner .tile-icon i {margin-right: 15px;}
+    .carousel-inner .number {color: #fff;font-size: 1.8rem;margin-top: 15px;}
+
+    .panel-teal.blue-bg {background-color:#3598db;}
+    .panel-teal .panel-heading {border-bottom: 1px solid #dcdcdc;color: #fff;padding: 15px;}
+    .panel-teal .panel-heading h4 {font-size: 1.7rem;}
+    .panel-teal .panel-heading h4 i {font-size: 2rem;margin-right: 6px;}
+    .panel-body {padding:15px 0px;}
+    .panel-body .tile {margin:5px 0px; }
+    .panel-body .tile .tile-content {color: #fff;text-align: left;}
+    .panel-body .tile .tile-content .number {/*width: 160px;*/font-size:2rem;display: inline-block;vertical-align: middle;}
+    .panel-body .tile .tile-content h3 {width: 58px;font-size: 2rem;margin: 0px;display: inline-block;vertical-align: middle;}
+    .content .row {margin-bottom: 40px;}
+    .content .row .h {text-align: center;color: #555;font-size: 1.8rem;margin-bottom: 20px;}
+    .content .row .h i {margin-right: 10px;}
+
+    #example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow: hidden;}
+    #example1_filter .so:hover {background:#1F76A0;}
+    .page {text-align: right;padding: 5px 0;  width: 100%; margin: 0 auto;}
+    .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+    .page a:hover,.page .on {background: #00a3ff;color:#fff}
+
+    .longhub {padding: 25px 0px 0px 2px;margin: 15px;background:#6f5c5c url(__PUBLIC__/admin/images/longhub1920.png) no-repeat center top;background-size: 100% auto;height: 850px;text-align: center; }
+    .longhub h2 {font-size: 30px;color: #ffffff;padding-bottom: 10px;padding-top: 6px;background: -moz-linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(255,255,255,-0.85) 10%,#bf1a1e 50%,rgba(255,255,255,-0.85) 90%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */}
+    .longhub ul {display:inline-block;width: 24%;padding-bottom: 10px;text-align: center;background: rgba(255,255,255,0.15);background-size: 100% auto;margin-right: 2px;}
+    /*.longhub ul li {padding: 5px 0px 0px;}*/
+    .longhub ul li .tit {color: #fff;font-size: 16px;margin-bottom: 10px;float: left;width: 50%;}
+    .longhub ul li .tit i {font-size: 16px;margin-right: 10px;display: inline-block;vertical-align: middle;}
+    .longhub ul li .name {color: #fff;font-size: 15px;text-align: left;/*text-indent: 2em;background:url(__PUBLIC__/admin/images/no1.png) no-repeat 35% center / 40px 40px;*/box-sizing:border-box;}
+    .longhub ul li .name a {position: relative;bottom: 3px;}
+    .longhub ul li .name img {display: inline-block;width: 33px;height: 33px;margin-right: 5px;}
+    .longhub ul li.room_room {color:#fff;margin: 10px 0;font-size: 19px;}
+    .longhub ul li.room-small {color:#fff;margin: 10px 0;font-size: 15px;}
+    /*选择*/
+    .table_arrow thead tr th {position: relative;}
+    .table_arrow thead tr th .arrow {float: right;display: block;width: 28px;}
+    .table_arrow thead tr th .arrow span {display: block;margin: 0 auto;width: 9px;height: 20px;background: url(__PUBLIC__/admin/images/up_ico.png) no-repeat;background-position: 0px 0px;}
+    .table_arrow thead tr th .arrow.cur span {background-position: -11px 0px;}
+    .h-name {
+        color: #fff!important;
+    }
+    .xdebug-var-dump {
+        display: none!important;
+    }
+    .skin-blue .wrapper, .skin-blue .left-side {
+        background-color: #ecf0f5;
+    }
+    .skin-blue .main-sidebar {
+        background: #2a89cd;
+    }
+</style>
+
+<body class="hold-transition skin-blue sidebar-mini" style="background: #2a89cd">
+  <div class="wrapper">
+      <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+
+          <div style="padding-top:20px;margin-left:15px">
+              尊敬的用户，欢迎您回来！<br>
+              <form action="/Admin/Finance/index" method="GET" class="submit_form" style="width: 80%">
+               <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+                 <label id="sjss">
+                   日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+                   至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+
+                   <a href="javascript:void(0)" onclick="tj()" id="zj" class="so">确定</a>
+                 </label>
+               </div>
+             </form>
+          </div>
+          <script>
+                function tj(){
+                  $(".submit_form").submit();
+                } 
+               </script>
+		  <div class="longhub">
+              <ul class="clearfix">
+                  <h2 class="h2">福永分部</h2>
+                  <li class="room_room">信用贷业务</li>
+                  <li class="room-small">速分贷</li>
+          <li>
+              <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+              <div class="name">
+              <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sfd_k>0?$bayb_sfd_k:0  ?>万元</a></div>
+      </li>
+          <li>
+              <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+              <div class="name">
+              <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sfd_y>0?$bayb_sfd_y:0  ?>万元</a></div>
+          </li>
+          <li>
+              <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+              <div class="name">
+              <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sfd_l>0?$bayb_sfd_l:0  ?>万元</a></div>
+          </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sd_k>0?$bayb_sd_k:0  ?>万元</a></div>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+      <div class="name">
+      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sd_y>0?$bayb_sd_y:0  ?>万元</a></div>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+      <div class="name">
+      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_sd_l>0?$bayb_sd_l:0  ?>万元</a></div>
+  </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zybsum>0?$zybsum:0  ?>万元</a></div>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+      <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ybsum>0?$ybsum:0  ?>万元</a></div>
+  </li>
+  <li class="room_room">居间业务</li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+      <div class="name">
+          <if condition="$langyuanfk.admin_member_sun neq 0">
+              <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $langyuanfk['admin_id'];?>/state_id/{$langyuanfk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$langyuanfk.admin_member_id}/{$langyuanfk.admin_member_sun}万元</a></div>
+      <else />
+      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zybsum>0?$zybsum:0  ?>万元</a></div>
+      </if>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+      <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ybsum>0?$ybsum:0  ?>万元</a></div>
+  </li>
+  <li class="room_room">抵押贷业务</li>
+  <li class="room-small">速车贷</li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+      <div class="name">
+      <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_cd_k>0?$bayb_cd_k:0  ?>万元</a></div>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+      <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_cd_y>0?$bayb_cd_y:0  ?>万元</a></div>
+  </li>
+  <li>
+      <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+      <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $bayb_cd_l>0?$bayb_cd_l:0  ?>万元</a></div>
+  </li>
+  </ul>
+  <ul class="clearfix">
+      <h2 class="h2">西乡分部</h2>
+      <li class="room_room">信用贷业务</li>
+      <li class="room-small">速分贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sfd_k>0?$baeb_sfd_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sfd_y>0?$baeb_sfd_y:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sfd_l>0?$baeb_sfd_l:0  ?>万元</a></div>
+      </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sd_k>0?$baeb_sd_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sd_y>0?$baeb_sd_y:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_sd_l>0?$baeb_sd_l:0  ?>万元</a></div>
+      </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">居间业务</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">抵押贷业务</li>
+      <li class="room-small">速车贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_cd_k>0?$baeb_cd_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_cd_y>0?$baeb_cd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $baeb_cd_l>0?$baeb_cd_l:0 ?>万元</a></div>
+      </li>
+  </ul>
+  <ul class="clearfix">
+      <h2 class="h2">科技园分部</h2>
+      <li class="room_room">信用贷业务</li>
+      <li class="room-small">速分贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sfd_k>0?$xjy_sfd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sfd_y>0?$xjy_sfd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sfd_l>0?$xjy_sfd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sd_k>0?$xjy_sd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sd_y>0?$xjy_sd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_sd_l>0?$xjy_sd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">居间业务</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">抵押贷业务</li>
+      <li class="room-small">速车贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_car_k>0?$xjy_car_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_car_y>0?$xjy_car_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjy_car_l>0?$xjy_car_l:0 ?>万元</a></div>
+      </li>
+  </ul>
+  <ul class="clearfix">
+      <h2 class="h2">南山分部</h2>
+      <li class="room_room">信用贷业务</li>
+      <li class="room-small">速分贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sfd_k>0?$xje_sfd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sfd_y>0?$xje_sfd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sfd_l>0?$xje_sfd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sd_k>0?$xje_sd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sd_y>0?$xje_sd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_sd_l>0?$xje_sd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">居间业务</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">抵押贷业务</li>
+      <li class="room-small">速车贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_car_k>0?$xje_car_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_car_y>0?$xje_car_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xje_car_l>0?$xje_car_l:0 ?>万元</a></div>
+      </li>
+  </ul>
+<!--   <ul class="clearfix">
+      <h2 class="h2">现金3部</h2>
+      <li class="room_room">信用贷业务</li>
+      <li class="room-small">速分贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sfd_k>0?$xjs_sfd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sfd_y>0?$xjs_sfd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sfd_l>0?$xjs_sfd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sd_k>0?$xjs_sd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sd_y>0?$xjs_sd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_sd_l>0?$xjs_sd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">居间业务</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">抵押贷业务</li>
+      <li class="room-small">速车贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_car_k>0?$xjs_car_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_car_y>0?$xjs_car_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjs_car_l>0?$xjs_car_l:0 ?>万元</a></div>
+      </li>
+  </ul> -->
+<!--   <ul class="clearfix">
+      <h2 class="h2">现金4部</h2>
+      <li class="room_room">信用贷业务</li>
+      <li class="room-small">速分贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sfd_k>0?$xjf_sfd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sfd_y>0?$xjf_sfd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sfd_l>0?$xjf_sfd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room-small">速贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-pencil-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sd_k>0?$xjf_sd_k:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sd_y>0?$xjf_sd_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_sd_l>0?$xjf_sd_l:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">现金贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">居间业务</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+              <if condition="$chenghefk.admin_member_sun neq 0">
+                  <a charset="utf-8" href="/Admin/Search/index/name/<?php echo urldecode('约见');?>/id/<?php echo $chenghefk['admin_id'];?>/state_id/{$chenghefk.state_id}.html" style="color:#fff"><img src="/Public/admin/images/no1.png">{$chenghefk.admin_member_id}/{$chenghefk.admin_member_sun}万元</a></div>
+          <else />
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $zebsum>0?$zebsum:0  ?>万元</a></div>
+          </if>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>利息</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $ebsum>0?$ebsum:0 ?>万元</a></div>
+      </li>
+      <li class="room_room">抵押贷业务</li>
+      <li class="room-small">速车贷</li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>库存</div>
+          <div class="name">
+          <a charset="utf-8" href="/" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_car_k>0?$xjf_car_k:0  ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>应收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_car_y>0?$xjf_car_y:0 ?>万元</a></div>
+      </li>
+      <li>
+          <div class="tit"><i class="fa fa-check-square-o"></i>已收</div>
+          <div class="name"><a charset="utf-8" href="" style="color:#fff"><img src="/Public/admin/images/no1.png"><?php echo $xjf_car_l>0?$xjf_car_l:0 ?>万元</a></div>
+      </li>
+  </ul> -->
+          </div>
+      </div>
+  </div>
+  <include file="common:js" />
+</body>
+</html>

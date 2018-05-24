@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <style>
+
+        .box {
+            height: 1500px!important;
+        }
+       .form-group .complish,.form-group .complish1 {
+        display: none;
+       }
+        .present {
+            border: 1px solid #ccc;
+            background: #00A2D4;
+            color: #fff;
+            width: 110px;
+            height: 35px;
+            border-radius: 5px;
+            position: relative;
+            top: -27px;
+            left: 251px;
+
+        }
+        .btn{line-height:20px;}
+        .btn:hover{
+            color:white;
+        }
+        .btn:visited{
+            color:white;
+        }
+        #path11, #path12, #path13, #path14, #path15, #path16, #path17, #path18, #path19, #path20, #path21, #path22, #path23, #path24, #path25{
+            position: relative;
+        }
+        .information .choose {
+            left: 140px!important;
+        }
+        .property {
+            right: 3px;
+        }
+        .preview {
+            visibility:hidden;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+             <div class="col-md-12">
+              <div class="box" style="height: 1900px;">
+             <h3 class="box-title"><a href="/Admin/CarLoan/index">车贷客户</a>><a style="cursor: pointer;" class="goback">返回流程条</a>>上传资料</h3>
+                <div class="information">
+                    <div class="sectionzero">
+                        <h4 class="h4">个人资料</h4>
+                        <div style="font-size: 15px;">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">身份证：</span>
+                                    <input style="left: 42px;" type="file" id="path11" name="idcard" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path11.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="idcard" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=idcard&id=" target="_blank" class="present btn preview" style="position:relative;top: -30px;left: 286px;" name="idcard">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">户口本：</span>
+                                    <input style="left: 42px;" type="file" id="path12" name="hukou" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path12.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="hukou" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=hukou&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="hukou">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">驾驶证：</span>
+                                    <input style="left: 42px;" type="file" id="path13" name="license" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path13.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="license" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=license&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="license">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">银行卡：</span>
+                                    <input style="left: 42px;" type="file" id="path14" name="bankcard" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path14.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="bankcard" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=bankcard&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="bankcard">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">征信：</span>
+                                    <input style="left: 57px;" type="file" id="path15" name="creditbook" onchange="upfile.value=this.value">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path15.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="creditbook" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=creditbook&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="creditbook">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">流水：</span>
+                                    <input style="left: 57px;" type="file" id="path16" name="bankwater" onchange="upfile.value=this.value">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path16.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="bankwater" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=bankwater&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="bankwater">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">收入证明：</span>
+                                    <input style="left: 27px;" type="file" id="path17" name="incomeprove" onchange="upfile.value=this.value">
+                                    <input style="left: -5px;" type="button" class="choose" value="选择文件" onclick="path17.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="incomeprove" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=incomeprove&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="incomeprove">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">居住证明：</span>
+                                    <input style="left: 27px;" type="file" id="path18" name="jzprove" onchange="upfile.value=this.value">
+                                    <input style="left: -5px;" type="button" class="choose" value="选择文件" onclick="path18.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="jzprove" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=jzprove&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="jzprove">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">结婚证：</span>
+                                    <input style="left: 43px;" type="file" id="path19" name="mcertificate" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path19.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="mcertificate" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=mcertificate&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="mcertificate">预览</a>
+                                </form>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="sectionzero">
+                        <h4 class="h4">车辆资料</h4>
+                        <div style="font-size: 15px;">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">行驶证：</span>
+                                    <input style="left: 42px;" type="file" id="path20" name="dlicense" onchange="upfile.value=this.value">
+                                    <input style="left: 9px;" type="button" class="choose" value="选择文件" onclick="path20.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="dlicense" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=dlicense&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="dlicense">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">绿本：</span>
+                                    <input style="left: 57px;" type="file" id="path21" name="greenbook" onchange="upfile.value=this.value">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path21.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="greenbook" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=greenbook&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="greenbook">预览</a>
+                                </form>
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                    <span class="property" style="margin-left: 70px;">保单：</span>
+                                    <input style="left: 57px;" type="file" id="path22" name="policybook" onchange="upfile.value=this.value">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path22.click()">
+                                    <input type="hidden" value="" name="id" class="ids">
+                                    <input type="hidden" value="policybook" name="zd">
+                                    <input type="submit" value="提交" class="present">
+                                    <a href="/Admin/CarLoan/preview?zd=policybook&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="policybook">预览</a>
+                                </form>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="sectionzero">
+                            <h4 class="h4">公司资料</h4>
+                            <div style="font-size: 15px;">
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                    <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                        <span class="property" style="margin-left: 70px;">公司征信：</span>
+                                        <input style="left: 27px;" type="file" id="path23" name="corporate_credit" onchange="upfile.value=this.value">
+                                        <input style="left: -5px;" type="button" class="choose" value="选择文件" onclick="path23.click()">
+                                        <input type="hidden" value="" name="id" class="ids">
+                                        <input type="hidden" value="corporate_credit" name="zd">
+                                        <input type="submit" value="提交" class="present">
+                                        <a href="/Admin/CarLoan/preview?zd=corporate_credit&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="corporate_credit">预览</a>
+                                    </form>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                    <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                        <span class="property" style="margin-left: 70px;">公司流水：</span>
+                                        <input style="left: 27px;" type="file" id="path24" name="corporate_water" onchange="upfile.value=this.value">
+                                        <input style="left: -5px;" type="button" class="choose" value="选择文件" onclick="path24.click()">
+                                        <input type="hidden" value="" name="id" class="ids">
+                                        <input type="hidden" value="corporate_water" name="zd">
+                                        <input type="submit" value="提交" class="present">
+                                        <a href="/Admin/CarLoan/preview?zd=corporate_water&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="corporate_water">预览</a>
+                                    </form>
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                    <form action="/Admin/CarLoan/cartwo" method="post" enctype="multipart/form-data">
+                                        <span class="property" style="margin-left: 70px;">执照：</span>
+                                        <input style="left: 57px;" type="file" id="path25" name="clicense" onchange="upfile.value=this.value">
+                                        <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path25.click()">
+                                        <input type="hidden" value="" name="id" class="ids">
+                                        <input type="hidden" value="clicense" name="zd">
+                                        <input type="submit" value="提交" class="present">
+                                        <a href="/Admin/CarLoan/preview?zd=clicense&id=" target="_blank" class="present btn  preview" style="position:relative;top: -30px;left: 286px;" name="clicense">预览</a>
+                                    </form>
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="/Admin/CarLoan/over?state_id=29&id=" target="_blank" class="btn btn1 over present" style="position: relative;top:10px;background: #66cd00";>完成</a>
+                            <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                  </div>
+                 </div>
+                </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+   
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    var url=document.URL;
+    var ids=url.split('=');
+    $(".ids").val(ids[1]);
+    var dlc=$(".downloadpic").attr('href');
+    $(".downloadpic").attr('href',dlc+ids[1]);
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]);
+
+    $(".preview").each(function(){
+        var ss=$(this).attr('href');
+        $(this).attr('href',ss+ids[1]);
+    });
+
+    $(function(){
+        var str=$("#xszd").val().split(',');
+        
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+        
+    });
+</script>
+</body>
+</html>

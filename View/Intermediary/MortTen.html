@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+    body {
+    }
+    .cirlce,.cirlce1 {
+        width: 30px;
+        height: 30px;
+        background: #00a2d4;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        position: absolute;
+        left: 122px;
+        top: -27px;
+        cursor: pointer;
+    }
+    .cirlce1 {
+        top: -3px;
+    }
+    .append,.append1 {
+        position: relative;
+        margin-bottom: -33px;
+    }
+    .append1 {
+        margin-top: -29px;
+    }
+    #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11,#path一,#path二,#path三,#path四,#path五,#path六,
+    #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88{
+        position: relative;
+    }
+    .btn {
+        font-size: 15px;
+    }
+    .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+    }
+    .preview{
+        position:relative;
+        top:-60px;
+        left: 260px;
+    }
+    .length {
+        width: 150px!important;
+        margin: 0 0 20px 40px;
+    }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: auto;padding-bottom: 30px;">
+                     <h3 class="box-title"><a href="/Admin/Intermediary/index">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/mort?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                        <h4 class="h4">放款</h4>
+                        <form action="/Admin/Intermediary/mPublicFun" method="post"  enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div>
+                                <label>放款金额：</label>
+                                <input type="text" class="length" name="m_loan" value="{$data['m_loan']}">
+                            </div>
+                            <div>
+                                <label>创收金额：</label>
+                                <input type="text" class="length" name="m_create_income" value="{$data['m_create_income']}">
+                            </div>
+                            <div>
+                                <label class="property" >放款流水：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <input style="left: 46px;position: relative;" type="file" id="path70" name="lending_water">
+                                <input style="left: 10px;" type="button" class="choose" value="选择文件" onclick="path70.click()">
+                                <a href="/Admin/Intermediary/preview?zd=lending_water&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 160px;" name="lending_water">预览</a>
+                            </div>
+                            <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                            <input type="hidden" value="MortTen" name="step">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+                            <a href="/Admin/Intermediary/over/s/tentime?state_id=39&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                           </form>
+                           <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[ids.length-1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[ids.length-1]); 
+
+    $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[ids.length-1]);
+        });
+    
+    $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+</script>
+</body>
+</html>

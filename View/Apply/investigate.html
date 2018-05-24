@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+    body {
+    }
+    .cirlce,.cirlce1 {
+        width: 30px;
+        height: 30px;
+        background: #00a2d4;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        position: absolute;
+        left: 122px;
+        top: -27px;
+        cursor: pointer;
+    }
+    .cirlce1 {
+        top: -3px;
+    }
+    .append,.append1 {
+        position: relative;
+        margin-bottom: -33px;
+    }
+    .append1 {
+        margin-top: -29px;
+    }
+    #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11,#path一,#path二,#path三,#path四,#path五,#path六,
+    #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88{
+        position: relative;
+    }
+    .btn {
+        font-size: 15px;
+    }
+    .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+    }
+    .preview{
+        position:relative;
+        top:-60px;
+        left: 260px;
+    }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: auto;padding-bottom: 30px;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer">现金客户</a>><a style="cursor: pointer;" class="goback" href="http://47.92.119.237/Admin/Monetary/yewuall?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                        <h4 class="h4">考察</h4>
+                        <form action="/Admin/Apply/investigate" method="post"
+                             enctype="multipart/form-data">
+                        <div class="form-group">
+                            考察人员：
+                            &nbsp;
+                            部门：<select style="margin-bottom: 7px;height: 25px;" id="branch" class="bumen input2" name="branchs" onchange="fp(this.value)">
+                                </select>
+                            <input type="hidden" id="branch_val" value="{$data['branchs']}">
+                            <input type="hidden" class="ywys" value="{$data['salesmans']}">
+                            业务员：<select style="height: 25px;" class="input2" value="" id="ywy" name="salesmans">
+                            <option value='{$data.salesmans}'><?php echo $data['salesmanss']==''? "请选择":$data['salesmanss'] ?></option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display: inline;">家里照片：</label>
+                            <div class="append">
+                                <div class="cirlce">+</div>
+                                <input type="file" style="top: -27px;left: 194px;" id="path一" name="house_photo1" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom: 57px;left: 157px;" value="照片一上传" onclick="path一.click()">
+                                <a href="/Admin/Apply/preview?zd=house_photo1&id=" target="_blank" 
+                                    class="btn btn1 preview" name="house_photo1">预览</a>
+                            </div>
+                      <!--          <input type="file" style="top: -27px;left: 195px;" id="path1" name="house_photo1" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom: 57px;left: 122px;" value="照片一上传" onclick="path1.click()">-->
+
+                            <label>客户补充资料：</label>
+                                <input type="file" style="top: -27px;left: 195px;" id="path4" name="data_supplement" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom: 57px;left: 157px;" value="资料上传" onclick="path4.click()">
+                                <a href="/Admin/Apply/preview?zd=data_supplement&id=" target="_blank" class="btn btn1 preview" name="data_supplement">预览</a>
+                            <div class="append1">
+                                <div class="cirlce1">+</div>
+                                <label>公司照片：</label>
+                                <input type="file" style="top: -27px;left: 195px;" id="path6" name="company_photo" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom: 57px;left: 157px;" value="照片一上传" onclick="path6.click()">
+                                <a href="/Admin/Apply/preview?zd=company_photo&id=" target="_blank" 
+                                    class="btn btn1 preview" name="company_photo">预览</a>
+                            </div>
+                                <!--<input type="file" style="top: -27px;left: 158px;" id="path6" name="company_photo" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom: 57px;left: 122px;" value="照片上传" onclick="path6.click()">-->
+                            <div>
+                                <label style="margin-right:18px;position:relative;right:-4px;top:-44px;">客户考察描述：</label>
+                                <textarea cols="80" rows="5" name="inv_description" required>{$data['inv_description']}</textarea>
+                            </div>
+                            <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+                            <a href="/Admin/Apply/over?state_id=21&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">考&nbsp;&nbsp;察&nbsp;&nbsp;完&nbsp;&nbsp;成</a>
+                           </form>
+                           <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+
+    function fp(rid){
+         if(rid=='33'){
+            gyd();
+        }else{
+           $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $("#ywy").empty();
+            for(i=0;i<data.length;i++){
+                $("#ywy").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+          })
+        }
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+        var str=$("#xszd").val().split(',');
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+
+        $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+
+    })
+     //加载部门
+    window.onload=(function(){
+        var b_val=$("#branch_val").val();
+         branchs(b_val); 
+    });
+
+    // 点击添加
+    (function () {
+        var count=0;
+        var count1=0;
+        var flag=true;
+        var flag1=true;
+        var html='';
+        $('.cirlce').click(function () {
+            if (flag) {
+                $(this).css('top',(count+1)*59-27+'px');
+                var array=['二','三','四','五','六','七','八','九'];
+                var arrays=['2','3','4','5','6','7','8','9'];
+                html='<input type="file" style="top: -32px;left: 194px;" id="path'+array[count]+'" name="house_photo'+arrays[count]+'" onchange="upfile.value=this.value">\n' +
+                    '                                <input type="button" class="choose" style="position:relative;bottom: 60px;left: 157px;" value="照片'+array[count]+'上传" onclick="path'+array[count]+'.click()">'
+                $('.append').append(html);
+                count++;
+                if (count==8) {
+                    flag=false;
+                }
+            }
+        });
+        $('.cirlce1').click(function () {
+            if (flag1) {
+                $(this).css('top',(count1+1)*59-3+'px');
+                var array1=['二','三','四','五','六','七','八','九'];
+                var newarry=[80,81,83,84,85,86,87,88];
+                var arrays=['2','3','4','5','6','7','8','9'];
+                html='<input type="file" style="top: -32px;left: 195px;" id="path'+newarry[count1]+'" name="company_photo'+arrays[count1]+'" onchange="upfile.value=this.value">\n' +
+                    '                                <input type="button" class="choose" style="position:relative;bottom: 60px;left: 158px;" value="照片'+array1[count1]+'上传" onclick="path'+newarry[count1]+'.click()">'
+                $('.append1').append(html);
+                count1++;
+                if (count1==8) {
+                    flag1=false;
+                }
+            }
+        })
+    })();
+</script>
+</body>
+</html>

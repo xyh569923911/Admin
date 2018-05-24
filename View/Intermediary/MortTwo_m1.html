@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <style>
+   .form-group .complish,.form-group .complish1 {
+    display: none;
+   }
+   #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11, #path12, #path13, #path14, #path15, #path16, #path17, #path18,#path一,#path二,#path三,#path四,#path五,#path六,
+   #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88,#path71,#path70,#path73,#path74,#path75,#path76,#path77,#path78,
+   #path91,#path90,#path93,#path94,#path95,#path96,#path97,#path98,#path61,#path60,#path63,#path64,#path65,#path62,#path69{
+       position: relative;
+   }
+   .cirlce,.cirlce1,.cirlce2,.cirlce3{
+       width: 30px;
+       height: 30px;
+       background: #00a2d4;
+       text-align: center;
+       border-radius: 50%;
+       color: #fff;
+       font-size: 18px;
+       position: absolute;
+       left: 171px;
+       top: 0px;
+       cursor: pointer;
+   }
+   .append,.append1,.append2,.append3 {
+       position: relative;
+   }
+   .information .choose {
+       bottom: 29px;
+   }
+   .form-group {
+       margin-bottom: 0;
+   }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+            <!-- http://47.92.119.237/ -->
+             <div class="col-md-12">
+              <div class="box" style="height: auto;">
+             <h3 class="box-title"><a href="/Admin/Intermediary/index?t=2">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/Mort_m?id={$id}&ss={$sid}">返回流程条</a></h3>
+                <div class="information">
+                    <div class="sectionOne">
+                        <h4 class="h4">贷前资料收集</h4>
+                            <form action="/Admin/Intermediary/qr_info" method="post" enctype="multipart/form-data" id="info_form1" onsubmit="return checkform()">
+
+                                <div class="form-group" style="margin-bottom: -2px;">
+                                <p style="margin-left: 63px;">1、身份证：</p>
+                                    <label class="property" style="margin-left: 90px;">本人身份证</label>
+                                    <div class="append">
+                                        <div class="cirlce">+</div>
+                                        <input style="left: 74px;" type="file"  id="path6" name="id_card">
+                                        <input style="left: 37px;" type="button" class="choose" value="照片一上传" onclick="path6.click()">
+                                        <a href="/Admin/Intermediary/preview?zd=id_card&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="id_card">预览</a>
+                                    </div>
+                                </div>
+                                 <div class="form-group" style="margin-bottom: -2px;left: 74px;">
+                                    <label class="property" style="margin-left: 90px;">户口本&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input style="left: 74px;position: relative;" type="file" id="path70" name="residence_booklet">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path70.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=residence_booklet&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="residence_booklet">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -2px;">
+                                    <label class="property" style="margin-left: 90px;">婚姻证明&nbsp;&nbsp;&nbsp;</label>
+                                    <div class="append1">
+                                        <div class="cirlce1">+</div>
+                                        <input style="left: 74px;" type="file" id="path7" name="marriage_certificate">
+                                        <input style="left: 37px;"  type="button" class="choose" value="照片一上传" onclick="path7.click()">
+                                        <a href="/Admin/Intermediary/preview?zd=marriage_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="marriage_certificate">预览</a>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -2px;">
+                                    <label class="property" style="margin-left: 66px;">2、房产证：</label>
+                                    <div class="append2">
+                                        <div class="cirlce2">+</div>
+                                        <input style="left: 88px;" type="file" id="path5" name="house_certificate">
+                                        <input style="left: 52px;" type="button" class="choose" value="照片一上传" onclick="path5.click()">
+                                        <a href="/Admin/Intermediary/preview?zd=house_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 166px;" name="house_certificate">预览</a>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -2px;">
+                                    <label class="property" style="margin-left: 66px;">3、征信：</label>
+                                     <div class="left-left">
+                                         <p>
+                                        <label><input type="radio" id="select5" class="qytype1" name="creditall" <?php if($data['creditall']==1) echo checked ?> value="1" >陪同打印</label>
+                                         <label class="complish">陪同人：<input name="attendant" type="text" value="{$data['attendant']}"></label>
+                                        </p>
+                                        <p style="margin-left: 138px;"><label><input type="radio" class="qytype qytype1" name="creditall" <?php if($data['creditall']==2) echo checked ?> value="2" >客户自带</label></p>
+                                        <p style="margin-left: 138px;"><label><input type="radio" id="oral" class="qytype" name="creditall" <?php if($data['creditall']==3) echo checked ?> value="3" >口述</label></p>
+                                    </div>
+                                    <div class="right-right">
+                                        <div class="form-group" style="margin-left: -37px;">
+
+                                    <label class="oral" style="margin-left:105px;display:none;margin-left: 176px;"><textarea name="oral_content" cols="60p" rows="5">{$data['oral_content']}</textarea></label>
+                                        </div>
+                                    </div>
+
+                                    <label class="property" style="margin-left: 90px;">征信上传：</label>
+                                    <div class="append3">
+                                        <div class="cirlce3">+</div>
+                                        <input style="left: 74px;" type="file" id="path3" name="work_proof">
+                                        <input style="left: 37px;" type="button" class="choose" value="照片一上传" onclick="path3.click()">
+                                        <a href="/Admin/Intermediary/preview?zd=work_proof&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="work_proof">预览</a>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="margin-bottom: -2px;">
+                                    <label class="property" style="margin-left: 66px;">4、流水：</label>
+                                    <p>
+                                        <label><input type="radio" name="flowall" <?php if($data['flowall']=="1") echo checked ?> value="1" >网银下载</label>
+                                    </p>
+                                    <p style="margin-left: 140px;">
+                                        <label><input type="radio" name="flowall" <?php if($data['flowall']=="2") echo checked ?> value="2" >自带</label>
+                                    </p>
+                                    <label class="property" style="margin-left: 90px;">流水文件：</label>
+                                    <input style="left: 74px;"  type="file" id="path4" name="flow">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path4.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=flow&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="flow">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-48px;">5、营业执照：</label>
+                                    <input style="left: 72px;"  type="file" id="path9" name="b_license">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path9.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=b_license&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="b_license">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-48px;">6、保单：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                    <input style="left: 72px;"  type="file" id="path10" name="policy">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path10.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=policy&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="policy">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-48px;">7、居住证明：</label>
+                                    <input style="left: 72px;"  type="file" id="path11" name="residence_permit">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path11.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=residence_permit&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="residence_permit">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-48px;">9、租赁合同：</label>
+                                    <input style="left: 72px;"  type="file" id="path13" name="lease_contract">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path13.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=lease_contract&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="lease_contract">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">10、抵押合同：</label>
+                                    <input style="left: 72px;"  type="file" id="path14" name="mortgage_contract">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path14.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=mortgage_contract&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="mortgage_contract">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">11、社保证明：</label>
+                                    <input style="left: 72px;"  type="file" id="path15" name="social_certificate">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path15.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=social_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="social_certificate">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">12、公积金证明：</label>
+                                    <input style="position:relative;left: 59px;"  type="file" id="path19" name="gjj_certificate">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path19.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=gjj_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 133px;" name="gjj_certificate">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">13、水电单证明：</label>
+                                    <input style="left: 59px;"  type="file" id="path16" name="hydropower">
+                                    <input style="left: 24px;" type="button" class="choose" value="选择文件" onclick="path16.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=hydropower&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left:135px;" name="hydropower">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">14、房租证明：</label>
+                                    <input style="left: 72px;"  type="file" id="path17" name="rent_certificate">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path17.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=rent_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="rent_certificate">预览</a>
+                                </div>
+                                <div class="form-group" style="margin-left: 115px;">
+                                    <label class="property" style="margin-left:-58px;">15、查档证明：</label>
+                                    <input style="left: 72px;"  type="file" id="path18" name="inspection_certificate">
+                                    <input style="left: 37px;" type="button" class="choose" value="选择文件" onclick="path18.click()">
+                                    <a href="/Admin/Intermediary/preview?zd=inspection_certificate&id=" target="_blank" class="btn btn1 preview" style="position:relative;top: -30px;left: 150px;" name="inspection_certificate">预览</a>
+                                </div>
+                                <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                <!-- <input type="submit" value="提&nbsp;&nbsp;交" class="tjs"> -->
+                                <script>
+                                $('#select5').click(function () {
+                                    $('.complish').show();
+                                })
+                                $('.qytype').click(function () {
+                                    $('.complish').hide();
+                                })
+                                $('#oral').click(function () {
+                                    $('.oral').show();
+                                })
+                                $('.qytype1').click(function () {
+                                    $('.oral').hide();
+                                })
+
+                            </script>
+                    </div>
+                    <input type="hidden" value="2"  name="t">
+                    <input type="hidden" name="types" value="mort">
+                    <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 72px;">
+                    <a href="/Admin/Intermediary/over/t/2?state_id=23&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:88px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                    </form>
+                    <input type="hidden" id="xszd" value="{$str}">
+                  </div>
+                 </div>
+                </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    $(".preview").each(function(){
+            var ss=$(this).attr('href');
+            $(this).attr('href',ss+ids[1]);
+        });
+
+    $(function(){
+            var str=$("#xszd").val().split(',');
+            
+            $(".preview").each(function(){
+                if($.inArray($(this).attr('name'), str)>-1){
+                    $(this).css('visibility','visible');
+                }else{
+                     $(this).css('visibility','hidden');
+                }
+                
+            });
+            
+        });
+
+    // 点击添加
+    (function () {
+        var count=0;
+        var count1=0;
+        var count2=0;
+        var count3=0;
+        var flag=true;
+        var flag1=true;
+        var flag2=true;
+        var flag3=true;
+        var html='';
+        $('.cirlce').click(function () {
+            if (flag) {
+                $(this).css('top',(count+1)*60+'px');
+                var array=['二','三','四','五','六','七','八','九'];
+                var arrays=['2','3','4','5','6','7','8','9'];
+                html='<input style="left:244px;" type="file"  id="path'+array[count]+'" name="id_card'+arrays[count]+'">\n' +
+                    '<input style="left: 207px;"  type="button" class="choose" value="照片'+array[count]+'上传" onclick="path'+array[count]+'.click()">'
+                $('.append').append(html);
+                count++;
+                if (count==1) {
+                    flag=false;
+                }
+            }
+        });
+
+        $('.cirlce1').click(function () {
+            if (flag1) {
+                $(this).css('top',(count1+1)*60+'px');
+                var array1=['二','三','四','五','六','七','八','九'];
+                var newarry=[80,81,83,84,85,86,87,88];
+                var arrays=['2','3','4','5','6','7','8','9'];
+                html='<input style="left: 245px;" type="file" id="path'+newarry[count1]+'" name="marriage_certificate'+arrays[count1]+'">\n' +
+                    '<input style="left: 208px;" type="button" class="choose" value="照片'+array1[count1]+'上传" onclick="path'+newarry[count1]+'.click()">'
+                $('.append1').append(html);
+                count1++;
+                if (count1==1) {
+                    flag1=false;
+                }
+            }
+        });
+        $('.cirlce2').click(function () {
+            if (flag2) {
+                $(this).css('top',(count2+1)*60+'px');
+                var array1=['二','三','四','五','六','七','八','九'];
+                var newarry=[90,91,93,94,95,96,97,98];
+                var arrays=['2','3','4','5','6','7','8','9'];
+                html='<input style="left: 245px;" type="file" id="path'+newarry[count2]+'" name="house_certificate'+arrays[count2]+'">\n' +
+                    '<input style="left: 208px;" type="button" class="choose" value="照片'+array1[count2]+'上传" onclick="path'+newarry[count2]+'.click()">'
+                $('.append2').append(html);
+                count2++;
+                if (count2==8) {
+                    flag2=false;
+                }
+            }
+        });
+
+        $('.cirlce3').click(function () {
+            if (flag3) {
+                $(this).css('top',(count3+1)*60+'px');
+                var array1=['二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五'];
+                var newarry=[69,71,73,74,75,76,77,78,60,61,62,63,64,65];
+                var arrays=['2','3','4','5','6','7','8','9','10','11','12','13','14','15'];
+                html='<input style="left: 245px;" type="file" id="path'+newarry[count3]+'" name="work_proof'+arrays[count3]+'">\n' +
+                    '<input style="left: 208px;" type="button" class="choose" value="照片'+array1[count3]+'上传" onclick="path'+newarry[count3]+'.click()">'
+                $('.append3').append(html);
+                count3++;
+                if (count3==14) {
+                    flag3=false;
+                }
+            }
+        });
+
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer">现金客户</a>>确认信息</h3>
+                        <div class="information">
+                            <div class="sectionOne">
+                                <h4 class="h4">贷前流程</h4>
+                                <form action="/Admin/Monetary/qrinfo" method="post" enctype="multipart/form-data" id="info_form">
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <p class="property" style="margin-left: 70px;">1、法律诉讼查询 : </p>
+                                        <a href="http://zhixing.court.gov.cn/search/" target="_blank" class="btn btn1" >全国</a>
+
+                                        <input type="file" style="top: 3px;" id="path5" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="查询结果上传" onclick="path5.click()">
+
+                                        <a href="http://ssfw.szcourt.gov.cn/szcourt/frontend/anjiangongkai/caseOpen/zxaj;jsessionid=F489810E3C4DBE42E21F2E23D0CA3291?check=8" target="_blank" class="btn btn1" style="top: 17px;right: 43px;">深圳</a>
+                                        <input type="file" id="path6" name="housing[]" style="bottom: 13px;" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="查询结果上传" style="bottom: 40px;" onclick="path6.click()">
+                                    </div>
+                                    <div class="form-group" style="margin-top: -20px;">
+                                        <p class="property" style="margin-left: 70px;">2、企业经营情况查询 : </p>
+                                        <a href="http://www.qichacha.com/" target="_blank" class="btn btn1" style="right: 150px;">企查查</a>
+                                        <input type="file" style="top: 3px;" id="path7" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+
+                                        <a href="http://www.qixin.com/" target="_blank" class="btn btn1" style="right: 43px;">启信宝</a>
+                                        <input type="file" style="top: 3px;" id="path7" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="查询结果上传" onclick="path7.click()">
+                                    </div>
+                                    <div class="form-group" style="margin-top: -20px;">
+                                        <p class="property" style="margin-left: 70px;">3、房产监控 : </p>
+                                        <a href="http://risk.xiaocelue.cn" target="_blank" class="btn btn1" style="right: 90px;">查询</a>
+                                        <input type="file" style="top: 3px;" id="path8" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="结果上传" onclick="path8.click()">
+                                    </div>
+                                    <div class="form-group" style="margin-top: -20px;">
+                                        <p class="property" style="margin-left: 70px;">4、房产估价 : </p>
+                                        <a href="http://evs3.worldunion.cn/" target="_blank" class="btn btn1" style="right: 90px;">世联</a>
+                                        <input type="file" style="top: 3px;" id="path9" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="结果上传" onclick="path9.click()">
+
+                                        <a href="https://sz.lianjia.com/?utm_source=baidu&utm_medium=pinzhuan&utm_term=biaoti&utm_content=biaotimiaoshu&utm_campaign=sousuo" target="_blank" class="btn btn1" style="right: 43px;">链家</a>
+                                        <input type="file" style="top: 3px;" id="path10" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="结果上传" onclick="path10.click()">
+
+                                        <a href="https://shenzhen.leyoujia.com/?utm_source=220&utm_medium=a1&utm_campaign=144909&utm_content=01&utm_term=bdpz01" target="_blank" class="btn btn1" style="right: 43px;">乐有家</a>
+                                        <input type="file" style="top: 3px;" id="path11" name="housing[]" onchange="upfile.value=this.value">
+                                        <input type="button" class="choose" value="结果上传" onclick="path11.click()">
+                                    </div>
+                                    <div class="form-group" style="margin-top: -20px;">
+                                        <button class="btn btn1" style="right: -122px;top: 0px;background: #66cd00";>生成文档</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="sectionOne">
+                                <h4 class="h4">确认信息</h4>
+                                <form action="/Admin/Monetary/qrinfo" method="post" enctype="multipart/form-data" id="info_form">
+                                    <p style="margin:10px;margin-left:70px;color:red">(提示：上传的文件格式压缩包-'rar', 'zip'；图片-'jpg', 'gif', 'png', 'jpeg',文件大小不要超过5M)</p>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <label class="property" style="margin-left: 70px;">房产信息查档：</label>
+                                        <input style="left: 38px;" type="file" id="path1" name="housing[]" onchange="upfile.value=this.value">
+                                        <input style="left: 0px;" type="button" class="choose" value="选择文件" onclick="path1.click()">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <label class="property" style="margin-left: 70px;">民间负债查档：</label>
+                                        <input style="left: 38px;" type="file" id="path2" name="housing[]">
+                                        <input style="left: 0px;text-align: center;" ype="button" class="choose" value="选择文件" onclick="path2.click()">
+                                    </div>
+                            </div>
+                           <div class="sectionTwo">
+                               <h4 class="credit" style="margin: 0 0 10px 0px ;">征信查询情况：</h4>
+                               <div class="form-group">
+                                   <label class="property">征信2个月内查询次数 : </label>
+                                   贷款审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次,
+                                   行用卡审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次
+                               </div>
+                               <div class="form-group">
+                                   <label class="property">征信3个月内查询次数 : </label>
+                                   贷款审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次,
+                                   行用卡审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次
+                               </div>
+                               <div class="form-group">
+                                   <label class="property">征信6个月内查询次数 : </label>
+                                   贷款审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次,
+                                   行用卡审批 : <input type="number" name="cxcs" value="{$data['cxcs']}" required>
+                                   次
+                               </div>
+                           </div>
+                           <div class="sectionThree">
+                               <div class="first">
+                                   <label class="thanmore">信用卡逾期次数 : </label>
+                                   半年内<input type="number">次，
+                                   两年内<input type="number">次
+                               </div>
+                               <div class="second">
+                                   <label>贷款逾期次数 : </label>
+                                   &nbsp;&nbsp;&nbsp;半年内<input type="number">次，
+                                   两年内<input type="number">次
+                               </div>
+                           </div>
+                            <div class="sectionFour">
+                                <h4 class="h4" style="margin-top: 20px;">征信显示负债情况</h4>
+                                <p>贷款余额：&nbsp;&nbsp;&nbsp;<input type="number">万元</p>
+                                <p>信用贷余额：<input type="number">万元</p>
+                                <p>小额余额：&nbsp;&nbsp;&nbsp;<input type="number">万元</p>
+                                <p>信用卡总额：<input type="number">万元
+                                    <label style="margin-left: 10px;">当前已用：<input type="number">万元</label>
+                                </p>
+                            </div>
+                                <div class="sectionFive">
+                                    <p>房产评估值 :<input type="number"> 万元</p>
+                                    <p>婚姻状态 :
+                                        <label class="marry_1"><input type="radio" name="marry">已婚</label>
+                                        <label class="marry_2"><input type="radio" name="marry">未婚</label>
+                                        <span class="outinput" style="margin-left: 15px;">
+                                        (配偶是否可以签字：
+                                        <label><input type="radio" name="outinput">是</label>
+                                        <label><input type="radio" name="outinput">否</label>)
+                                        </span>
+                                    </p>
+                                    <p>职业信息 :
+                                        <label class="myself_1"><input type="radio" name="myself">自雇</label>
+                                        <label class="myself_2"><input type="radio" name="myself">受薪</label>
+                                        <span style="margin-left: 15px;" class="social_1">
+                                            ( <label><input type="radio" name="year">半年内</label>
+                                        <label><input type="radio" name="year">半年以上</label>
+                                        <label><input type="radio" name="year">一年以上</label>)
+                                        </span>
+                                        <span style="margin-left: 15px;" class="social_2">社保:
+                                            ( <label><input type="radio" name="year">6个月以下</label>
+                                        <label><input type="radio" name="year">6~12个月</label>
+                                        <label><input type="radio" name="year">一年以上</label>)
+                                        </span>
+                                    </p>
+                                    <p style="margin-left: 0px;">能否考察公司 :
+                                        <label><input type="radio" name="marry">是</label>
+                                        <label><input type="radio" name="marry">否</label>
+                                    </p>
+                                </div>
+                            <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+                            <script>
+                                $('.marry_1').click(function () {
+                                   $('.outinput').show();
+                                })
+                                $('.marry_2').click(function () {
+                                    $('.outinput').hide();
+                                })
+                                $('.myself_1').click(function () {
+                                    $('.social_2').hide();
+                                    $('.social_1').show();
+                                })
+                                $('.myself_2').click(function () {
+                                    $('.social_1').hide();
+                                    $('.social_2').show();
+                                })
+                            </script>
+                                <div class="sectionSix">
+                                    <label style="position: relative;bottom: 77px;">房贷方案</label>
+                                    <textarea cols="50" rows="4"></textarea>
+                                </div>
+                                <div class="sectionSix">
+                                    <label style="position: relative;bottom: 77px;">信贷方案</label>
+                                    <textarea cols="50" rows="4"></textarea>
+                                </div>
+                                <div class="sectionSix">
+                                    <label style="position: relative;bottom: 77px;margin-left: 30px;right: 25px;">建议</label>
+                                    <textarea cols="50" rows="4"></textarea>
+                                </div>
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+
+                            <!--<div class="form-group">
+                                <label for="input2" class="property" style="margin-left: 70px;">年内逾期次数：</label>
+                                <input type="number" name="yqcs" id="input2" value="{$data['yqcs']}" required>
+                                <span>次</span>
+                            </div>
+                            <div class="form-group" style="overflow: hidden;">
+                                <label class="property" style="margin-left: 41px;">征信显示负债情况：</label>
+                                <div class="one">
+                                    <span class="common house1">1.房贷</span>
+                                    <input type="number" name="mortgage" id="input3"  value="{$data['mortgage']}" required>
+                                    <span>万元</span>
+                                </div>
+                                <div class="one">
+                                    <span class="common house2">2.信用贷</span>
+                                    <input type="number" name="credits" id="input4" value="{$data['credits']}"  required>
+                                    <span>万元</span>
+                                </div>
+                                <div class="one">
+                                    <span class="common">3.小额</span>
+                                    <input type="number" name="xeloan" id="input5" value="{$data['xeloan']}" required>
+                                    <span>万元</span>
+                                </div>
+                            </div>
+                            <div class="form-group" style="overflow: hidden;">
+                                <div class="one">
+                                    <span class="common" style="margin-left: 93px;">房产估计值：</span>
+                                    <input type="number" name="appraisement" id="input9" value="{$data['appraisement']}" required>
+                                    <span>万元</span>
+                                </div>
+                                <div class="one">
+                                    <span class="common">房贷余额:</span>
+                                    <input type="number" name="balance" id="input6" value="{$data['balance']}" required>
+                                    <span>万元</span>
+                                </div>
+                                <div class="one">
+                                    <span class="common">房贷空间:</span>
+                                    <input type="number" id="input7" value="<?php echo $data['appraisement']*0.7-$data['balance'] ?>" required>
+                                    <span>万元</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="property" style="margin-left: 103px;margin-right: 12px;">婚姻状态：</label>
+                                <input type="radio" id="select1" value="1" <?php if($data['qrmaritalstatus']=='1')  echo checked ?> name="qrmaritalstatus" required>已婚
+                                <input type="radio" id="select2" value="2" <?php if($data['qrmaritalstatus']=='2')  echo checked ?>  name="qrmaritalstatus" required>未婚
+                                <span>
+                                    （配偶是否可以签字:
+                                    <input type="radio" value="1" <?php if($data['sign']=='1')  echo checked ?> name="sign" id="select3" required>是
+                                    <input type="radio" value="2" name="sign" <?php if($data['sign']=='2')  echo checked ?> id="select4" required>否
+                                   ）
+                                </span><br>
+                                 <input type="hidden" value="{$id}" name="id">
+                                 <input type="submit" value="提&nbsp;&nbsp;交" class="tj">
+                                </form>
+                            </div>-->
+
+
+                            <h4 class="h4">确认资料</h4>
+                            <form action="/Admin/Monetary/qrzl" method="post" enctype="multipart/form-data" id="info_form1" onsubmit="return checkform()">
+                                <div class="form-group" style="margin-left: -107px;margin-bottom: 10px;">
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"1")) echo checked ?> value="1" class="identity">身份证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"2")) echo checked ?> value="2" >房产证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"3")) echo checked ?> value="3" >户口本</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"4")) echo checked ?>  value="4" >结婚证</label>
+                                    <label><input type="checkbox" name="certificates[]" <?php if(strstr($data['certificates'],"5")) echo checked ?> value="5" >按揭合同原件 </label>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 66px;">征信：</label>
+                                    <input style="left: 38px;" type="file" id="path3" name="rehousing[]">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path3.click()">
+                                </div>
+                                <div class="form-group" style="margin-left: -37px;">
+                                    <label class="property" style="margin-left: 102px;margin-right: 15px;">是否陪同 :</label>
+                                    <input type="radio" id="select5" <?php if($data['accompany']=="1") echo checked ?> value="1" name="accompany" required>是
+                                    <input type="radio" id="select6" value="2" <?php if($data['accompany']=="2") echo checked ?> name="accompany" required>否
+                                    <label style="margin-left: 20px;">陪同人：<input name="attendant" type="text" value="{$data['attendant']}"></label>
+                                </div>
+                                <div class="form-group" style="margin-bottom: -15px;">
+                                    <label class="property" style="margin-left: 66px;">流水：</label>
+                                    <input style="left: 38px;" type="file" id="path4" name="rehousing[]">
+                                    <input style="left:0px;" type="button" class="choose" value="选择文件" onclick="path4.click()">
+                                </div>
+                                <div class="form-group" style="margin-left: -37px;">
+                                    <label class="property" style="margin-left: 102px;margin-right: 15px;">是否陪同 :</label>
+                                    <input type="radio" id="select7" <?php if($data['reaccompany']=="1") echo checked ?> value="1" name="reaccompany" required>是
+                                    <input type="radio" id="select8" <?php if($data['reaccompany']=="2") echo checked ?> value="2" name="reaccompany" required>否
+                                    <label style="margin-left: 20px;">陪同人：<input name="reattendant" type="text" value="{$data['reattendant']}"></label>
+                                </div>
+                                <input type="hidden" value="{$id}" name="id">
+                                <input type="submit" value="提&nbsp;&nbsp;交" class="tjs">
+                            </form>
+                        <h4 class="h4">确认费用</h4>
+                        <form action="/Admin/Monetary/qrfy" method="post" id="info_form2">
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">手续费:</label>
+                                <input type="number" name="poundage" value="{$data['poundage']}"><span class="right">%</span>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">考察费:</label>
+                                <input type="radio" name="inspection" <?php if($data['inspection']=="300") echo checked ?> value="300"><span>300</span>
+                                <input type="radio" name="inspection" <?php if($data['inspection']=="500") echo checked ?> value="500"><span>500</span>
+                            </div>
+                            <div class="rowleft">
+                                <label class="charge"><input type="checkbox" class="identity">保证金:</label>
+                                <input type="number" name="bond"  value="{$data['bond']}"><span class="right">%</span>
+                            </div>
+                            <input type="hidden" value="{$id}" name="id">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs">
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        if($("#input9").val()){
+            return true;
+        }else{
+             alert("请先填写确认信息");
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,530 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751"/>
+    <title>签约系统</title>
+    <script src="http://47.92.119.237:8888/js/jquery.min.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .img {
+        width: 1280px;
+        background-size: 1280px 800px;
+        font-size: 30px;
+        position: relative;
+        overflow: hidden;
+        background: #f8f8f8;
+        height: 1130px;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    a, input {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    .select {
+        width: 255px;
+        height: 42px;
+        line-height: 42px;
+        margin-left: 30px;
+        position: relative;
+        bottom: 3px;
+        border: none;
+        outline: none;
+        font-size: 21px;
+    }
+    .select {
+        width: 260px;
+    }
+    .select {
+        color: #747474;
+        bottom: 2px;
+    }
+
+    ul {
+        position: absolute;
+        bottom: 0;
+    }
+
+    li {
+        width: 408px;
+        height: 200px;
+        line-height: 200px;
+        background: rgba(0, 0, 0, 0.6);
+        float: left;
+        border-right: 1px solid #fff;
+        text-align: center;
+    }
+
+    li:not(:first-child) img {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        top: 8px;
+        padding-right: 15px;
+    }
+
+    li:first-child img {
+        width: 300px;
+        margin-top: 55px;
+    }
+
+    a {
+        color: #fff;
+    }
+
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0, 0, 0, 0.6);
+        padding-left: 20px;
+        margin-bottom: 22px;
+    }
+
+    .left {
+        text-align: left;
+        float: left;
+    }
+
+    .left img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        width: 22px;
+    }
+
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+
+    .right {
+        width: 900px;
+        background: rgba(0, 0, 0, 0.6);
+        height: 1536px;
+        position: absolute;
+        right: 0;
+        padding-top: 30px;
+    }
+
+    label, .div {
+        display: block;
+        width: 1000px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        font-size: 24px;
+        color: #747474;
+        margin-left: 60px;
+    }
+
+    input {
+        width: 624px;
+        height: 50px;
+        line-height: 50px;
+        border: none;
+        font-size: 23px;
+        color: #333;
+        margin-left: 162px;
+        outline: none;
+    }
+
+    input::-ms-input-placeholder {
+        color: #dadada
+    }
+
+    input::-webkit-input-placeholder {
+        color: #dadada
+    }
+
+    input::-moz-placeholder {
+        color: #dadada
+    }
+
+    input[type=radio] {
+        height: 30px;
+        position: relative;
+        top: 9px;
+        right: 10px;
+    }
+
+    #money, #room {
+        width: 630px;
+    }
+
+    #yes, #no {
+        display: block;
+        width: 100px;
+        background-color: #2989cc;
+        margin: 0 auto;
+        outline: none;
+        color: #fff;
+        height: 40px;
+        line-height: 40px;
+        cursor: pointer;
+        font-size: 22px;
+        border-radius: 10px;
+    }
+
+    p {
+        font-size: 23px;
+        color: #3a3a3a;
+    }
+
+    .input {
+        width: 960px;
+        height: 55px;
+        line-height: 50px;
+        background: #fff;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        border: 1px solid #cecece;
+    }
+
+    .span {
+        position: absolute;
+        right: 175px;
+    }
+
+    .Yes, .No {
+        display: none;
+        position: relative;
+        top: 15px;
+        right: 80px;
+    }
+
+    #left {
+        float: left;
+        height: 45px;
+        width: 100px;
+        line-height: 45px;
+        border-radius: 10px;
+        background: #2989cc;
+        margin-top: 15px;
+    }
+
+    #right {
+        height: 45px;
+        width: 100px;
+        border-radius: 10px;
+        background: #2989cc;
+        position: relative;
+        top: 15px;
+        right: 240px;
+    }
+
+    .button {
+        color: #fff;
+        background: #d9a229;
+        width: 960px;
+        margin-left: 161px;
+        outline: none;
+        font-size: 30px;
+        box-shadow: 2px 2px 2px #a0a0a0;
+        border-radius: 6px;
+        letter-spacing: 5px;
+        margin-top: 35px;
+    }
+
+    .bgcolor {
+        width: 960px;
+        height: 200px;
+        background: #fff;
+        margin-left: 163px;
+        margin-top: 50px;
+        box-shadow: 1px 1px 5px #cecece;
+        position: relative;
+        padding: 10px 22px 22px 22px;
+        box-sizing: border-box;
+        display: none;
+    }
+
+    .triangle {
+        position: absolute;
+        left: 430px;
+        top: -30px;
+        width: 0;
+        height: 0;
+        border-left: 21px solid transparent;
+        border-right: 21px solid transparent;
+        border-bottom: 30px solid #e5e5e5;
+    }
+
+    .triangle span {
+        position: absolute;
+        left: -20px;
+        top: 1px;
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 30px solid #fff;
+    }
+
+    .a-upload {
+        padding: 4px 160px;
+        height: 20px;
+        line-height: 20px;
+        position: relative;
+        top: 5px;
+        cursor: pointer;
+        color: #888;
+        overflow: hidden;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1
+    }
+
+    .a-upload input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+
+    .one {
+        width: 465px;
+        margin-left: 160px;
+        display: inline-block;
+        float: left;
+    }
+
+    .two {
+        width: 465px;
+        margin-left: 27px;
+        display: inline-block;
+    }
+
+    #department {
+        margin-left: 45px;
+        width: 164px;
+    }
+
+    .inputs {
+        margin-left: 45px;
+        width: 233px;
+    }
+
+    #operation {
+        margin-left: 45px;
+        width: 148px;
+    }
+
+    .divs {
+        float: left;
+        width: 465px;
+        margin-left: 160px;
+        margin-right: 60px;
+    }
+
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <div class="left">
+            <a href="/Monetary/listqysystem"><img alt="" src="http://47.92.119.237:8888/img/back.png"/>返回</a></div>
+        <span class="guan">签约系统</span></div>
+        <form action="/Admin/Apply/qyadd" enctype="multipart/form-data" id="qyxt" method="post" target="_blank">
+            <div class="input one" style="margin-right:60px;">
+                <label class="department" for="department">部 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;门 
+                <!-- <input class="intxt" id="department" name="branch" placeholder="请输入部门" type="text"value=""/> -->
+                <select name="branch" id="department" style="width: 250px;" class="intxt sea select" onchange="fp(this.value)">
+                                    <option value='请选择' disabled selected>请选择</option>
+                                    <option value=7 <?php if($data['branch']==7) echo selected ?>>丽湾分部总监</option>
+                                    <option value=8 <?php if($data['branch']==8) echo selected ?>>丽湾分部</option>
+                                    <option value=16 <?php if($data['branch']==16) echo selected ?>>朗苑金融门店部总监</option>
+                                    <option value=17 <?php if($data['branch']==17) echo selected ?>>朗苑金融门店部</option>
+                                    <option value=18 <?php if($data['branch']==18) echo selected ?>>诚和金融门店部总监</option>
+                                    <option value=19 <?php if($data['branch']==19) echo selected ?>>诚和金融门店部</option>
+                                    <option value=30 <?php if($data['branch']==30) echo selected ?>>现金部经理</option>
+                                    <option value=29 <?php if($data['branch']==29) echo selected ?>>现金部</option>
+                 </select>
+
+              </label></div>
+              <div class="input divs">
+                <label class="operation" for="operation">业&nbsp;&nbsp;务&nbsp;&nbsp;员 
+                <!-- <input class="intxt" id="operation" name="salesman" placeholder="请输入业务员" type="text" value=""/>  -->
+                    <select id="operation"  class="intxt members sea select" name="salesman">
+                         <option value=0>{$data['username']}</option>
+                    </select>
+                </label></div>
+                    <div class="input divs">
+                        <label for="name">姓 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名 <input class="intxt inputs" id="name" name="member" placeholder="请输入姓名" type="text" value="{$data['member']}"/> </label></div>
+                           <div class="input divs">
+                            <label for="phone">电 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话 <input class="intxt inputs" id="phone" name="phone" placeholder="请输入电话号码" type="text" value="{$data['phone']}"/> </label></div>
+                              <div class="input divs">
+                                <label for="room">照 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片 <input class="inputs" id="photo" name="photo"
+                                   onchange="showPicture(this)" type="file"/>
+                               </label></div>
+                               <div class="input two" style="height:320px;width:400px;">
+                                <img id="imgss" width="400" height="320" src="http://www.crm.com{$data['photo']}"/></div>
+                                <div class="input" style="overflow:hidden;">
+                                    <label for="number" style="margin-left: 30px">身份证号码 <input class="intxt" id="number" name="cardnum"
+                                     placeholder="请输入身份证号码" type="text" value="{$data['cardnum']}"/>
+                                 </label></div>
+                                 <div class="input">
+                                    <label for="place">住 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址 <input class="intxt" id="place" name="address"
+                                      placeholder="请输入住址" type="text" value="{$data['address']}"/>
+                                  </label></div>
+                                  <div class="input">
+                                    <div class="div">
+                                        贷款类型 
+                                        <input  class="np" name="type" style="width: 23px;margin-left: 174px;" type="radio" value="1" <?php if($data['type']==1) echo checked ?> />信用贷 
+                                        <input class="np" name="type" style="width: 23px;" type="radio" value="2" <?php if($data['type']==2) echo checked ?> />抵押贷
+                                    </div>
+                                </div>
+                                <div class="input">
+                                    <label for="money">贷款金额 <input class="intxt" id="money" name="money" style="margin-left: 163px;"
+                                     type="number" value="{$data['money']}"/><span class="span">万元</span> </label></div>
+                                     <div class="input">
+                                        <label for="room">居&nbsp; 间&nbsp; 费 <input class="intxt" id="room" name="room" style="margin:0 5px 0 166px;"
+                                         type="number" value="{$data['room']}"/><span class="span">%</span> </label>
+                                     </div>
+                                     <!-- <input class="button" type="button" value="确定"/>&nbsp; -->
+                                 </form>
+    <div class="bgcolor">
+        <div class="triangle">
+            &nbsp;<span></span></div>
+        <p class="no" style="margin-left: 310px;">
+            您本次贷款保证金为:<span style="color: #e0ac3b;font-size: 36px;"> </span>元</p>
+        <p style="margin-left: 310px;">
+            财务是否入账 ?</p>
+        <div class="select1" style="position: relative;left: 313px;">
+            <div class="input" id="left">
+                <input id="yes" type="submit" value="是"/></div>
+            <div class="input" id="right">
+                <input id="no" type="submit" value="否"/></div>
+        </div>
+        <p class="Yes">
+            恭喜你完成本次贷款签约，请在接下来的时间配合渠道人员做好进件准备</p>
+        <p class="No">
+            请在签约的同时完成保证金的缴纳</p>
+    </div>
+</div>
+<!--<div class="background">
+   <img class="shut-up" src="img/shut-up.png" alt="">
+</div>-->
+<script>
+    $(window).load(function () {
+        $('#yes').click(function () {
+             $("#qyxt").append("<input type='hidden' name='bzj' value='是'/>");
+            $('.bgcolor').hide();
+            alert("恭喜你完成本次贷款签约，请在接下来的时间配合渠道人员做好进件准备!")
+            if ($('#department').val() == '' || $('#operation').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#number').val() == '' || $('#place').val() == '' || $("input[type='radio']:checked").val() == null || $('#money').val() == '' || $('#room').val() == '') {
+                    alert('请选择！')
+                } else {
+                    $("#qyxt").submit();
+                }
+
+        });
+//        您本次贷款保证金为:20元
+        $('#no').click(function () {
+             $("#qyxt").append("<input type='hidden' name='bzj' value='否'/>");
+            $('.bgcolor').hide();
+            alert('请在签约的同时完成保证金的缴纳!');
+             if ($('#department').val() == '' || $('#operation').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#number').val() == '' || $('#place').val() == '' || $("input[type='radio']:checked").val() == null || $('#money').val() == '' || $('#room').val() == '') {
+                    alert('请选择！')
+                } else {
+                   
+                    $("#qyxt").submit();
+                }
+        });
+        $('#money,#room').keyup(number);
+        $('body').click(number);
+        var count=true;
+        $('.button').click(function () {
+            if (count) {
+                if ($('#department').val() == '' || $('#operation').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#number').val() == '' || $('#place').val() == '' || $("input[type='radio']:checked").val() == null || $('#money').val() == '' || $('#room').val() == '') {
+                    alert('请选择！')
+                } else {
+                    $('.bgcolor').show();
+//                    $(this).attr("disabled", "disabled");
+                    // $("#qyxt").submit();
+                }
+                count=false;
+            }else {
+                if ($('#department').val() == '' || $('#operation').val() == '' || $('#name').val() == '' || $('#phone').val() == '' || $('#number').val() == '' || $('#place').val() == '' || $("input[type='radio']:checked").val() == null || $('#money').val() == '' || $('#room').val() == '') {
+                    alert('请选择！')
+                } else {
+                    $('.bgcolor').show();
+//                    $(this).attr("disabled", "disabled");
+                    /*     $("#qyxt").submit();*/
+                }
+                // count=true;
+            }
+
+        });
+        function number() {
+            var val = $('input:radio[name="type1"]:checked').val();
+            var $span = $('p').find('span');
+            var $money = $('#money').val();
+            var $room = $('#room').val();
+            $('.yes').hide();
+            /* if(val==null){
+             alert("请选择贷款类型!");
+             return false;
+             }*/
+            if (val == 1) {
+                $('.no').show();
+                $span.html(parseInt($money * $room * 35));
+            } else {
+                $('.no').show();
+                $span.html(parseInt($money * $room * 20));
+            }
+        }
+    });
+
+    function showPicture(img) {
+        var objUrl = getObjectURL(img.files[0]);
+        if (objUrl) {
+            $("#imgss").attr("src", objUrl);
+            $("#imgss").width(400).height(320);
+        }
+    }
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    }
+
+    function fp(rid){
+        $.post("/Admin/Apply/memberss",{rid,rid},function(data){
+            $(".members").empty();
+            for(i=0;i<data.length;i++){
+                $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+            }
+        })
+    }
+
+    $(function(){
+        rid=$(".bumen").val();
+        fp(rid);
+
+    });
+</script>
+</body>
+</html>

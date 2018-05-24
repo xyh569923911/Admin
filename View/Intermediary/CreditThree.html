@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <script src="__PUBLIC__/admin/js/branch.js"></script>
+    <style>
+    body {
+    }
+    .cirlce,.cirlce1 {
+        width: 30px;
+        height: 30px;
+        background: #00a2d4;
+        text-align: center;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 18px;
+        position: absolute;
+        left: 122px;
+        top: -27px;
+        cursor: pointer;
+    }
+    .cirlce1 {
+        top: -3px;
+    }
+    .append,.append1 {
+        position: relative;
+        margin-bottom: -33px;
+    }
+    .append1 {
+        margin-top: -29px;
+    }
+    #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11,#path一,#path二,#path三,#path四,#path五,#path六,
+    #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88{
+        position: relative;
+    }
+    .btn {
+        font-size: 15px;
+    }
+    .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+    }
+    .preview{
+        position:relative;
+        top:-60px;
+        left: 260px;
+    }
+    .length {
+        width: 250px!important;
+        margin: 0 0 20px 40px;
+    }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: auto;padding-bottom: 30px;">
+                     <h3 class="box-title"><a href="/Admin/Intermediary/index">居间客户</a>><a style="cursor: pointer;" class="goback" href="/Admin/Intermediary/Credit?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                        <h4 class="h4">面签</h4>
+                        <form action="/Admin/Intermediary/public_fun" method="post">
+                        <div class="form-group">
+                            确认资料完整度：
+                            &nbsp;
+                            <select style="margin-bottom: 7px;height: 25px;"  class="bumen input2" name="integrity">
+                                <option value="0">请选择</option>
+                                <option <?php echo $data['integrity']==1?'selected':'' ?> value="1">是</option>
+                                <option <?php echo $data['integrity']==2?'selected':'' ?> value="2">否</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label>面签银行(机构)：</label>
+                                <input type="text" name="face_bank" class="length" style="margin-left: 2px;" value="{$data['face_bank']}">
+                            </div>
+                            <div>
+                                <label>银行地址：</label>
+                                <input type="text" class="length" name="bank_address" value="{$data['bank_address']}">
+                            </div>
+                            <div>
+                                <label>渠道方(电话)：</label>
+                                &nbsp;&nbsp;&nbsp;<input style="margin-left: 4px;" type="text" class="length" name="linkman" value="{$data['linkman']}">
+                            </div>
+                            <div>
+                            <label style="margin-right:18px;position:relative;right:-4px;top:-44px;">跟进办理情况：</label>
+                            <textarea cols="80" rows="5" name="follow_up" required>{$data['follow_up']}</textarea>
+                            </div>
+                            <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                            <input type="hidden" value="CreditThree" name="step">
+                            <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left: 210px;">
+                            <a href="/Admin/Intermediary/over/s/threetime?state_id=6&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:78px;font-size: 16px;">完&nbsp;&nbsp;成</a>
+                           </form>
+                           <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[ids.length-1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[ids.length-1]); 
+
+</script>
+</body>
+</html>

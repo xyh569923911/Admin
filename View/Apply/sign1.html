@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+    .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+    }
+    .preview{
+        position:relative;
+        top:-50px;
+        left: 260px;
+    }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- 头部 -->
+    <include file="common:head" />
+    <!-- 头部结束
+    <!-- 左侧 -->
+    <include file="common:side" />
+    <!-- 左侧结束 -->
+
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height: 650px;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer">现金客户</a>><a style="cursor: pointer;" class="goback">还回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">签约</h4>
+                            <form action="/Admin/Apply/sign" method="post"
+                             enctype="multipart/form-data">
+
+                             <label style="display: inline;position: relative;left: 12px;">借款合同：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path1" name="loan_contract" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="借款合同上传" onclick="path1.click()">
+                                <a href="/Admin/Apply/preview?zd=loan_contract&id=" target="_blank" 
+                                    class="btn btn1 preview" name="loan_contract">预览</a>
+                            <label style="position: relative;right: 188px; top:10px;">借据：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path2" name="iou" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="借据上传" onclick="path2.click()">
+                                <a href="/Admin/Apply/preview?zd=iou&id=" target="_blank" 
+                                    class="btn btn1 preview" name="iou">预览</a>
+                            <label style="position: relative;right: 202px;top:10px;">承诺书：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path3" name="letter_commitment" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="承诺书上传" onclick="path3.click()">
+                                <a href="/Admin/Apply/preview?zd=letter_commitment&id=" target="_blank"  class="btn btn1 preview" name="letter_commitment">预览</a>
+                            <label style="position: relative;right: 202px;top:10px;">通讯录：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path4" name="mail_list" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:50px;left: 122px;" value="通讯录照片上传" onclick="path4.click()">
+                                <a href="/Admin/Apply/preview?zd=mail_list&id=" target="_blank" 
+                                    class="btn btn1 preview" name="mail_list">预览</a>
+                            <label style="position: relative;right: 245px;top:10px;">签约现场拍照：</label>
+                                <input type="file" style="top:-20px;left: 158px;" id="path5" name="sign_scene" onchange="upfile.value=this.value">
+                                <input type="button" class="choose" style="position:relative;bottom:69px;left: 122px;" value="照片上传" onclick="path5.click()">
+                                <a href="/Admin/Apply/preview?zd=sign_scene&id=" target="_blank" 
+                                    class="btn btn1 preview" name="sign_scene" style="position:relative;top:-69px;left: 260px;">预览</a>
+                                 <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                 <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left:-106px;">
+                            <a href="/Admin/Apply/over?state_id=23&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:30px;font-size: 16px;">签&nbsp;&nbsp;约&nbsp;&nbsp;成&nbsp;&nbsp;功</a>
+                            </form>
+                            <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    $(function(){
+        var str=$("#xszd").val().split(',');
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+
+    })
+
+    $(".preview").each(function(){
+        var ss=$(this).attr('href');
+        $(this).attr('href',ss+ids[1]);
+    });
+</script>
+</body>
+</html>

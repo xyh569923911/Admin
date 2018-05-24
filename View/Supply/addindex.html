@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+  </head>
+  
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">添加公海客户信息</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+                <form class="form-horizontal" toUrl="/Admin/Supply/index" action="{:U('Admin/Supply/addindex')}" id="myform">
+				
+				
+				    <!-- <div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">客户级别：</label>
+                      <div class="col-md-2">
+                        <select class="form-control requires" name="types">
+                          <option value="">请选择</option>
+                          <option value="1" <if condition="$data['types'] eq 1">selected</if>>A级客户</option>
+						  <option value="2" <if condition="$data['types'] eq 2">selected</if>>B级客户</option>
+						  <option value="3" <if condition="$data['types'] eq 3">selected</if>>C级客户</option>
+                         
+                        </select>
+                      </div>
+                    </div> -->
+				
+				
+				
+				    <div class="form-group">
+                      <label class="col-md-2 control-label">客户姓名：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="{$data.username}" name="username">
+                      </div>
+                    </div>
+					
+					
+					<div class="form-group">
+						<label class="col-md-2 control-label">性别：</label>
+						<div class="col-md-6">
+						  <label class="radio-inline">
+							<input type="radio" name="sex" <if condition="$data['sex'] eq 0">checked</if> checked value="0"> 男
+						  </label>
+						   <label class="radio-inline">
+							<input type="radio" name="sex" <if condition="$data['sex'] eq 1">checked</if> value="1"> 女
+						  </label>
+						</div>
+					  </div>
+					
+					 <div class="form-group">
+                      <label class="col-md-2 control-label">手机号码：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="{$data.phone}" name="phone">
+                      </div>
+                    </div>
+
+					<div class="form-group">
+                      <label class="col-md-2 control-label">微信：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.wechat}" name="wechat">
+                      </div>
+                    </div>
+					
+					
+                    <div class="form-group">
+                      <label class="col-md-2 control-label">贷款金额：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" value="{$data.loan}" name="loan">
+                      </div>
+                    </div>
+					
+					<if condition="$data.id eq ''">
+						<div class="form-group">
+                          <label class="col-md-2 control-label">客户来源：</label>
+                          <div class="col-md-6">
+                            <input type="text" class="form-control requires" value="{$data.source}" name="source" placeholder="必填(如：商桥、白名单、朋友介绍等)">
+                          </div>
+                        </div>
+                    </if>
+					
+					<div class="form-group">
+                      <label class="col-md-2 control-label">贷款用途：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="use">{$data.use}</textarea>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label class="col-md-2 control-label">客户详细情况：</label>
+                      <div class="col-md-6">
+                        <textarea class="form-control" rows="3" name="details">{$data.details}</textarea>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label class="col-md-2 control-label">沟通记录：</label>
+                      <div class="col-md-9">
+                        <script id="container" name="content" type="text/plain">{$data.content}</script>
+                      </div>
+                    </div>
+					
+					<div class="form-group">
+                      <label class="col-md-2 control-label">公司名称：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.name}" name="name">
+                      </div>
+                    </div>
+					<div class="form-group">
+					<label class="col-md-2 control-label">地址：</label>
+					<div data-toggle="distpicker">
+						<div class="col-md-2">
+						  <if condition="$data.province neq ''">
+						  <select class="form-control" name="province" id="province3"data-province="{$data.province}" ></select>
+                          <else/>
+						  <select class="form-control" name="province" id="province3" data-province="广东省"></select>
+						  </if>
+						</div>
+						<div class="col-md-2">
+						  <if condition="$data.province neq ''">
+						  <select class="form-control" name="city" id="city3" data-city="{$data.city}" ></select>
+                          <else/>
+						  <select class="form-control" name="city" id="city3" data-city="深圳市"></select>
+						  </if>
+						</div>
+						<div class="col-md-2">
+						  <if condition="$data.province neq ''">
+						  <select class="form-control" name="district" id="district3" data-district="{$data.district}" ></select>
+                          <else/> 
+						  <select class="form-control" name="district" id="district3" data-district="南山区"></select>
+						  </if>
+						</div>
+					 </div>
+					  </div>
+					
+				    <div class="form-group">
+                      <label class="col-md-2 control-label">详情地址：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control" value="{$data.address}" name="address">
+                      </div>
+                    </div> 
+					
+					<div class="form-group">
+                      <label class="col-md-2 control-label">客户图片：</label>
+                      <div class="col-md-7">
+                        <div class="imgsPicker">选择图片</div>
+                        <div id="imgsWrap">
+                          <foreach name="data.images" item="value">
+                          	<if condition="$value neq ''">
+                            	<div class="imgBox">
+                            	<img src="__PUBLIC__{$value}" alt="" width="100%" height="100%">
+                            	<button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+                           		<input type="hidden" name="images[]" value="{$value}">
+                             	</div>
+                            </if>
+                          </foreach>
+                        </div>
+                      </div>
+                    </div>
+				
+					<div class="form-group">
+                      <label class="col-md-2 control-label">客户文件：</label>
+                      <div class="col-md-7">
+                        <div class="filePicker" style="width:120px;height:42px;float:left;">选择文件</div>
+                        <div id="fileWrap" style="float:left;margin-left: 30px;line-height: 42px;">
+                          <if condition="$data['filename'] neq ''">
+                            <span class="qix"><a href="/Public{$data.filename}">{$data.filename}</a></span>
+                            <!-- <input type="hidden" value="{$data.fid}" name="fid"> -->
+                            <input type="hidden" value="{$data.filename}" name="filename" id="qix"><a href="javascript:;" onclick="qix(this)">删除</a>
+                          </if>
+                        </div>
+                      </div>
+                    </div>
+					<script>
+					  function qix(_this){
+					     $("#qix").attr("value","");
+						 $(".qix").html("");
+						 $(_this).html("");
+					  }
+					</script>
+					
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">客户类型：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="type_id">
+                          <option value="">请选择</option>
+                          <foreach name="columns" item="value">
+                          <option value="{$value.id}" <if condition="$data['type_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">跟进状态：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="state_id">
+                          <option value="">请选择</option>
+                          <foreach name="columnss" item="value">
+                          <option value="{$value.id}" <if condition="$data['state_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                          </foreach>
+
+                        </select>
+                      </div>
+                    </div>
+					
+					
+				   <!-- <if condition="($data['admin_id'] eq $_SESSION['aid']) OR (in_array('1003',$_SESSION['level']))"> 
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_id">
+                          <option value="{$data.admin_id}">{$data.admin_username}</option>
+                          <foreach name="columnsss" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					<else/>
+					<notempty name="data.id">
+					
+					
+					<div class="form-group">
+                      <label class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_id">
+                          <option value="{$data.admin_id}">{$data.admin_username}</option>
+                          <foreach name="columnsss" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div> 
+					
+					<else/>
+					<div class="form-group">
+                      <label class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_id">
+                          <option value="">请选择</option>
+                          <foreach name="columnsss" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					</notempty>
+					</if> -->
+					
+					 <if condition="($data['admin_id'] neq '') AND (in_array('1001',$_SESSION['level']))"> 
+				   <notempty name="data.admin_ids">
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">所属业务：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_ids">
+                          <option value="">请选择</option>
+                          <foreach name="genjin" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_ids'] eq $value['id']">selected</if>>{$value._name}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_id">
+                          <option value="">请选择</option>
+                          <foreach name="columnsss" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					<else/>
+					<div class="form-group">
+                      <label class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+					    <input type="hidden" class="form-control" name="admin_id" value="{$data.admin_id}" >
+                        <input type="text" class="form-control" value="{$data.admin_username}" disabled="disabled">
+                      </div>
+                    </div>
+					</notempty>
+					<elseif condition="in_array('1001',$_SESSION['level'])"/>
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">所属业务：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_ids">
+                          <option value="">请选择</option>
+                          <foreach name="genjin" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_ids'] eq $value['id']">selected</if>>{$value._name}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					<div class="form-group">
+                      <label for="inputEmail3" class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+                        <select class="form-control requires" name="admin_id">
+                          <option value="">请选择</option>
+                          <foreach name="columnsss" item="value">
+                          <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                          </foreach>
+                        </select>
+                      </div>
+                    </div>
+					<else/>
+					
+					<notempty name="data.id">
+					<div class="form-group">
+                      <label class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+					    <input type="hidden" class="form-control" name="admin_id" value="{$data.admin_id}" >
+                        <input type="text" class="form-control" value="{$data.admin_username}" disabled="disabled">
+                      </div>
+                    </div>
+					<else/>
+					
+					<div class="form-group">
+                      <label class="col-md-2 control-label">跟进业务员：</label>
+                      <div class="col-md-6">
+					    <input type="hidden" class="form-control" name="admin_id" value="<?php echo $_SESSION['aid'];?>" >
+                        <input type="text" class="form-control" value="<?php echo $_SESSION['aname'];?>" disabled="disabled">
+                      </div>
+                    </div> 
+					
+					
+					</notempty>
+					</if>
+				
+					<!-- <div class="form-group">
+                      <label class="col-md-2 control-label">联系日期：</label>
+                      <div class="col-md-6">
+                        <input type="text" class="form-control requires" id="datetimepicker" <if condition="isset($data['lxtime'])">value="{$data.lxtime|date='Y-m-d H:i',###}"<else/>value="{:date('Y-m-d H:i', time())}"</if> name="lxtime">                        
+                      </div>
+                    </div> -->
+                    
+                    <div class="form-group">
+                      <div class="col-md-offset-2 col-sm-9">
+                        <input type="hidden" name="iid" value="{$data.id}">
+                        <input type="submit" class="btn btn-block btn-primary btn-flat" value="提交"></input>
+                      </div>
+                    </div>
+                </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+
+    <include file="common:js" />
+	
+	<script type="text/html" id="columnTemp">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v.username%></option>
+      <%/each%>
+    </script>
+    <script type="text/javascript">
+	  var ue = UE.getEditor('container', {});
+	 $("select[name='admin_ids']").change(function(){
+        var id = $(this).val();
+        $.get("{:U('Admin/Supply/admin_ids')}", {id:id}, function (re){
+	    //alert(re);
+		 
+          if(re == 3){
+             $("select[name='admin_id']").html('<option value="">请选择</option>');
+          }else{
+		  //alert(5);
+           // $("select[name='rank_admin_id']").html('<option value="">请选择</option>');
+		   var html = template("columnTemp", {list:re});
+           $("select[name='admin_id']").html(html);
+          }
+        })
+      })
+	  
+    </script>
+    
+  </body>
+</html>

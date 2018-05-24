@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <include file="common:css" />
+    <script src="js/view.js"></script>
+  </head>
+  <style type="text/css">
+    .fl {float: left;}
+    .fr {float: right;}
+    .clearfix:after {content: '';display: block;clear: both;height: 0;visibility: hidden;}
+    .box-wrap {padding:15px 0px 60px;}
+    .recording {border-right:1px solid #dcdcdc;}
+    .recording .avatar {width: 120px;height: 120px;background-color: #42aded;border-radius:10px;display: inline-block;vertical-align: middle;}
+    .recording .text {display: inline-block;vertical-align: middle;margin-left: 20px;}
+    .recording .text .name {color: #333;font-size: 24px;}
+    .recording .text .xb {color: #555;font-size: 16px;margin: 10px 0;}
+    .recording .text .gjr {color: #555;font-size: 18px;}
+    .recording .c-class {border:1px solid #ccc;padding: 0 15px;height: 34px;line-height: 32px;color: #555;font-size: 15px;margin-top: 80px;}
+    .recording_con {margin-top: 40px;}
+    .recording_con .nav-tabs>li>a {font-size: 15px;padding: 8px 24px;}
+    .recording_con .tab-pane {padding-top: 20px;}
+    .recording_con .tab-content .tab-pane .form-text {width: 100%;min-height: 120px;}
+    .recording_con .tab-content .tab-pane .form-text .form-control {border-radius:5px;min-height: 90px;}
+    .recording_con .tab-content .tab-pane .form-text .form-btn {float: right;width: 110px;margin-top: 15px;}
+    .message {margin-top: 30px;}
+    .message .send {margin-top: 25px;}
+    .message .send .msg {font-size: 0px;}
+    .message .send .msg .act{width: 60px;height: 60px;display: inline-block;vertical-align: top;}
+    .message .send .msg .act img {width: 100%;}
+    .message .send .msg .txt {width: calc(100% - 75px);margin-left: 15px;display: inline-block;vertical-align: middle;border:1px solid #dcdcdc;border-radius:5px;font-size: 14px;padding: 10px;}
+    .message .send .msg .txt .name {display: block;margin-bottom: 6px;color: #00A0EA;}
+    .message .send .msg .txt p {color: #333;}
+    .message .send .msg .txt .date {color: #555;font-size: 13px;}
+    .form-group {margin-bottom: 15px;}
+    .form-group .control-label {padding-left: 5px;padding-right: 5px;text-align: right;}
+	  .page {text-align: right;padding: 5px 0;  width: 100%; margin: 0 auto;}
+  .page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+  .page a:hover,.page .on {background: #00a3ff;color:#fff}
+  </style>
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <!-- left column -->
+            <div class="col-lg-12">
+              <!-- general form elements -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">意向客户信息</h3>
+                </div><!-- /.box-header -->
+                <!-- form start -->
+                <div class="box-body">
+
+                  <div class="box-wrap clearfix">
+                    <div class="bg"></div>
+                    <div class="recording col-md-5 col-lg-6">
+                      <div class="heading clearfix">
+                        <div class="avatar"><img src="/Public/admin/images/active.png" alt=""></div>
+                        <div class="text">
+                          <div class="name"><notempty name="data.id">{$data.username}<else/>无</notempty><span style="margin-left:200px;font-size:15px">来源：
+						   <if condition="$data.sources neq ''"> 
+						  （{$data.sources}）
+						  <elseif condition="$data.source eq ''"/>
+						    <if condition="$data.id eq ''"> 
+							 无
+						    <elseif condition="$data.allot eq 1"/>
+						    （推广）
+						    <elseif condition="$data.allot eq 0"/>
+						   （录入）
+						    </if>
+						   <else/>
+						  （{$data.source}）
+						  </if>
+						  </span><!-- <notempty name="data.id">{$data.username}<else/>无</notempty> --></div>
+						  <notempty name="data.id">
+                          <div class="xb"><if condition="$data['sex'] eq 0">男<else/>女</if></div>
+						  </notempty>
+                          <div class="gjr">跟进人：<notempty name="data.id">{$data.admin_username}<else/>无</notempty></div>
+                        </div>
+                        <div class="c-class fr"><notempty name="data.state_id">{$state_name}<else/>无</notempty></div>
+                      </div>
+					 
+                      <div class="recording_con" id="au">
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a href="#home" data-toggle="tab">跟进记录</a></li>
+						  <?php if(in_array('1001',$_SESSION['level'])){?>
+                          <li><a href="#profile" data-toggle="tab">录音资料</a></li> 
+						  <?php };?>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div class="tab-pane fade active in" id="home">
+						    <input type="hidden" class="liid" value="{$data.id}">
+						    <form action="{:U('Admin/Uclient/record_desc')}" >   
+                            <div class="form-text clearfix">
+                              <textarea class="form-control sac" rows="3" name="use" placeholder="请输入客户跟进记录，不超过300字..."></textarea>
+                              <div class="form-btn">
+							  <notempty name="data.id">
+                                <a class="btn btn-block btn-primary btn-flat" onclick="liyt(this)" value="确定添加" autocomplete="off">确定添加</a>
+							  <else/>
+                                <a class="btn btn-block btn-primary btn-flat" onclick="buke(this)" style="background-color: #777;border-color:#777" value="确定添加" autocomplete="off">确定添加</a>							  
+							  </notempty>	
+                              </div>
+                            </div>
+							</form>
+							<script>
+							  function liyt(){
+							   var id = $(".liid").val();
+							   var content = $(".sac").val();
+							   if(!content){
+							   alert("内容不能为空！"); return false;
+							   }
+							   $.get("{:U('Admin/Uclient/record_desc')}", {id:id,content:content}, function (re){
+							
+							      if(re == 2){
+								      alert("提交失败");return false;
+								   }else{
+								      $(".sac").html('');
+									  $(".sac").val('');
+								      $(".message").prepend('<div class="send"> <div class="msg"> <div class="act"><img src="/Public/admin/images/active-man.png"></div><div class="txt"><i class="msg_input"></i><span class="name"><?php echo $_SESSION['aname'];?></span><p>'+content+'</p><div class="date"><?php echo date("Y-m-d H:i",time());?></div></div></div></div>');
+								   }
+							   })
+							  }
+							  function buke(){
+							  alert("请先添加右边内容！");
+							  }
+							</script>
+                            <div class="form-dt">
+                              <div class="message">
+							  <foreach name="record" item="val">
+                                <div class="send">
+                                  <div class="msg">
+                                    <div class="act"><img src="/Public/admin/images/active-man.png"></div>
+                                    <div class="txt">
+                                      <i class="msg_input"></i>
+                                      <span class="name">{$val.admin_id}</span>
+                                      <p>{$val.content}</p>
+                                      <div class="date">{$val.addtime|date="Y-m-d H:i",###}</div>
+                                    </div>
+                                  </div>
+                                </div>
+								</foreach>
+                              </div>
+                              <div class="page" style="text-align:center;">
+                                {$show}
+                              </div>
+                            </div>
+                          </div>
+                          <div class="tab-pane fade" id="profile">
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="information col-md-7 col-lg-6">
+                      <form class="form-horizontal" toUrl="/Admin/Uclient/index" action="{:U('Admin/Uclient/addindex')}" id="myform">   
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">客户姓名：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input0" value="{$data.username}" name="username" placeholder="必填">
+                          </div>
+
+                          <label class="col-md-2 control-label">性别：</label>
+                          <div class="col-md-4">
+                            <label class="radio-inline">
+                             <input type="radio" name="sex" <if condition="$data['sex'] eq 0">checked</if> checked value="0"> 男
+                            </label>
+                            <label class="radio-inline">
+                             <input type="radio" name="sex" <if condition="$data['sex'] eq 1">checked</if> value="1"> 女
+                            </label>
+                          </div>
+                        </div>
+                       
+                        <div class="form-group">
+                          <?php if($data['admin_id'] == $_SESSION['aid'] || in_array('1005',$_SESSION['level']) || !$data['id']){?>
+                          <label class="col-md-2 control-label">手机号码：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input1" value="<?php echo $data['phone'];?>" name="phone" placeholder="必填">
+                          </div>
+                          <?php }?>
+
+                          <label class="col-md-2 control-label">微信：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control" value="{$data.wechat}" name="wechat">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">贷款金额：</label>
+                          <div class="col-md-4">
+                            <input type="text" class="form-control requires input2" value="{$data.loan}" name="loan" placeholder="必填">
+                          </div>
+
+                          <label for="inputEmail3" class="col-md-2 control-label">客户类型：</label>
+                          <div class="col-md-4">
+                            <select class="form-control requires input11" name="type_id">
+                              <option value="">请选择</option>
+                              <foreach name="columns" item="value">
+                              <option value="{$value.id}" <if condition="$data['type_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                              </foreach>
+                            </select>
+                          </div>                          
+                        </div>
+                        <if condition="$data.id eq ''">
+						<div class="form-group">
+                          <label class="col-md-2 control-label">客户来源：</label>
+                          <div class="col-md-10">
+                            <input type="text" class="form-control requires input12" value="{$data.source}" name="source" placeholder="必填(如：商桥、白名单、朋友介绍等)">
+                          </div>
+                        </div>
+                        </if>
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">贷款用途：</label>
+                          <div class="col-md-10">
+                            <textarea class="form-control" rows="3" name="use">{$data.use}</textarea>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">备注：</label>
+                          <div class="col-md-10">
+                            <textarea class="form-control" rows="3" name="content">{$data.content}</textarea>
+                          </div>
+                        </div>
+                        
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">跟进状态：</label>
+                          <div class="col-md-6">
+                            <select class="form-control requires input3" name="state_id">
+                              <option value="">请选择</option>
+                              <foreach name="columnss" item="value">
+                              <option value="{$value.id}" <if condition="$data['state_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                        </div>
+                
+                        <span class="channel_rank">
+                        <notempty name="data.rank_id">
+                          <div class="form-group">
+                            <label for="inputEmail3" class="col-md-2 control-label">渠道跟进人员：</label>
+                            <div class="col-md-3">
+                            <select class="form-control" name="rank_id" <if condition="$date['state_type'] eq 2">readOnly="true"</if> >
+                              <option value="0">请选择</option>
+                              <foreach name="rank" item="value">
+                              <option value="{$value.id}" <if condition="$data['rank_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                              </foreach>
+                            </select>             
+                          </div>
+                          <div class="col-md-3">
+                            <select class="form-control" name="rank_admin_id">
+                              <option value="0">请选择</option>
+                              <foreach name="data.rank" item="value">
+                              <option value="{$value.id}" <if condition="$data['rank_admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                          </div>
+                        </notempty> 
+                        </span>
+                
+                        <span class="channel_finance">
+                          <notempty name="data.finance_id">
+                            <div class="form-group">
+                              <label for="inputEmail3" class="col-md-2 control-label">财务跟进人员：</label>
+                              <div class="col-md-3">
+                                <select class="form-control input7" name="finance_id">
+                                  <option value="0">请选择</option>
+                                  <foreach name="finance" item="value">
+                                  <option value="{$value.id}" <if condition="$data['finance_id'] eq $value['id']">selected</if>>{$value.name}</option>
+                                  </foreach>
+                                </select>             
+                              </div>
+                              <div class="col-md-3">
+                                <select class="form-control" name="finance_admin_id">
+                                  <option value="0">请选择</option>
+                                  <foreach name="data.finance" item="value">
+                                  <option value="{$value.id}" <if condition="$data['finance_admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                                  </foreach>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-2 control-label">放款金额：</label>
+                              <div class="col-md-6">
+                              <input type="text" class="form-control requires" value="{$data.price}" name="price">
+                              </div>
+                              <span>元</span>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-2 control-label">回款金额：</label>
+                              <div class="col-md-6">
+                              <input type="text" class="form-control requires" value="{$data.hprice}" name="hprice">
+                              </div>
+                              <span>元</span>
+                            </div>
+                          </notempty> 
+                        </span>
+                
+                        <if condition="($data['admin_id'] neq '') AND (in_array('1008',$_SESSION['level']))"> 
+                        <notempty name="data.admin_ids">
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">所属业务：</label>
+                          <div class="col-md-6">
+                            <select class="form-control requires input4" name="admin_ids">
+                              <option value="">请选择</option>
+                              <foreach name="genjin" item="value">
+                              <option value="{$value.id}" <if condition="$data['admin_ids'] eq $value['id']">selected</if>>{$value._name}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">跟进业务员：</label>
+                          <div class="col-md-6">
+                            <select class="form-control requires" name="admin_id">
+                              <option value="">请选择</option>
+                              <foreach name="columnsss" item="value">
+                              <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                        </div>
+                        <else/>
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">跟进业务员：</label>
+                          <div class="col-md-6">
+                            <input type="hidden" class="form-control" name="admin_id" value="{$data.admin_id}" >
+                            <input type="text" class="form-control" value="{$data.admin_username}" disabled="disabled">
+                          </div>
+                        </div>
+                        </notempty>
+                        <elseif condition="in_array('1008',$_SESSION['level'])"/>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">所属业务：</label>
+                          <div class="col-md-6">
+                            <select class="form-control requires input4" name="admin_ids">
+                              <option value="">请选择</option>
+                              <foreach name="genjin" item="value">
+                              <option value="{$value.id}" <if condition="$data['admin_ids'] eq $value['id']">selected</if>>{$value._name}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail3" class="col-md-2 control-label">跟进业务员：</label>
+                          <div class="col-md-6">
+                            <select class="form-control requires input5" name="admin_id">
+                              <option value="">请选择</option>
+                              <foreach name="columnsss" item="value">
+                              <option value="{$value.id}" <if condition="$data['admin_id'] eq $value['id']">selected</if>>{$value.username}</option>
+                              </foreach>
+                            </select>
+                          </div>
+                        </div>
+                        <else/>         
+                        <notempty name="data.id">
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">跟进业务员：</label>
+                          <div class="col-md-6">
+                            <input type="hidden" class="form-control" name="admin_id" value="{$data.admin_id}" >
+                            <input type="text" class="form-control" value="{$data.admin_username}" disabled="disabled">
+                          </div>
+                        </div>
+                        <else/>
+                        
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">跟进业务员：</label>
+                          <div class="col-md-6">
+                            <input type="hidden" class="form-control" name="admin_id" value="<?php echo $_SESSION['aid'];?>" >
+                            <input type="text" class="form-control" value="<?php echo $_SESSION['aname'];?>" disabled="disabled">
+                          </div>
+                        </div>
+                        </notempty>
+                        </if>
+
+                        <!-- <div class="form-group">
+                            <label class="col-md-2 control-label">联系日期：</label>
+                            <div class="col-md-6">
+                              <input type="text" class="form-control requires" id="datetimepicker" <if condition="isset($data['lxtime'])">value="{$data.lxtime|date='Y-m-d H:i',###}"<else/>value="{:date('Y-m-d H:i', time())}"</if> name="lxtime">                        
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">客户图片：</label>
+                          <div class="col-md-7">
+                            <div class="imgsPicker">选择图片</div>
+                            <div id="imgsWrap">
+                              <foreach name="data.images" item="value">
+                                <if condition="$value neq ''">
+                                  <div class="imgBox">
+                                  <img src="__PUBLIC__{$value}" alt="" width="100%" height="100%">
+                                  <button type="button" class="btn btn-danger btn-sm close-icon" onclick="removeImage(this)"><i class="fa fa-bitbucket"></i></button>
+                                  <input type="hidden" name="images[]" value="{$value}">
+                                  </div>
+                                </if>
+                              </foreach>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">客户文件：</label>
+                          <div class="col-md-7">
+                            <div class="filePicker" style="width:120px;height:42px;float:left;">选择文件</div>
+                            <div id="fileWrap" style="float:left;margin-left: 30px;line-height: 42px;">
+                              <if condition="$data['filename'] neq ''">
+                                <span class="qix"><a href="/Public{$data.filename}">{$data.filename}</a></span>
+                                <!-- <input type="hidden" value="{$data.fid}" name="fid"> -->
+                                <input type="hidden" value="{$data.filename}" name="filename" id="qix"><a href="javascript:;" onclick="qix(this)">删除</a>
+                              </if>
+                            </div>
+                          </div>
+                        </div>
+                        <script>
+                          function qix(_this){
+                            $("#qix").attr("value","");
+                            $(".qix").html("");
+                            $(_this).html("");
+                          }
+                        </script>   
+                
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">公司名称：</label>
+                          <div class="col-md-10">
+                            <input type="text" class="form-control" value="{$data.name}" name="name">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">地址：</label>
+                          <div data-toggle="distpicker">
+                            <div class="col-md-3">
+                              <if condition="$data.province neq ''">
+                              <select class="form-control" name="province" id="province3"data-province="{$data.province}" ></select>
+                              <else/>
+                              <select class="form-control" name="province" id="province3" data-province="广东省"></select>
+                              </if>
+                            </div>
+                            <div class="col-md-3">
+                              <if condition="$data.province neq ''">
+                              <select class="form-control" name="city" id="city3" data-city="{$data.city}" ></select>
+                                          <else/>
+                              <select class="form-control" name="city" id="city3" data-city="深圳市"></select>
+                              </if>
+                            </div>
+                            <div class="col-md-4">
+                              <if condition="$data.province neq ''">
+                              <select class="form-control" name="district" id="district3" data-district="{$data.district}" ></select>
+                                          <else/> 
+                              <select class="form-control" name="district" id="district3" data-district="南山区"></select>
+                              </if>
+                            </div>
+                          </div>
+                        </div>
+                
+                        <div class="form-group">
+                          <label class="col-md-2 control-label">详情地址：</label>
+                          <div class="col-md-10">
+                            <input type="text" class="form-control" value="{$data.address}" name="address">
+                          </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top:30px;">
+                            <div class="col-md-offset-2 col-sm-10">
+                              <input type="hidden" name="iid" value="{$data.id}">
+                              <input type="submit" class="btn btn-block btn-primary btn-flat alert" value="提交"></input>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      
+    </div>
+    <script>
+     
+     
+//      $('.form-group').find('.alert').click(function () {
+//          alert(1)
+//      })
+    </script>
+  <include file="common:js" />
+	<script type="text/html" id="channel_rank">
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-md-2 control-label">渠道跟进人员：</label>
+	  <div class="col-md-3">
+		<select class="form-control" name="rank_id" >
+		  <%each list as v%>
+		  <option value="<%=v.id%>"><%=v.name%></option>
+		  <%/each%>
+		</select>
+		
+	  </div>
+	  <div class="col-md-3">
+		<select class="form-control requires input6" name="rank_admin_id">
+		  <option value="">请选择</option>
+		  <%each data as v%>
+		  <option value="<%=v.id%>"><%=v.username%></option>
+		  <%/each%>
+		</select>
+		
+	  </div>
+	</div>
+	</script>
+	<script type="text/html" id="channel_finance">
+	<div class="form-group">
+	  <label for="inputEmail3" class="col-md-2 control-label">财务跟进人员：</label>
+	  <div class="col-md-3">
+		<select class="form-control input7" name="finance_id" >
+		  <%each list as v%>
+		  <option value="<%=v.id%>"><%=v.name%></option>
+		  <%/each%>
+		</select>
+		
+	  </div>
+	  <div class="col-md-3">
+		<select class="form-control requires input7" name="finance_admin_id">
+		  <option value="">请选择</option>
+		  <%each data as v%>
+		  <option value="<%=v.id%>"><%=v.username%></option>
+		  <%/each%>
+		</select>
+		
+	  </div>
+	</div>
+    <div class="form-group">
+    <label class="col-md-6 control-label" style="color:red">成功放款请到已成交客户录入</label>
+    </div>
+<div class="form-group">
+	  <label class="col-md-2 control-label">放款金额：</label>
+	  <div class="col-md-6">
+		<input type="text" class="form-control requires input8" value="{$data.price}" name="price">
+	  </div>
+	  <span>元</span>
+
+	</div>
+
+
+	<div class="form-group">
+	  <label class="col-md-2 control-label">回款金额：</label>
+	  <div class="col-md-6">
+		<input type="text" class="form-control requires input9" value="{$data.hprice}" name="hprice">
+	  </div>
+	  <span>元</span>
+	</div>
+	</script>
+	
+	<script type="text/html" id="columnTemp">
+      <option value="">请选择</option>
+      <%each list as v%>
+      <option value="<%=v.id%>"><%=v.username%></option>
+      <%/each%>
+    </script>
+    <script type="text/javascript">
+	  var ue = UE.getEditor('container', {});
+	 $("select[name='admin_ids']").change(function(){
+        var id = $(this).val();
+        $.get("{:U('Admin/Uclient/admin_ids')}", {id:id}, function (re){
+	    //alert(re);
+		 
+          if(re == 3){
+             $("select[name='admin_id']").html('<option value="">请选择</option>');
+          }else{
+		  //alert(5);
+           // $("select[name='rank_admin_id']").html('<option value="">请选择</option>');
+		   var html = template("columnTemp", {list:re});
+           $("select[name='admin_id']").html(html);
+          }
+        })
+      })
+	  
+	  //渠道跟进
+	  function rank(_this){
+	    var id = $(this).val();
+		alert(5);
+		var state = 1;
+       /* $.get("{:U('Admin/Uclient/getrank_admin')}", {id:id,state:state}, function (re){
+          if(re){
+            var html = template("columnTemp", {list:re});
+            $("select[name='rank_admin_id']").html(html);
+          }else{
+            $("select[name='rank_admin_id']").html('<option value="">请选择</option>');
+          }
+        })*/
+	  }
+	  $("select[name='state_id']").change(function(){
+	     var id = $(this).val();
+		 $.get("{:U('Admin/Uclient/channel')}", {id:id,cid:"{$data.id}"}, function (re){
+		   
+		  if(re.son[0].sun == 1){
+		   //渠道
+		   
+		   if(re.son[0].id != "{$data.rank_id}"){
+		   var html = template("channel_rank", {list:re.son,data:re.sons});
+		   //alert(id);exit;
+		   $(".channel_rank").html(html);
+		    $(".channel_finance").html('');
+		   }
+		   }else if(re.son[0].sun == 2){
+		   //alert(re.son[0].id+"{$data.finance_id}");
+		 /* if(re.sonp[0].ps == 1){
+		     var html = template("channel_rank", {list:re.sonp,data:re.sonsp});
+			 alert(11);
+		     $(".channel_rank").html(html);
+			 var htmls = template("channel_finance", {list:re.son,data:re.sons});
+		     $(".channel_finance").html(htmls);
+		   }*/
+		   //财务
+		   if(re.son[0].id != "{$data.finance_id}"){
+		   var html = template("channel_finance", {list:re.son,data:re.sons});
+		   $(".channel_finance").html(html);
+		   }
+		   if(re.sonp[0].ps == 1){
+		     var html = template("channel_rank", {list:re.sonp,data:re.sonsp});
+		     $(".channel_rank").html(html);
+			 var htmls = template("channel_finance", {list:re.son,data:re.sons});
+		     $(".channel_finance").html(htmls);
+		   }
+		   }else if(re.son[0].sun == 3){
+		   $(".channel_rank").html("");
+		   $(".channel_finance").html("");
+		   //alert(335);
+		   
+		   }
+		 })
+	  });
+	        $(function () {
+          $('.btn.btn-flat').click(function () {
+              var $Val=$('.input3').find('option:selected').val();
+              var $input=$('.input0').val() && $('.input1').val() && $('.input2').val() && $('.input3').find('option:selected').val() &&
+                  $('.input4').find('option:selected').val() && $('.input5').find('option:selected').val() && $('.input11').find('option:selected').val() && $('.input12').val();
+              if ($Val==1 || $Val==2 || $Val==3 || $Val==4 || $Val==5 || $Val==6 || $Val==7 || $Val==8 || $Val==9 || $Val==16 ) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() !='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }else if ($Val==10 || $Val==11 || $Val==12 || $Val==13 || $Val==14 ||$Val==9) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() && $('.input6').find('option:selected').val()!='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }else if ($Val==15) {
+                  if ($input!='') {
+                      if ($('.input11').find('option:selected').val()  && $('.input12').val() && $('.input6').find('option:selected').val() && $('.input7').find('option:selected').val() &&
+                          $('.input8').val() && $('.input9').val()!='') {
+                          alert('录入成功！');
+                      }
+                  }
+              }
+//              $('.requires').val('');
+
+//              if ($('.input4').find('option:selected').val() && $('.input5').find('option:selected').val() !=='') {
+//                  alert(1)
+//              }
+//              if ( $('.input0').val() && $('.input1').val() && $('.input2').val() && $('.input3').find('option:selected').val() && $('.input4').find('option:selected').val() && $('.input5').find('option:selected').val() &&$('.input6').find('option:selected').val() && $('.input7').find('option:selected').val() && $('.input8').val() && $('.input9').val()!=='') {
+//                  alert('录入成功！')
+//              }
+          })
+
+//                $('.requires').val('');
+      });
+
+     $(function () {
+         !function(a){Zoomify=function(b,c){
+             var d=this;this._zooming=!1,
+                 this._zoomed=!1,
+                 this._timeout=null,
+                 this.$shadow=null,
+                 this.$image=a(b).addClass("zoomify"),
+                 this.options=a.extend({},Zoomify.DEFAULTS,
+                     this.$image.data(),c),
+                 this.$image.on("click",function(){
+                     d.zoom()}),
+                 a(window).on("resize",function(){d.reposition()}),a(document).on("scroll",function(){d.reposition()})},Zoomify.DEFAULTS={duration:200,easing:"linear",scale:.9},Zoomify.prototype.transition=function(a,b){a.css({"-webkit-transition":b,"-moz-transition":b,"-ms-transition":b,"-o-transition":b,transition:b})},Zoomify.prototype.addTransition=function(a){this.transition(a,"all "+this.options.duration+"ms "+this.options.easing)},Zoomify.prototype.removeTransition=function(b,c){var d=this;clearTimeout(this._timeout),this._timeout=setTimeout(function(){d.transition(b,""),a.isFunction(c)&&c.call(d)},this.options.duration)},Zoomify.prototype.transform=function(a){this.$image.css({"-webkit-transform":a,"-moz-transform":a,"-ms-transform":a,"-o-transform":a,transform:a})},Zoomify.prototype.transformScaleAndTranslate=function(a,b,c,d){this.addTransition(this.$image),this.transform("scale("+a+") translate("+b+"px, "+c+"px)"),this.removeTransition(this.$image,d)},Zoomify.prototype.zoom=function(){this._zooming||(this._zoomed?this.zoomOut():this.zoomIn())},Zoomify.prototype.zoomIn=function(){var b=this,c=this.$image.css("transform");this.transition(this.$image,"none"),this.transform("none");var d=this.$image.offset(),e=this.$image.outerWidth(),f=this.$image.outerHeight(),g=this.$image[0].naturalWidth||+(1/0),h=this.$image[0].naturalHeight||+(1/0),i=a(window).width(),j=a(window).height(),k=Math.min(g,i*this.options.scale)/e,l=Math.min(h,j*this.options.scale)/f,m=Math.min(k,l),n=(-d.left+(i-e)/2)/m,o=(-d.top+(j-f)/2+a(document).scrollTop())/m;this.transform(c),this._zooming=!0,this.$image.addClass("zoomed").trigger("zoom-in.zoomify"),setTimeout(function(){b.addShadow(),b.transformScaleAndTranslate(m,n,o,function(){b._zooming=!1,b.$image.trigger("zoom-in-complete.zoomify")}),b._zoomed=!0})},Zoomify.prototype.zoomOut=function(){var a=this;this._zooming=!0,this.$image.trigger("zoom-out.zoomify"),this.transformScaleAndTranslate(1,0,0,function(){a._zooming=!1,a.$image.removeClass("zoomed").trigger("zoom-out-complete.zoomify")}),this.removeShadow(),this._zoomed=!1},Zoomify.prototype.reposition=function(){this._zoomed&&(this.transition(this.$image,"none"),this.zoomIn())},Zoomify.prototype.addShadow=function(){var b=this;this._zoomed||(b.$shadow&&b.$shadow.remove(),this.$shadow=a('<div class="zoomify-shadow"></div>'),a("body").append(this.$shadow),this.addTransition(this.$shadow),this.$shadow.on("click",function(){b.zoomOut()}),setTimeout(function(){b.$shadow.addClass("zoomed")},10))},Zoomify.prototype.removeShadow=function(){var a=this;this.$shadow&&(this.addTransition(this.$shadow),this.$shadow.removeClass("zoomed"),this.$image.one("zoom-out-complete.zoomify",function(){a.$shadow&&a.$shadow.remove(),a.$shadow=null}))},a.fn.zoomify=function(b){return this.each(function(){var c=a(this),d=c.data("zoomify");d||c.data("zoomify",d=new Zoomify(this,"object"==typeof b&&b)),"string"==typeof b&&["zoom","zoomIn","zoomOut","reposition"].indexOf(b)>=0&&d[b]()})}}(jQuery);
+
+          var a=true;
+         $('#imgsWrap').hover(function () {
+             $(this).find('img').zoomify().css({
+                 'position':'absolute',
+                 'zIndex': 1
+             });
+             $('.close-icon').css({
+                 'position':'absolute',
+                 'zIndex': 2
+             });
+             $(this).find('img').click(function () {
+                 if (a) {
+                     $('.box-wrap').css({
+                         'background':'rgba(0,0,0,0.4)',
+                     });
+                     $('.form-control').css({
+                         'background':'rgba(0,0,0,0)',
+                         'borderColor':'#898c94'
+                     });
+                     $('.recording').css('borderRight','#898c94');
+                     $('.nav-tabs>li.active>a').css({
+                         'background':'rgba(0,0,0,0)',
+                         'borderColor':'#898c94'
+                     });
+                     a=false;
+                 }else {
+                     $('.box-wrap').css({
+                         'background':'rgba(250,250,250,250.1)'
+                     });
+                     $('.form-control').css({
+                         'background':'rgba(250,250,250,250.1)',
+                         'borderColor':'#d2d6de'
+                     });
+                     $('.recording').css('borderRight','#dcdcdc');
+                     $('.nav-tabs>li.active>a').css({
+                         'background':'rgba(250,250,250,250.1)',
+                         'borderColor':'#ddd'
+                     });
+                 }
+             });
+         })
+     })
+    </script>
+
+  </body>
+</html>

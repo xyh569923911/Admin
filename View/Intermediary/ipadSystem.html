@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>签约系统</title>
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <script src="http://47.92.119.237:8888//js/jquery.min.js"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    .img {
+        width: 1280px;
+        height: 800px;
+        background-size: 1280px 800px;
+        font-size: 30px;
+        position: relative;
+        overflow: hidden;
+        background: url("http://47.92.119.237:8888//img/bgcolor.jpg") no-repeat;
+    }
+    a {
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+    }
+    a {
+        color: #fff;
+        width: 400px;
+        display: inline-block;
+    }
+    .top {
+        width: 1280px;
+        height: 75px;
+        line-height: 75px;
+        background: rgba(0,0,0,0.6);
+        padding-left: 20px;
+    }
+    .left {
+        text-align: left;
+        float: left;
+    }
+    .left img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        width: 22px;
+    }
+    .guan {
+        color: #fff;
+        width: 300px;
+        position: absolute;
+        left: 50%;
+        margin-left: -150px;
+        text-align: center;
+    }
+    .content {
+        width: 809px;
+        margin: 170px auto;
+    }
+    .one,.two {
+        position: relative;
+        text-align: center;
+    }
+    .two {
+        right: 800px;
+    }
+    .one {
+        left: 800px;
+    }
+</style>
+<body>
+<div class="img">
+    <div class="top">
+        <div class="left">
+            <a href="http://47.92.119.237:8888/" id="back"><img src="http://47.92.119.237:8888//img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">居间产品</span>
+    </div>
+    <div class="content">
+        <!-- <if condition="in_array('8',$_SESSION['sp_level'])"> -->
+            <a href="/Admin/Intermediary/application_m" class="two"><img src="http://47.92.119.237:8888//img/shenqing.png" alt=""></a>
+        <!-- <else/> -->
+           <!--  <a href="javascript:void(0)" class="sp" class="two"><img src="http://47.92.119.237:8888//img/shenqing.png" alt=""></a> -->
+        <!-- </if> -->
+        <!-- <if condition="in_array('9',$_SESSION['sp_level'])"> -->
+            <a href="/Admin/Intermediary/index?t=2" class="one"><img src="http://47.92.119.237:8888//img/guanli.png" alt=""></a>
+        <!-- <else/> -->
+            <!-- <a href="javascript:void(0)" class="sp" class="one"><img src="http://47.92.119.237:8888//img/guanli.png" alt=""></a> -->
+        <!-- </if> -->
+
+    </div>
+</div>
+<script>
+    $(window).load(function () {
+        $('.two').animate({
+            'right':0
+        },1200);
+        $('.one').animate({
+            'left':0
+        },1200);
+    });
+    $(".sp").click(function(){
+        alert("暂无权限进去改栏目");
+    });
+</script>
+</body>
+</html>

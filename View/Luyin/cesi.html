@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name= "format-detection" content="telephone = no" />
+	<title>大象金服客户管理系统</title>
+	<meta name="keywords" content="大象金服客户管理系统" />
+	<meta name="description" content="大象金服客户管理系统" />
+	<include file="common:css" />
+  <style>
+     button{background-color: #81a9c3; padding: 10px 10px;text-align: center;margin-top: 30%;margin-left: 30%}
+	.top{height: 60%}
+</style>
+</head>
+<body>
+
+<div class="top"><button class="btn btn-danger btn-sm" onclick="luyin()" >录音1</button><br/>
+<button class="btn btn-danger btn-sm" onclick="luyins()" >停止录音</button></div>
+<script type="text/javascript">
+    
+	function luyin(){
+		var audioRecorder = api.require('audioRecorder');
+		audioRecorder.startRecord({
+		savePath:'fs://test1.3gp',
+		format:'3gp'
+		}, function(ret, err){
+		
+		});
+		
+	}
+	  
+	  	var phoneListener = api.require('phoneListener');
+phoneListener.headphonePluggedListener({
+        enable : true
+    },
+    function(ret) {
+     alert(JSON.stringify(ret));
+});
+	  
+	  function luyins(){
+	  var audioRecorder = api.require('audioRecorder');
+		audioRecorder.stopRecord(function(ret){
+		});
+		
+	  api.ajax({
+		url: 'http://crm.szdxjf.com/Admin/Luyin/index',
+		method: 'post',
+		timeout: 90,
+		data:{
+			files:{file:"fs://test1.3gp"}
+		}
+	},function(ret,err){
+	 if(ret.a){
+	    alert('录音成功');
+	  }else{
+	    alert('录音失败');
+	  }
+	});	
+	}  
+</script>
+</body>
+</html>

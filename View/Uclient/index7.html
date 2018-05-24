@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>后台管理</title>
+	<include file="common:css" />
+</head>
+<style type="text/css">
+	.submit_form {position: absolute;z-index:1;width: 100%;}
+	#example1_filter .so {width: 80px;height: 30px;background: #1485BD;color: #fff;display: block;float: right;text-align: center;line-height: 30px;margin-left: 20px;border-radius: 3px;overflow:hidden;}
+	#example1_filter .so:hover {background:#1F76A0;}
+	.addall{background:#dd4b39;padding:7px 15px;color:#fff;font-size:13px;float:right}
+	.addall:hover{color:#fff;background:#d42020}
+	.nav-tabs a{margin-right:3px}
+	.posF {display: none;height: 100%;left: 0; position: fixed; top: 0;width: 100%; z-index: 99999;}
+	.posF .bg { background: #000 none repeat scroll 0 0; height: 100%; left: 0;opacity: 0.35; position: absolute;top: 0; width: 100%;z-index: -1;}
+	.posF .box500 {background: #fff none repeat scroll 0 0; border-radius: 6px;margin: 12% auto 0;width: 500px;}
+	.posF .box500 .hd { border-bottom: 2px solid #dfdfdf; position: relative;}
+	.posF .box500 .hd p {color: #535353; font-size: 20px;line-height: 50px; margin: 0; text-indent: 2em;}
+	.posF .box500 .hd .off {background: rgba(0, 0, 0, 0) url("/Public/home/images/pop-close.png") no-repeat; cursor: pointer; display: block; height: 33px; margin-top: -10.5px; position: absolute; right: 0px; top: 50%;width: 35px;}
+	.posF .bd { padding: 30px;}
+	.posF .rope { margin: 0 25px 10px;padding: 0;text-align: center;}
+	.posF .rope span {color: #535353;display: inline-block; }
+	.posF .rope select {border: 1px solid #e5e5e5;color: #333;height: 36px;outline: medium none;width: 310px;}
+	.posF .rope input {border: 1px solid #e5e5e5; color: #333;height: 34px;line-height: 34px;outline: medium none;padding: 0 7px; width: 296px;}
+	.posF .rope button.off {background-color: #b5b5b5;color: #fff; margin-left: 0;}
+	.posF .rope .submit {background: #f10215 none repeat scroll 0 0;color: #fff;}
+	.posF .rope a {border: 0 none; border-radius: 4px;cursor: pointer;display: inline-block;font-family: "Microsoft Yahei";font-size: 14px;height: 36px;line-height: 36px;margin-left: 23px;outline: medium none; padding: 0 15px;width: 105px;}
+	.show1{display: block;}
+	
+	#example1_wrapper .row {position: relative;}
+	#example1_wrapper .row .col-sm-6:nth-child(1) {position: absolute;right: 0px;}
+	#example1_wrapper .row .col-sm-6:nth-child(2) {float:right;}
+	#example1_length {position: absolute;right: -14px;top: -46px;}
+	#example1_wrapper, .box-body {position: relative;}
+	#example1_length label{display:none}
+	#example1_paginate{display:none}
+	.page {text-align: right;padding: 10px 0;  width: 100%; margin: 0 auto;}
+	.page a {display: inline-block;padding: 5px 15px;color:#333;font-size:15px; border-radius: 4px;border: 1px solid #ccc;margin-left: 5px;}
+	.page a:hover,.page .on {background: #00a3ff;color:#fff}
+	.page div{display:inline;}
+	.remark {position: relative;cursor: pointer;}
+	.remark .text{width: 160px;display: block;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+	.remark .hover {display: none;position: absolute;right:30px;top:55px;z-index: 5;width: 400px;min-height: 80px;padding: 15px;border:1px solid #ccc;background:#fff;box-sizing:border-box;border-radius:10px;}
+	.remark:hover .hover {display: block;}
+	.remark .hover:after {content: "";display: block;width: 14px;height: 14px;border-left:1px solid #ccc;border-top:1px solid #ccc;background:#fff;position: absolute;top: -7px;right: 40px;z-index: -5;transform: rotate(45deg);}
+    table.dataTable thead > tr > th {    padding-right: 0px!important;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px 0!important;
+    }
+    th {  text-align: center!important;  }
+    table.table-bordered th:last-child, table.table-bordered td:last-child {text-align: center!important;}
+	#foonav {display: none!important;}
+	.submit_lx {float: right;}
+	#khlx {height: 30px;}
+	#gjzt {height: 30px;}
+	button, input, select, textarea {height: 30px;}
+
+	#example1_wrapper .row .col-sm-6:nth-child(2){float: none;opacity: 0}
+</style>
+ <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+    <!-- 头部 -->
+      <include file="common:head" />
+      <!-- 头部结束 -->
+      <!-- 左侧 -->
+      <include file="common:side" />
+      <!-- 左侧结束 -->
+
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <div class="box-header">
+                  <h3 class="box-title">未成交客户列表</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">未成交客户员列表</a></li>
+					<!--<form action="/Admin/Uclient/index" method="GET" class="submit_formss">
+					    <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;margin-left:38px">
+	                       	<label>
+		                         总搜索：<input type="text" name="sou" value="<?php echo $_GET['sou']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+		                        <a href="javascript:;" onclick="tjs()" class="so">确定</a>
+	                       	</label>
+	                     </div>
+					</form>-->
+
+                  </ul>
+                  <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="home">
+                     <div class="box-body">
+
+
+
+						 <form action="/Admin/Uclient/index" method="GET" class="submit_form">
+							 <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;">
+								 <label id="sjss">
+									 日期<input type="text" onClick="WdatePicker()" name="stime" value="<?php echo $_GET['stime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+									 至<input type="text" onClick="WdatePicker()" name="endtime" value="<?php echo $_GET['endtime']?>" class="form-control input-sm" placeholder="" aria-controls="example1" autocomplete="off">
+
+									 <div id="example1_filter" style="text-align:left;display:inline-block;margin-left:38px">
+										 筛选：<select id="khlx" name="khlx"><option disabled="disabled" selected>客户类型</option></select>
+										 <select id="gjzt" name="gjzt"><option disabled="disabled" selected>跟进状态</option></select>
+									 </div>
+
+									 <div id="example1_filter" style="text-align:left;display:inline-block;margin-left:38px">
+										 部门：<select id="branch" name="branch"><option disabled="disabled" selected>选择分部</option>
+										 <option value="1">丽湾分部</option>
+										 <option value="11">朗苑金融门店部</option>
+										 <option value="10">诚和金融门店部</option>
+									 </select>
+									 </div>
+
+									 <div id="example1_filter" class="dataTables_filter" style="text-align:left;display:inline-block;margin-left:38px">
+										 <label>
+											 总搜索：<input type="text" name="sou" value="<?php echo $_GET['sou']?>" class="form-control input-sm" placeholder="姓名/手机/业务员" aria-controls="example1" autocomplete="off">
+										 </label>
+									 </div>
+
+									 <a href="javascript:void(0)" onclick="tj()" id="zj" class="so">确定</a>
+								 </label>
+							 </div>
+						 </form>
+					 </div>
+
+	                       <script>
+								function tj(){
+								  $(".submit_form").submit();
+								} 
+								function tjs(){
+								  $(".submit_formss").submit();
+								}
+                                function lxtj(){
+                                    $(".submit_lx").submit();
+                                }
+						   </script>
+                     <form action="/Admin/Uclient/del" method="post" class="submit_forms" >
+                        <table id="example1" class="table table-bordered table-hover">
+                          	<thead>
+	                           <tr>
+	                           	<th width="5%">ID</th>
+	                           	<th width="5%">姓名</th>
+										  	<!-- <th width="4%">姓别</th> -->
+										  	<th width="5%">手机</th>
+										  	<!--<th width="8%">联系时间</th>-->
+								   			<th width="8%">联系时间<br><a href="javascript:void(0)" id="sx">升序</a>&nbsp降序</th>
+			                                <th width="8%">客户类型</th>
+										  	<th width="6%">跟进状态</th>
+										  	<th width="5%">跟进业务员</th>
+										  	<th width="5%">渠道部</th>
+										  	<th width="8%">备注</th>
+											<th width="6%">推广来源</th>
+											<th width="3%">来源</th>
+	                              <th width="6%">操作</th>
+	                           </tr>
+                          	</thead>
+                         	<tbody>
+                           <foreach name="ch_data" item="value">
+                           <tr>
+                              <th>
+
+										  <input  type="checkbox" name="id[]" value="{$value.id}">
+
+										  &nbsp;&nbsp;{$value.id}
+										</th>
+                             	<!--  <th>{$value.title}</th> -->
+                              <th>{$value.username}</th>
+										<!-- <th><if condition="$value.sex eq 0">男<else/>女</if></th> -->
+										<!--<th>{$value.phone}</th>-->
+							   <th><a href="yhhl://call/num={$value.phone}&" class="cph">{$value.phone|substr=0,3}*****{$value.phone|substr=8,11}</a></th>
+
+							   <th>{$value.lxtime|date='Y-m-d H:i',###}</th>
+							  			<if condition="$value['type_id']['name'] eq ''">
+                              	<th class="label"  style="background:#777;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;">无</th>
+							  			<else/>
+							  				<th class="label"  style="background:{$value.type_id.color};padding: 5px 5px;margin-top: 10px;display: block;width: 80%;margin: 0 auto">{$value.type_id.name}</th>
+							  			</if>
+									  	<if condition="$value['state_id']['color'] eq ''">
+									  		<th style="background:#777;color:#fff">未联系</th>
+									  	<else/>
+											<th style="background:{$value.state_id.color};color:#fff" class="met{$value.id}">
+												<if condition="$value.rank_state eq 1">
+													{$value.state_id.name}
+													(审核不通过,请重新提交)
+												<elseif condition="$value.met eq 1"/>
+													约见
+												<else/>
+													{$value.state_id.name}
+												</if>
+											</th>
+										</if>
+										<th class="middle_username{$value.id}">{$value.admin_id}</th>
+										<th>
+											{$value.rank_admin_user}
+										</th> 
+										<th class="remark">
+											<div class="text">{$value.content}</div>
+											<notempty name="value.content">
+											<div class="hover">
+                                             {$value.content}
+											</div>
+											</notempty>
+										</th> 
+										<th class="remark">
+											<div  class="text"  style="width: 60px;">{$value.promotion}</div>
+											<notempty name="value.promotion">
+											<div class="hover">
+                                             {$value.promotion}
+											</div>
+											</notempty>
+										</th> 
+										<!-- <th>{$value.promotion}</th> -->
+										<if condition="$value.allot eq 0">
+										<th class="label" style="<?php if($value['sources']){?>background:#04c<?php }else{?>background:#336600<?php }?>;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;margin: 10px auto;" >
+										<if condition="$value.sources neq ''">
+										    {$value.sources}
+										<elseif condition="$value.source neq ''"/>
+											{$value.source}
+										<else/>	
+										    录入
+										</if>
+										</th> 
+										<else/>
+										<th class="label" style="<?php if($value['sources']){?>background:#04c<?php }else if($value['source']){?>background:#336600<?php }else{?>background:red<?php }?>;padding: 5px 5px;margin-top: 10px;display: block;width: 50%;" >
+											<if condition="$value.sources neq ''">
+										    {$value.sources}
+											<elseif condition="$value.source neq ''"/>
+												{$value.source}
+											<else/>	
+												推广
+											</if>
+										</th> 
+										</if>
+										
+                              <td> 
+											<!-- <a href="viewindex/id/{$value.id}" style="background-color:#00c0ef" class="btn btn-primary btn-sm">预览</a> -->
+											<if condition="in_array('12',$_SESSION['level'])">
+												<if condition="$value.state eq 1">
+													<if condition="$value.sign_state eq 0">
+														<notempty name="kuns.bus_name">
+															<if condition="(in_array($value['state_id']['id'],$kuns['bus'])) AND ($value['met'] eq 1)">
+																<span class="mets{$value.id}">
+																<a href="javascript:;"  style="background:#CCC;color:#FFF" class="btn btn-sm">待审核</a></span>
+															<else/>
+																<!-- <a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm">编辑</a> -->
+																<?php if($value['admin_id'] == $_SESSION['aname'] || $value['rank_admin_id'] == 0 || $_SESSION['aid'] == $value['rank_admin_id']){?>
+																<a href="/Admin/Uclient/addindex/id/<?php echo $value['id'];?>" class="btn btn-primary btn-sm"><!-- 编辑 --><i class="fa fa-edit" style="font-size:16px;"></i></a>
+																<?php }?>
+															</if>
+															<else/>
+															<if condition="$value.met eq 0">
+																<a href="/Admin/Uclient/addindex/id/{$value.id}" class="btn btn-primary btn-sm"><!-- 编辑 --><i class="fa fa-edit" style="font-size:16px;"></i></a>
+															<else/>
+																<if condition="in_array('16',$_SESSION['level'])">
+																<span class="mets{$value.id}">
+																<a href="javascript:;" onClick="met(this,{$value.id})" style="background:#3c763d;color:#fff" class="btn btn-sm">待审核</a></span>
+															</if>
+															</if>
+														</notempty>
+													</if>
+												</if>
+											</if>
+											<if condition="$value.sign_state eq 1">
+												<if condition="in_array('16',$_SESSION['level'])">
+													<a href="javascript:;" style="background:#3c763d" onClick="Sign(this,{$value.id},'{$value.rank_admin_username}')" class="btn btn-primary btn-sm checkdel{$value.id}">待审核</a>
+												<else/>
+													<a href="javascript:;" style="background:#777" onClick="Signed('等待经理审核！')" class="btn btn-primary btn-sm ">待审核</a>
+												</if>
+											</if>
+											<if condition="in_array('14',$_SESSION['level'])">  
+												<a class="btn btn-danger btn-sm" onclick="delById(this, {$value.id}, 'Uclient')"><!-- 删除 --><i class="fa fa-trash" style="font-size:16px;"></i></a>
+											</if>
+											<if condition="in_array('16',$_SESSION['level'])">  
+												<if condition="$value.state eq 0">
+													<a href="javascript:;" style="background:#3c763d" onClick="check(this,{$value.id},'{$value.middle_admin_username}')" class="btn btn-primary btn-sm checkdel{$value.id}">待审核</a>
+												</if>
+											</if>
+                              </td>
+                            </tr>
+                            </foreach>
+
+                          </tbody>
+						  
+                        </table>
+						 <span>共计{$count}条</span>
+						</form>
+						<if condition="in_array('1001',$_SESSION['level'])">
+							<form action="/Admin/Uclient/fenpei" method="post" class="fpform">
+								<input type="button" value="全选" name="t" id="xz">
+								<b>选中批量分配：</b>
+								<select name="fb" class="bumen sea" onchange="fp(this.value)">
+									<option value=0 disabled selected>请选择</option>
+									<option value=7>丽湾分部总监</option>
+									<option value=8>丽湾分部</option>
+									<option value=16>朗苑金融门店部总监</option>
+									<option value=17>朗苑金融门店部</option>
+									<option value=18>诚和金融门店部总监</option>
+									<option value=19>诚和金融门店部</option>
+								</select>
+
+								<select class="members sea" name="members">
+									<option value=0>请选择</option>
+								</select>
+								<input type="hidden" value="" name="ids" class="idss">
+								<input type="button" onclick="ucid()" style="border-radius:10px;" value="确定" class="btn btn-primary btn-flat">
+							</form>
+							<elseif condition="in_array('1002',$_SESSION['level'])" />
+							<form action="/Admin/Uclient/fenpei" method="post" class="fpform">
+								<input type="button" value="全选" name="t" id="xz">
+								<b>选中批量分配：</b>
+								<select name="fb" class="bumen" onchange="fp(this.value)">
+									<if condition="$_SESSION['rank_name']==丽湾分部总监">
+										<option value=7 selected>丽湾分部总监</option>
+										<option value=8 >丽湾分部</option>
+
+										<elseif condition="$_SESSION['rank_name']==朗苑金融门店部总监" />
+										<option value=16 selected>朗苑金融门店部总监</option>
+										<option value=17 >朗苑金融门店部</option>
+										<elseif condition="$_SESSION['rank_name']==诚和金融门店部总监" />
+										<option value=18 selected>诚和金融门店部总监</option>
+										<option value=19 >诚和金融门店部</option>
+										<else />
+										<option value=0 disabled selected>请选择</option>
+										<option value=7>丽湾分部总监</option>
+										<option value=8>丽湾分部</option>
+										<option value=16>朗苑金融门店部总监</option>
+										<option value=17>朗苑金融门店部</option>
+										<option value=18>诚和金融门店部总监</option>
+										<option value=19>诚和金融门店部</option>
+									</if>
+								</select>
+
+
+								<select class="members" name="members">
+									<option value=0>请选择</option>
+								</select>
+								<input type="hidden" value="" name="ids" class="idss">
+								<input type="button" onclick="ucid()" style="border-radius:10px;" value="确定" class="btn btn-primary btn-flat">
+							</form>
+						</if>
+
+						<if condition="in_array('14',$_SESSION['level'])">  
+						<a onClick="del()" style="background:#dd4b39;float:left;margin-top:20px;" class="addall" href="javascript:;">选中删除</a>
+						</if>
+
+						<div class="page">{$show}</div>
+
+
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+	
+  <div class="posF" id="express" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >更换跟进人审核</p>
+        <span class="off posA" onclick="check_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">客户跟进业务员更换成<em class="middle_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+			<input type="hidden" name="send_id" class="send_id" id="send_id" value="">
+			<input type="hidden" name="send_id" class="send_username" value="">
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="oncheck('1')" style="background:#00a651" class="submit">通过</a><a onclick="oncheck('2')" class="submit">不通过</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <div class="posF" id="Sign" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >交接渠道部审核</p>
+        <span class="off posA" onclick="Sign_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">客户已签约，业务员交接给渠道部<em class="rank_admin_username" style="color:#04c"></em>!是否通过？<em></em></span>
+			<input type="hidden" name="send_id" class="rank_id" value="">
+			<input type="hidden" name="send_id" class="rank_username" value="">
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="onSign('1')" style="background:#00a651" class="submit">通过</a><a onclick="onSign('2')" class="submit">不通过</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <div class="posF" id="met" >
+    <div class="bg"></div>
+    <div class="box500">
+      <div class="hd posR"> 
+        <p >提示</p>
+        <span class="off posA" onclick="met_off(this)">&nbsp;</span>
+      </div>
+      <div class="bd">     
+          <div class="rope">
+            <span style="color:red">待经理确定！</span>
+			<input type="hidden" name="met_id" class="met_id" id="met_id" value="">			
+          </div>   
+          <div class="rope" style="margin-top:25px"> 
+            <a onclick="onmet()" style="background:#00a651" class="submit">确定</a>
+          </div>  
+      </div>
+    </div>
+  </div>
+  
+    <include file="common:js" />
+   
+    <script>
+        $(function(){
+            $.post('/Admin/Uclient/addztlx',{},function(data){
+
+                for (var j = 1 ; j<17;j++){
+                    $("#gjzt").append("<option value='"+j+"'>"+data[0][j]+"</option>");
+                }
+                for (var i = 1 ; i <15;i++){
+                    $("#khlx").append("<option value='"+i+"'>"+data[1][i]+"</option>");
+                }
+            });
+
+            $.post('/Admin/Uclient/htmd',{b:1},function(data){
+                for(var s = 0;s<data.length;s++){
+                    $("#hengtong").append("<option>"+data[s]['username']+"</option>");
+                }
+                // $("#hengtong").append("<option value=''>ass</option>");
+            });
+
+        });
+        //排序
+        $("#sx").click(function(){
+            // $('#footpage').remove();
+            // $('html').load('indexpx.html');page
+            $.post('/Admin/Uclient/px',{qaz:'s'},function(data){
+
+                $("#cxbox").html(data);
+                window.location.href="/Uclient/px/p/1.html";
+            });
+        });
+
+//通话接口读取当前业务员信息
+        $(".cph").click(function(){
+            // phone=$(this).attr('name');
+            ids=$(this).closest('tr').children(":first").text();
+            id=$.trim(ids);
+            $.post("/Admin/Uclient/calls",{id:id},function(data){
+
+            })
+        });
+	//约见审核
+	function met(_this,id){
+	  $(".met_id").attr('value',id);
+	  $("#met").addClass('show1');
+	}
+	
+	function met_off(){
+	  $("#met").removeClass("show1");
+	}
+	
+	function onmet(){
+	  var id = $(".met_id").val();
+	  $.get('/Admin/Uclient/getmet', {id:id}, function (data){
+	     if(data == 1){
+		   alert('确定成功');
+		   $(".met"+id).html("已约见");
+		   $(".mets"+id).html('<a href="addindex/id/{$value.id}" class="btn btn-primary btn-sm">编辑</a>');
+		   $("#met").removeClass("show1");
+		 }else{
+		  alert('审核不通过');
+		  window.location.reload();
+		 }
+	  })
+	}
+	
+	//提示
+	function Signed(val){
+	 alert(val);
+	}
+	
+	function onSign(sun){
+	  var id = $(".rank_id").val();
+	  var username = $(".rank_username").val();
+	 // alert(sun);return false;
+	  $.get('/Admin/Uclient/getrank', {sun:sun,id:id}, function (data){
+	     if(data == 1){
+		   alert('审核通过');
+		   $(".middle_username"+id).html(username);
+		   $(".checkdel"+id).remove();
+		   $("#Sign").removeClass("show1");
+		 }else{
+		  alert('审核不通过');
+		  window.location.reload();
+		 }
+	  })
+	}
+	
+	function Sign_off(_this){
+       $("#Sign").removeClass("show1");
+    }
+	
+	function Sign(_this,id,username){
+	   $(".rank_admin_username").html('['+username+']');
+	   $(".rank_id").attr('value',id);
+	   $(".rank_username").attr('value',username);
+	   $("#Sign").addClass('show1');
+	}
+	
+	//批量删除
+	function del(){
+	     var d = $("input[type='checkbox']").is(':checked');
+		 if(!d){
+		  alert('请选择删除数据！');return false;
+		 }
+		// return false;
+	    $(".submit_forms").addClass("submit_orms");
+	    var gnl=confirm("确定删除吗?");
+		if (gnl!=true){
+		return false;
+		};
+		$(".submit_orms").submit();
+	}
+	
+	function check(_this,id,username){
+	   $(".middle_admin_username").html('['+username+']');
+	   $(".send_id").attr('value',id);
+	   $(".send_username").attr('value',username);
+	   $("#express").addClass('show1');
+	}
+	
+	function oncheck(sun){
+	  var id = $(".send_id").val();
+	  var username = $(".send_username").val();
+	  $.get('/Admin/Uclient/getcheck', {sun:sun,id:id}, function (data){
+	     if(data == 1){
+		   alert('审核通过');
+		  
+		   $(".middle_username"+id).html(username);
+		   $(".checkdel"+id).remove();
+		   $("#express").removeClass("show1");
+		 }
+	  })
+	}
+	
+	function check_off(_this){
+       $("#express").removeClass("show1");
+    }
+
+        //获取批量id
+        function ucid(){
+            var chk_value =[];
+            $("input[type='checkbox']:checked").each(function(){
+                chk_value.push($(this).val());
+            });
+            $(".idss").val(chk_value);
+            if($(".idss").val() && $(".bumen").val()){
+                $(".fpform").submit();
+            }else{
+                alert("请选择数据！");
+            }
+        }
+
+
+        //分配客户
+        function fp(rid){
+            $.post("/Admin/Supply/memberss",{rid,rid},function(data){
+                $(".members").empty();
+                for(i=0;i<data.length;i++){
+                    $(".members").append("<option value="+data[i]['id']+">"+data[i]['username']+"</option>");
+                }
+            })
+
+        }
+
+        $(function(){
+            rid=$(".bumen").val();
+            fp(rid);
+
+        })
+
+        //全选按钮
+        $("#xz").click(function(){
+            if($(this).attr("name")=="t"){
+                $("input[type='checkbox']").prop("checked",true);
+                $(this).attr("name",'f');
+                $(this).val("反选");
+            }else{
+                $("input[type='checkbox']").attr("checked",false);
+                $(this).attr("name",'t');
+                $(this).val("全选");
+            }
+
+        });
+	</script>  
+  </body>
+</html>

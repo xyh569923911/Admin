@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="maximum-scale=0.751,minimum-scale=0.751,user-scalable=1,width=device-width,initial-scale=0.751" />
+    <title>后台管理</title>
+    <include file="common:css" />
+    <link rel="stylesheet" href="__PUBLIC__/admin/money/information.css">
+    <style>
+        body {
+            height: 800px;
+            width: 1920px;
+        }
+        .box {
+            background: #f8f8f8;
+            height: 800px;
+            width: 1920px;
+        }
+        .content-wrapper, .right-side, .main-footer {
+            margin-left: 0;
+        }
+
+        /*修改*/
+        body {
+            height: 800px;
+            width: 1280px;
+            font-size: 18px;
+            background: #f8f8f8;
+        }
+        .top {
+            width: 1280px;
+            height: 75px;
+            line-height: 75px;
+            background: rgba(0,0,0,0.6);
+            padding-left: 20px;
+            position: relative;
+        }
+        .left {
+            text-align: left;
+            float: left;
+        }
+        .left img {
+            position: relative;
+            top: -2px;
+            margin-right: 5px;
+            width: 22px;
+        }
+        .guan {
+            color: #fff;
+            font-size: 30px;
+            display: inline-block;
+            width: 300px;
+            position: absolute;
+            left: 50%;
+            margin-left: -150px;
+            text-align: center;
+        }
+        .left a{
+            width: 90px;
+            display: inline-block;
+            color: #fff;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            font-size: 30px;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            /*overflow: hidden;*/
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            margin-bottom:0;
+            background: #f8f8f8;
+            height: auto;
+        }
+        .information .choose {
+            left: 170px;
+        }
+        .content-wrapper,.row {
+            width: 1280px;
+            background: #f8f8f8;
+            /*overflow: hidden;*/
+        }
+        .box {
+            border-top: none;
+            box-shadow: none;
+            background: #f8f8f8;
+            height: 700px;
+        }
+        .information .choose {
+            left: 202px;
+            bottom: 33px;
+        }
+        .property {
+            font-size: 18px;
+        }
+        .borders {
+            border: 1px solid #969393;
+        }
+        .box-title {
+            margin-left: 170px;
+            font-size: 25px;
+            margin-top: 20px;
+        }
+        .information {
+            margin-left: 170px;
+        }
+        .information .choose {
+            left: 220px;
+            bottom: 29px;
+            width: 134px;
+            height: 39px;
+        }
+        .btn1{
+        border: 1px solid #ccc;
+        background: #00A2D4;
+        color: #fff;
+        width: 110px;
+        }
+        .preview{
+            position:relative;
+            top:-60px;
+            left: 290px;
+        }
+        .row,.col-md-12 {
+            overflow: hidden;
+        }
+        #path1, #path2, #path3, #path4, #path5, #path6, #path7, #path8, #path9, #path10, #path11,#path一,#path二,#path三,#path四,#path五,#path六,
+        #path七,#path八,#path九,#path十,#path81,#path80,#path83,#path84,#path85,#path86,#path87,#path88,#path71,#path70,#path73,#path74,#path75,#path76,#path77,#path78,
+        #path91,#path90,#path93,#path94,#path95,#path96,#path97,#path98,#path61,#path60,#path63,#path64,#path65,#path62,#path66,#path67,#path68,#path50,#path51,#path53,#path54,#path55,#path52,#path56,#path57,#path58{
+            position: relative;
+        }
+        .cirlce,.cirlce1,.cirlce2,.cirlce3,.cirlce4,.cirlce5{
+            width: 30px;
+            height: 30px;
+            background: #00a2d4;
+            text-align: center;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 18px;
+            position: absolute;
+            left: 122px;
+            top: -23px;
+            cursor: pointer;
+        }
+        .append,.append1,.append2,.append3,.append4,.append5 {
+            position: relative;
+            line-height: 30px;
+            margin-bottom: -30px;
+        }
+        label {
+            position: relative;
+            top: 5px;
+        }
+        .content-wrappers {
+            margin-bottom: 50px;
+        }
+    </style>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="top">
+        <div class="left">
+            <a href="http://47.92.119.237/Admin/Monetary/ipadSystem" id="back"><img src="http://47.92.119.237:8888//img/back.png" alt="">返回</a>
+        </div>
+        <span class="guan">签约</span>
+    </div>
+    <div class="content-wrappers">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box" style="height:auto;">
+                     <h3 class="box-title"><a href="/Admin/Monetary/listCustomer/t/1">现金客户</a>><a style="cursor: pointer;" class="goback" href="http://47.92.119.237/Admin/Monetary/yewualls?id={$id}&ss={$sid}">返回流程条</a></h3>
+                        <div class="information">
+                           <h4 class="h4">签约</h4>
+                            <form action="/Admin/Apply/sign" method="post"
+                             enctype="multipart/form-data">
+
+                             <label style="display: inline;">借款合同：</label>
+                                <div class="append">
+                                    <div class="cirlce">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path1" name="loan_contract" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片一上传" onclick="path1.click()">
+                                    <a href="/Admin/Apply/preview?zd=loan_contract&id=" target="_blank"
+                                       class="btn btn1 preview" name="loan_contract">预览</a>
+                                </div>
+                            <label>借据：</label>
+                                <div class="append1">
+                                    <div class="cirlce1">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path2" name="iou" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片一上传" onclick="path2.click()">
+                                    <a href="/Admin/Apply/preview?zd=iou&id=" target="_blank" class="btn btn1 preview" name="iou">预览</a>
+                                </div>
+                            <label>收据：</label>
+                                <div class="append5">
+                                    <div class="cirlce5">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path11" name="receipt" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片一上传" onclick="path11.click()">
+                                    <a href="/Admin/Apply/preview?zd=receipt&id=" target="_blank" class="btn btn1 preview" name="receipt">预览</a>
+                                </div>
+                            <label>承诺书：</label>
+                                <div class="append2">
+                                    <div class="cirlce2">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path3" name="letter_commitment" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片一上传" onclick="path3.click()">
+                                    <a href="/Admin/Apply/preview?zd=letter_commitment&id=" target="_blank"  class="btn btn1 preview" name="letter_commitment">预览</a>
+                                </div>
+
+                            <label>通讯录：</label>
+                                <div class="append3">
+                                    <div class="cirlce3">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path4" name="mail_list" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片一上传" onclick="path4.click()">
+                                    <a href="/Admin/Apply/preview?zd=mail_list&id=" target="_blank" class="btn btn1 preview" name="mail_list">预览</a>
+                                </div>
+
+                            <label>签约现场拍照：</label>
+                                <div class="append4">
+                                    <div class="cirlce4">+</div>
+                                    <input type="file" style="top: -26px;left: 205px;" id="path5" name="sign_scene" onchange="upfile.value=this.value">
+                                    <input type="button" class="choose" style="position:relative;bottom:60px;left: 160px;" value="照片一上传" onclick="path5.click()">
+                                    <a href="/Admin/Apply/preview?zd=sign_scene&id=" target="_blank" class="btn btn1 preview" name="sign_scene" style="position:relative;top:-60px;left: 290px;">预览</a>
+                                </div>
+
+                                 <input type="hidden" value="{$data['cid']}" id="ids" name="id">
+                                 <input type="hidden" value="1" name="t">
+                                 <input type="submit" value="提&nbsp;&nbsp;交" class="tjs" style="margin-left:80px;">
+                            <a href="/Admin/Apply/over/t/1?state_id=23&id=" target="_blank" class="btn btn1 over" style="position: relative;top:-3px;background: #66cd00;color:#fff;width: 110px;margin-left:55px;font-size: 16px;">签&nbsp;&nbsp;约&nbsp;&nbsp;成&nbsp;&nbsp;功</a>
+                            </form>
+                            <input type="hidden" id="xszd" value="{$str}">
+                        </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<include file="common:js" />
+
+<script>
+    function checkform(){
+        return true;
+    }
+    var url=document.URL;
+    var ids=url.split('=');
+    $("#ids").val(ids[1]);
+
+    //完成
+    var dlc=$(".over").attr('href');
+    $(".over").attr('href',dlc+ids[1]); 
+
+    //还回流程条
+    $(".goback").click(function(){
+        window.history.back();
+        });
+
+    $(function(){
+        var str=$("#xszd").val().split(',');
+        $(".preview").each(function(){
+            if($.inArray($(this).attr('name'), str)>-1){
+                $(this).css('visibility','visible');
+            }else{
+                 $(this).css('visibility','hidden');
+            }
+            
+        });
+
+    })
+
+    $(".preview").each(function(){
+        var ss=$(this).attr('href');
+        $(this).attr('href',ss+ids[1]);
+    });
+    //添加
+        (function () {
+            var count=0;
+            var count1=0;
+            var count2=0;
+            var count3=0;
+            var count4=0;
+            var count5=0;
+            var flag=true;
+            var flag1=true;
+            var flag2=true;
+            var flag3=true;
+            var flag4=true;
+            var flag5=true;
+            var html='';
+            $('.cirlce').click(function () {
+                if (flag) {
+                    $(this).css('top',(count+1)*73-23+'px');
+                    var array=['二','三','四','五','六','七','八','九'];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file"  id="path'+array[count]+'" name="loan_contract'+arrays[count]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片'+array[count]+'上传" onclick="path'+array[count]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=loan_contract&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="visibility: hidden;" name="loan_contract">预览</a>'
+                    $('.append').append(html);
+                    count++;
+                    if (count==8) {
+                        flag=false;
+                    }
+                }
+            });
+
+            $('.cirlce1').click(function () {
+                if (flag1) {
+                    $(this).css('top',(count1+1)*73-23+'px');
+                    var array1=['二','三','四','五','六','七','八','九'];
+                    var newarry=[80,81,83,84,85,86,87,88];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file" id="path'+newarry[count1]+'" name="iou'+arrays[count1]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" value="照片'+array1[count1]+'上传" style="position:relative;bottom: 60px;left: 160px;" onclick="path'+newarry[count1]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=iou&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="visibility: hidden;" name="iou">预览</a>'
+                    $('.append1').append(html);
+                    count1++;
+                    if (count1==8) {
+                        flag1=false;
+                    }
+                }
+            });
+            $('.cirlce2').click(function () {
+                if (flag2) {
+                    $(this).css('top',(count2+1)*73-23+'px');
+                    var array1=['二','三','四','五','六','七','八','九'];
+                    var newarry=[90,91,93,94,95,96,97,98];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file" id="path'+newarry[count2]+'" name="letter_commitment'+arrays[count2]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片'+array1[count2]+'上传" onclick="path'+newarry[count2]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=letter_commitment&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="position:relative;top: -35px;left: 375px;visibility: hidden;" name="letter_commitment">预览</a>'
+                    $('.append2').append(html);
+                    count2++;
+                    if (count2==8) {
+                        flag2=false;
+                    }
+                }
+            });
+
+            $('.cirlce3').click(function () {
+                if (flag3) {
+                    $(this).css('top',(count3+1)*73-23+'px');
+                    var array1=['二','三','四','五','六','七','八','九'];
+                    var newarry=[70,71,73,74,75,76,77,78];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file" name="mail_list'+arrays[count3]+'" id="path'+newarry[count3]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" style="position:relative;bottom: 60px;left: 160px;" value="照片'+array1[count3]+'上传" onclick="path'+newarry[count3]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=mail_list&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="visibility: hidden;" name="mail_list">预览</a>'
+                    $('.append3').append(html);
+                    count3++;
+                    if (count3==8) {
+                        flag3=false;
+                    }
+                }
+            });
+
+            $('.cirlce4').click(function () {
+                if (flag4) {
+                    $(this).css('top',(count4+1)*73-23+'px');
+                    var array1=['二','三','四','五','六','七','八','九'];
+                    var newarry=[60,61,62,63,64,65,66,67,68];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file" name="sign_scene'+arrays[count4]+'" id="path'+newarry[count4]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" style="position:relative;bottom:60px;left: 160px;" value="照片'+array1[count4]+'上传" onclick="path'+newarry[count4]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=sign_scene&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="visibility: hidden;" name="sign_scene">预览</a>'
+                    $('.append4').append(html);
+                    count4++;
+                    if (count4==8) {
+                        flag4=false;
+                    }
+                }
+            });
+
+            $('.cirlce5').click(function () {
+                if (flag5) {
+                    $(this).css('top',(count5+1)*73-23+'px');
+                    var array1=['二','三','四','五','六','七','八','九'];
+                    var newarry=[50,51,52,53,54,55,56,57,58];
+                    var arrays=['2','3','4','5','6','7','8','9'];
+                    html='<input style="top: -26px;left: 205px;" type="file" name="receipt'+arrays[count5]+'" id="path'+newarry[count5]+'" onchange="upfile.value=this.value">\n' +
+                        '<input  type="button" class="choose" style="position:relative;bottom:60px;left: 160px;" value="照片'+array1[count5]+'上传" onclick="path'+newarry[count5]+'.click()">\n' +
+                        '<a href="/Admin/Apply/preview?zd=receipt&id=" target="_blank"\n' +
+                        'class="btn btn1 preview" style="visibility: hidden;" name="receipt">预览</a>'
+                    $('.append5').append(html);
+                    count5++;
+                    if (count5==8) {
+                        flag5=false;
+                    }
+                }
+            });
+
+    })();
+</script>
+</body>
+</html>
