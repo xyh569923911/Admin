@@ -93,8 +93,10 @@ class CoopeController extends CommonController{
                                 $sou_member=M("admin")->where(array("member_id"=>$sou_member['id']))->getField("id");
                             }
                             if($sou_member){
-                                $where[] = array("state_id"=>array("in",$state));
-                                $where[] = array("admin_id"=>$sou_member);
+                                $where[] = array("state_id"=>array("in",$state),"admin_id"=>$sou_member);
+                                $where['_logic'] = 'or';
+                                $where['rank_admin_id'] = $sou_member;
+                                
 
                             }else{
                                 $sou_state = M("state")->where(array("name"=>$post['sou']))->getField("id");
@@ -324,7 +326,7 @@ class CoopeController extends CommonController{
 
         $ch_datats = $this->model->where($where)->order("lxtime desc")->field("id,username,sex,phone,lxtime,type_id,state_id,admin_id,types,state,rank_id,rank_admin_id,finance_admin_id,finance_id,finance_state,allot,content,source,sources,promotion")->select();
 
-        //echo $this->model->getLastSql();exit;
+        // echo $this->model->getLastSql();
         foreach($ch_datats as $key=>$val){
             $ch_datat[$key] = $val;
             $ch_datat[$key]['type_id'] = M("type")->where(array('id'=>$val['type_id']))->find();
