@@ -991,33 +991,20 @@ class UclientController extends CommonController{
 		    $admin_name = M("rank")->where(array("name"=>iconv("GB2312","UTF-8",'业务总监')))->getField("id");
 			$admin_names = M("rank")->where(array("name"=>iconv("GB2312","UTF-8",'业务总监')))->find();
 			if($data['admin_id']){
-				$ids=M("rank")->where(array('name'=>array("LIKE",iconv("GB2312","UTF-8",'%负责人%'))))->Field("id")->select();
-				foreach ($ids as $k => $val) {
-					$idss[]=$val['id'];
-				}
-				array_push($idss, $admin_name);
-				$genjin = M("rank")->where(array("pid"=>array('in',$idss)))->select();
+				$genjin = M("rank")->where(array("pid"=>$admin_name))->select();
 				
 				foreach($genjin as $kb=>$vb){
 					$genjins[$kb] =$vb['id'];
 				}
-				$genjins = implode(",",$genjins);
+
+			    $genjins = implode(",",$genjins);
 				$genjins = M("rank")->where(array("pid"=>array("in",$genjins)))->select();
 				$genjin = array_merge($genjin, $genjins);
 				$genjin[] = $admin_names;
+
 				$genjin = Data::tree($genjin, "name", "id", "pid");
-				$arrayGen=array();
-				foreach ($genjin as $key => $value) {
-					$K=$value['id'];
-					if(array_key_exists($K, $arrayGen)){
-						continue;
-					}else{
-						$arrayGen[$K]=$value;
-						$genjinArr[$key]=$value;
-					}
-				}
-				// var_dump($genjinArr);
-				$this->assign("genjin", $genjinArr);
+				// var_dump($genjin);
+				$this->assign("genjin", $genjin);
 			
 			}else{
 				// $genjin = M("rank")->where(array("pid"=>$admin_name))->select();

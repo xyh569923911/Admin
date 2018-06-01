@@ -339,7 +339,7 @@ class CarLoanController extends CommonController{
 	}
 
 	public function add(){
-		$_POST['state_id']=26;
+		$_POST['state_id']=27;
 		$_POST['addtime']=time();
 		$_POST['cohabitation']=implode(',', $_POST['cohabitation']);
 		$num=M("carloan")->add($_POST);

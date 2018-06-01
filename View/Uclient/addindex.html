@@ -85,7 +85,9 @@
 						  <notempty name="data.id">
                           <div class="xb"><if condition="$data['sex'] eq 0">男<else/>女</if></div>
 						  </notempty>
-                          <div class="gjr">跟进人：<notempty name="data.id">{$data.admin_username}<else/>无</notempty></div>
+                          <div class="gjr">跟进人：<notempty name="data.id">{$data.admin_username}<else/>无</notempty>
+                          <span style="margin-left: 10px;">添加时间：{$data.addtime|date='Y-m-d',###}</span>
+                          </div>
                         </div>
                         <div class="c-class fr"><notempty name="data.state_id">{$state_name}<else/>无</notempty></div>
                       </div>
